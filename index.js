@@ -54,6 +54,11 @@ export class Snapcall  extends Component {
 
 
       if (os){
+        if (!Snapcall_Module)
+          console.log("module null");
+        else if (!Snapcall_Module.launchCallWithbidId)
+          console.log("function null");
+        else
          Snapcall_Module.launchCallWithbidId(bid_id, st_param)
           .then(res=>{console.log("succes");})
           .catch(error => {console.log(error); });
