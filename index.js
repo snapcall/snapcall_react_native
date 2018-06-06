@@ -7,6 +7,7 @@ const { RNSnapcallReact } = NativeModules;
 export class SnapcallParameter  extends Component {
 
   constructor () {
+    super();
     this.displayBrand = null;
     this.displayName = null;
     this.callTitle = null;
@@ -31,7 +32,7 @@ export class Snapcall  extends Component {
     // var launched = false;
 
     constructor (){
-
+      super();
     }
     restorCallUI (){
       if (os){
