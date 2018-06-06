@@ -4,8 +4,9 @@ import { NativeModules, Platform } from 'react-native';
 const { RNSnapcallReact } = NativeModules;
 
 
-export class SnapcallParameter {
+export class SnapcallParameter  extends Component {
 
+  constructor () {
     this.displayBrand = null;
     this.displayName = null;
     this.callTitle = null;
@@ -20,15 +21,19 @@ export class SnapcallParameter {
     this.senderBrand = null;
     this.senderName = null;
     this.shouldReturn = false;
+  }
 }
+let os = Platform.OS === "ios" ? true : false;
+const Snapcall_Module = NativeModules.RNSnapcallReact;
+export class Snapcall  extends Component {
 
-export class Snapcall {
 
-    var launched = false;
-    let os = Platform.OS === "ios" ? true : false;
+    // var launched = false;
 
-    var Snapcall_Module = NativeModules.RNSnapcallReact;
-    this.restorCallUI = function(){
+    constructor (){
+
+    }
+    restorCallUI (){
       if (os){
 
           Snapcall_Module.restorUI()
@@ -43,7 +48,7 @@ export class Snapcall {
 
 
     }
-    this.launchCallBid = function(bid_id, parameter){
+    launchCallBid(bid_id, parameter){
       let st_param = JSON.stringify(parameter);
 
 
