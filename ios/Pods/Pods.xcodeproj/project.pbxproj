@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		25EB139B3B78F618EF12AE0F8F792D37 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		339EFC1EC7A64BF53838C2CE5A9B8E86 /* SwiftWebSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 94A38514CF783E3159DB2A9975E8D461 /* SwiftWebSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7545B7D3B5DD56BC882FFE57A489ACA5 /* SwiftWebSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 528079ECFA6BE46524963B76550A6AE0 /* SwiftWebSocket-dummy.m */; };
+		339EFC1EC7A64BF53838C2CE5A9B8E86 /* SwiftWebSocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D23F827B47F4FC00B26CFA3BFC133AC /* SwiftWebSocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7545B7D3B5DD56BC882FFE57A489ACA5 /* SwiftWebSocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F1B55EDC64A73FFA5E024145D0799 /* SwiftWebSocket-dummy.m */; };
 		818225F5084D45B0447678C8A2A00FEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		8537E066BEF923FCA338A6108290512B /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EAC7566B48AFB8487BFA84E784EC88 /* WebSocket.swift */; };
+		8537E066BEF923FCA338A6108290512B /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FFF207F5B6F84A2300F94C142152E5 /* WebSocket.swift */; };
 		CC311D1BF95467CB41850C0AC9D49179 /* Pods-RNSnapcallReact-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F32019E7A7530336F4BAB59FCCC1B6B1 /* Pods-RNSnapcallReact-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CFCA11CC91CA6A29D43B5C3053852DC0 /* Pods-RNSnapcallReact-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AB9EAF9B8C215AB82D97D25225D47F /* Pods-RNSnapcallReact-dummy.m */; };
 /* End PBXBuildFile section */
@@ -28,28 +28,27 @@
 
 /* Begin PBXFileReference section */
 		02AB9EAF9B8C215AB82D97D25225D47F /* Pods-RNSnapcallReact-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RNSnapcallReact-dummy.m"; sourceTree = "<group>"; };
-		0CA1A2B2B47957F83C28C4317328FE35 /* React.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = React.framework; sourceTree = "<group>"; };
 		14C2BA56CBB58ECABFDF032D5A74E786 /* Pods-RNSnapcallReact-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RNSnapcallReact-resources.sh"; sourceTree = "<group>"; };
-		15EAC7566B48AFB8487BFA84E784EC88 /* WebSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WebSocket.swift; path = Source/WebSocket.swift; sourceTree = "<group>"; };
-		31AB88FBCDB69855E64F63A0894EFED4 /* Pods_RNSnapcallReact.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RNSnapcallReact.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D23F827B47F4FC00B26CFA3BFC133AC /* SwiftWebSocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftWebSocket-umbrella.h"; sourceTree = "<group>"; };
+		2EA94B8748B730160AB9D80D41ACB4DF /* SwiftWebSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftWebSocket-prefix.pch"; sourceTree = "<group>"; };
+		31AB88FBCDB69855E64F63A0894EFED4 /* Pods_RNSnapcallReact.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RNSnapcallReact.framework; path = "Pods-RNSnapcallReact.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B662502F9A0815B277B8714905954E /* Pods-RNSnapcallReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RNSnapcallReact.release.xcconfig"; sourceTree = "<group>"; };
-		4925005E3745B70674791B82575E8C82 /* Snapcall_Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Snapcall_Framework.framework; sourceTree = "<group>"; };
-		528079ECFA6BE46524963B76550A6AE0 /* SwiftWebSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftWebSocket-dummy.m"; sourceTree = "<group>"; };
+		3A5B82CD583D163DF3D3894D1488AD9B /* SwiftWebSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftWebSocket.modulemap; sourceTree = "<group>"; };
+		3E9E338CD6B3D1D6E17A201A2B65C9BC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		709DB35493C56C1583EBDC2D779B14FD /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
-		7904BCF860558D2E1697CE1D59AD7691 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B936A17E78A57AADD4953B53E2A3166 /* Pods-RNSnapcallReact.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RNSnapcallReact.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		94A38514CF783E3159DB2A9975E8D461 /* SwiftWebSocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftWebSocket-umbrella.h"; sourceTree = "<group>"; };
-		A8B4503AFDC37CCCBFED7629A3FA2EA6 /* SwiftWebSocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftWebSocket.xcconfig; sourceTree = "<group>"; };
+		871AD5B6C6966F86865D943BD897E897 /* SwiftWebSocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftWebSocket.xcconfig; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B0FFF207F5B6F84A2300F94C142152E5 /* WebSocket.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WebSocket.swift; path = Source/WebSocket.swift; sourceTree = "<group>"; };
 		BDDC890703727DADAC3E6CA0E8CC6D7E /* Pods-RNSnapcallReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RNSnapcallReact.debug.xcconfig"; sourceTree = "<group>"; };
-		C5785B5541D63B6776F81B879C0353C6 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftWebSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C47F1B55EDC64A73FFA5E024145D0799 /* SwiftWebSocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftWebSocket-dummy.m"; sourceTree = "<group>"; };
+		C5785B5541D63B6776F81B879C0353C6 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftWebSocket.framework; path = SwiftWebSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F2591B2A347EDCA06E017722916F87 /* Pods-RNSnapcallReact-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RNSnapcallReact-acknowledgements.plist"; sourceTree = "<group>"; };
-		D9719EDD47FFE2AF31D1A664073F67BC /* SwiftWebSocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftWebSocket-prefix.pch"; sourceTree = "<group>"; };
+		D8A2434E67853AD68EBFEFA8C12B9594 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		E99A2525A536037D99EF92EE9B1117F7 /* Pods-RNSnapcallReact-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RNSnapcallReact-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F0EF6F6FDBD277C059AFE03603BABF86 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F32019E7A7530336F4BAB59FCCC1B6B1 /* Pods-RNSnapcallReact-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RNSnapcallReact-umbrella.h"; sourceTree = "<group>"; };
-		FB0A5AFB75C5930D6AF68FAB5EE26143 /* SwiftWebSocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SwiftWebSocket.modulemap; sourceTree = "<group>"; };
+		F74DC44EC45ACB649CAC5B00AC322EC6 /* Snapcall_Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Snapcall_Framework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,20 +71,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A4A9AC2E3CC23E10D327505583C0DDA /* WebRTC */ = {
+		1F34D2AE6EEC4E2CC97F5D6C40C72C6B /* SwiftWebSocket */ = {
 			isa = PBXGroup;
 			children = (
-				63D7AFA0D87B22A5CCD7AA738CCF6D3C /* Frameworks */,
+				B0FFF207F5B6F84A2300F94C142152E5 /* WebSocket.swift */,
+				40EAD4D3BF282547EADF9218CFAF9452 /* Support Files */,
 			);
-			path = WebRTC;
+			name = SwiftWebSocket;
+			path = SwiftWebSocket;
 			sourceTree = "<group>";
 		};
-		33717D011A9B1EF78A733C42A434A966 /* Frameworks */ = {
+		40EAD4D3BF282547EADF9218CFAF9452 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4925005E3745B70674791B82575E8C82 /* Snapcall_Framework.framework */,
+				3E9E338CD6B3D1D6E17A201A2B65C9BC /* Info.plist */,
+				3A5B82CD583D163DF3D3894D1488AD9B /* SwiftWebSocket.modulemap */,
+				871AD5B6C6966F86865D943BD897E897 /* SwiftWebSocket.xcconfig */,
+				C47F1B55EDC64A73FFA5E024145D0799 /* SwiftWebSocket-dummy.m */,
+				2EA94B8748B730160AB9D80D41ACB4DF /* SwiftWebSocket-prefix.pch */,
+				1D23F827B47F4FC00B26CFA3BFC133AC /* SwiftWebSocket-umbrella.h */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/SwiftWebSocket";
 			sourceTree = "<group>";
 		};
 		4E5F49B47B543F0FA8971CC045FD4386 /* Pods-RNSnapcallReact */ = {
@@ -105,27 +112,20 @@
 			path = "Target Support Files/Pods-RNSnapcallReact";
 			sourceTree = "<group>";
 		};
-		57AB768D87075D6784787A22E0CBB62A /* SwiftWebSocket */ = {
+		56476DC691338CF94D3DDB1F8B0AF4A1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15EAC7566B48AFB8487BFA84E784EC88 /* WebSocket.swift */,
-				BF5EBC8628CAD265E67E5E9602CD4784 /* Support Files */,
+				BCA96A428681CADD1BB7E0FA2D956AFA /* Snapcall_Framework */,
+				1F34D2AE6EEC4E2CC97F5D6C40C72C6B /* SwiftWebSocket */,
+				C8888F01CED5C8047928C262C3DDDA16 /* WebRTC */,
 			);
-			path = SwiftWebSocket;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		5A34C891990E3CA11B4D454F14B37C93 /* React.Framework */ = {
+		67E13D4C444E372F6624B1B2FDD58F03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FFEF3966D35A8EDBFA32639142C89A4E /* Frameworks */,
-			);
-			path = React.Framework;
-			sourceTree = "<group>";
-		};
-		63D7AFA0D87B22A5CCD7AA738CCF6D3C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				709DB35493C56C1583EBDC2D779B14FD /* WebRTC.framework */,
+				D8A2434E67853AD68EBFEFA8C12B9594 /* WebRTC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,29 +135,18 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				8B7EA6E79EC815B8CAE4E0970B3B9F99 /* Pods */,
+				56476DC691338CF94D3DDB1F8B0AF4A1 /* Pods */,
 				C009B9070C5F06632B92A7EFBD424CEA /* Products */,
 				CDD7D5EDE416535FB5867DDB63A9D209 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8B7EA6E79EC815B8CAE4E0970B3B9F99 /* Pods */ = {
+		8B46559E3AD54CE51CC5414505423A41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5A34C891990E3CA11B4D454F14B37C93 /* React.Framework */,
-				AA47D736CAABB9ECB258545691E9B48F /* Snapcall_Framework */,
-				57AB768D87075D6784787A22E0CBB62A /* SwiftWebSocket */,
-				1A4A9AC2E3CC23E10D327505583C0DDA /* WebRTC */,
+				F74DC44EC45ACB649CAC5B00AC322EC6 /* Snapcall_Framework.framework */,
 			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		AA47D736CAABB9ECB258545691E9B48F /* Snapcall_Framework */ = {
-			isa = PBXGroup;
-			children = (
-				33717D011A9B1EF78A733C42A434A966 /* Frameworks */,
-			);
-			path = Snapcall_Framework;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -168,18 +157,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		BF5EBC8628CAD265E67E5E9602CD4784 /* Support Files */ = {
+		BCA96A428681CADD1BB7E0FA2D956AFA /* Snapcall_Framework */ = {
 			isa = PBXGroup;
 			children = (
-				7904BCF860558D2E1697CE1D59AD7691 /* Info.plist */,
-				FB0A5AFB75C5930D6AF68FAB5EE26143 /* SwiftWebSocket.modulemap */,
-				A8B4503AFDC37CCCBFED7629A3FA2EA6 /* SwiftWebSocket.xcconfig */,
-				528079ECFA6BE46524963B76550A6AE0 /* SwiftWebSocket-dummy.m */,
-				D9719EDD47FFE2AF31D1A664073F67BC /* SwiftWebSocket-prefix.pch */,
-				94A38514CF783E3159DB2A9975E8D461 /* SwiftWebSocket-umbrella.h */,
+				8B46559E3AD54CE51CC5414505423A41 /* Frameworks */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/SwiftWebSocket";
+			name = Snapcall_Framework;
+			path = Snapcall_Framework;
 			sourceTree = "<group>";
 		};
 		C009B9070C5F06632B92A7EFBD424CEA /* Products */ = {
@@ -189,6 +173,15 @@
 				C5785B5541D63B6776F81B879C0353C6 /* SwiftWebSocket.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C8888F01CED5C8047928C262C3DDDA16 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				67E13D4C444E372F6624B1B2FDD58F03 /* Frameworks */,
+			);
+			name = WebRTC;
+			path = WebRTC;
 			sourceTree = "<group>";
 		};
 		CDD7D5EDE416535FB5867DDB63A9D209 /* Targets Support Files */ = {
@@ -205,14 +198,6 @@
 				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		FFEF3966D35A8EDBFA32639142C89A4E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0CA1A2B2B47957F83C28C4317328FE35 /* React.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,7 +316,7 @@
 /* Begin XCBuildConfiguration section */
 		14FB1D3B037D05A20A56A31799B8F2C6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8B4503AFDC37CCCBFED7629A3FA2EA6 /* SwiftWebSocket.xcconfig */;
+			baseConfigurationReference = 871AD5B6C6966F86865D943BD897E897 /* SwiftWebSocket.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -353,7 +338,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -363,7 +347,7 @@
 		};
 		5C25BC872D9B1BDFD5A272DFD34F48EB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8B4503AFDC37CCCBFED7629A3FA2EA6 /* SwiftWebSocket.xcconfig */;
+			baseConfigurationReference = 871AD5B6C6966F86865D943BD897E897 /* SwiftWebSocket.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -385,7 +369,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
