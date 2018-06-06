@@ -1,6 +1,6 @@
 
 import { NativeModules, Platform } from 'react-native';
-
+import React, { Component } from 'react';
 const { RNSnapcallReact } = NativeModules;
 
 
