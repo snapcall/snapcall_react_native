@@ -1,0 +1,11 @@
+framework module Snapcall_Framework {
+  umbrella header "Snapcall_Framework.h"
+
+  export *
+  module * { export * }
+}
+
+module Snapcall_Framework.Swift {
+    header "Snapcall_Framework-Swift.h"
+    requires objc
+}

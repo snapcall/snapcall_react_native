@@ -1,0 +1,31 @@
+PODS:
+  - React.Framework (0.27.2)
+  - Snapcall_Framework (5.0.0):
+    - SwiftWebSocket
+    - WebRTC
+  - SwiftWebSocket (2.6.5)
+  - WebRTC (61.5.19063)
+
+DEPENDENCIES:
+  - React.Framework
+  - Snapcall_Framework (from `https://snapcall@bitbucket.org/seampl/framework_snapcall_ios.git`, branch `sandbox`)
+
+EXTERNAL SOURCES:
+  Snapcall_Framework:
+    :branch: sandbox
+    :git: https://snapcall@bitbucket.org/seampl/framework_snapcall_ios.git
+
+CHECKOUT OPTIONS:
+  Snapcall_Framework:
+    :commit: 8e4fbe66dae10532ab5757729d7594c832dd8855
+    :git: https://snapcall@bitbucket.org/seampl/framework_snapcall_ios.git
+
+SPEC CHECKSUMS:
+  React.Framework: 41606afae4f43d82135076b607c1da4b0a715a69
+  Snapcall_Framework: 6708e77442e307a7935302ea689d1f6d7e620251
+  SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
+  WebRTC: 141474ba648e0b940a70696c183451b4a3b2b10f
+
+PODFILE CHECKSUM: 827874bf34ef3fc610015999b5acf919b0785bfb
+
+COCOAPODS: 1.4.0

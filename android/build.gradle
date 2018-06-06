@@ -1,0 +1,69 @@
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes{
+        debug {
+
+        }
+        release {
+
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def urlFile = { url, name ->
+    File file = new File("$buildDir/download/${name}.aar")
+    file.parentFile.mkdirs()
+    if (!file.exists()) {
+        new URL(url).withInputStream { downloadStream ->
+            file.withOutputStream { fileOut ->
+                fileOut << downloadStream
+            }
+        }
+    }
+    files(file.absolutePath)
+}
+
+dependencies {
+    compile 'com.facebook.react:react-native:+'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile urlFile('https://sandbox.snapcall.io/android/1.0.0/snapcall_android_framework-1.1.0.aar', 'snapcall_android_framework')
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+}
+  
