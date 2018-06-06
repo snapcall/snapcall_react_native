@@ -52,7 +52,7 @@ export class Snapcall  extends Component {
     launchCallBid(bid_id, parameter){
       let st_param = JSON.stringify(parameter);
 
-
+      console.log(NativeModules);
       if (os){
         if (!Snapcall_Module)
           console.log("module null");
