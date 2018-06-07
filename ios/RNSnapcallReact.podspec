@@ -17,7 +17,8 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  #s.dependency "others"
+  s.dependency "Snapcall_Framework"  
+#s.dependency "others"
 
 end
 
