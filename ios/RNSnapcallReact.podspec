@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.name         = "RNSnapcallReact"
   s.version      = "1.0.0"
   s.summary      = "RNSnapcallReact"
-  s.homepage     = 'https://web.snapcall.io/' 
+  s.homepage     = "https://web.snapcall.io/" 
   s.description  = <<-DESC
                   React interface to use snapcall
                    DESC
