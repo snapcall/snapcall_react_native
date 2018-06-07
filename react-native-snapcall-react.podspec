@@ -1,17 +1,24 @@
-require 'json'
-pkg = JSON.parse(File.read("package.json"))
 
 Pod::Spec.new do |s|
-  s.name         = pkg["name"]
-  s.version      = pkg["version"]
-  s.summary      = pkg["description"]
+  s.name         = "RNSnapcallReact"
+  s.version      = "1.0.0"
+  s.summary      = "RNSnapcallReact"
+  s.description  = <<-DESC
+                  RNSnapcallReact
+                   DESC
+  s.homepage     = ""
+  s.license      = "MIT"
+  s.license      = { :type => "Custom" }
+  s.author       = { "Noyelle Pierre" => "noyelle.pierre@gmail.com" }
+  s.platform     = :ios, "7.0"
+  s.source       = { :git => "https://github.com/author/RNSnapcallReact.git", :tag => "master" }
+  s.source_files  = "RNSnapcallReact/**/*.{h,m}"
   s.requires_arc = true
-  s.license      = pkg["license"]
-  s.homepage     = pkg["homepage"]
-  s.author       = pkg["author"]
-  s.source       = { :git => https://pnoyelle@bitbucket.org/seampl/react-native-sdk.git }
-  s.source_files = 'ios/**/*.{h,m}'
-  s.platform     = :ios, "8.0"
-  s.dependency 'React/Core'
-  s.dependency 'Snapcall_Framework'
+
+
+  s.dependency "React"
+  s.dependency "Snapcall_Framework"  
+
 end
+
+  
