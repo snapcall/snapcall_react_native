@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		932B8E1EC01A00C7ACD6EAF5 /* Pods_RNSnapcallReact.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42EA682CD7CEBF852C27BF07 /* Pods_RNSnapcallReact.framework */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSnapcallReact.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */; };
 /* End PBXBuildFile section */
 
@@ -25,9 +24,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNSnapcallReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSnapcallReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		42EA682CD7CEBF852C27BF07 /* Pods_RNSnapcallReact.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RNSnapcallReact.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70A2AC3DCDDF4B61767AC9C3 /* Pods-RNSnapcallReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSnapcallReact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RNSnapcallReact/Pods-RNSnapcallReact.debug.xcconfig"; sourceTree = "<group>"; };
-		8640E01A206D342CC3897C39 /* Pods-RNSnapcallReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSnapcallReact.release.xcconfig"; path = "Pods/Target Support Files/Pods-RNSnapcallReact/Pods-RNSnapcallReact.release.xcconfig"; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNSnapcallReact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnapcallReact.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnapcallReact.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -37,7 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932B8E1EC01A00C7ACD6EAF5 /* Pods_RNSnapcallReact.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,32 +47,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		565C928874CF2A00E45A4B3A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				70A2AC3DCDDF4B61767AC9C3 /* Pods-RNSnapcallReact.debug.xcconfig */,
-				8640E01A206D342CC3897C39 /* Pods-RNSnapcallReact.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
 				B3E7B5881CC2AC0600A0062D /* RNSnapcallReact.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				565C928874CF2A00E45A4B3A /* Pods */,
-				69EA6D4C436D16A23033B27A /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		69EA6D4C436D16A23033B27A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				42EA682CD7CEBF852C27BF07 /* Pods_RNSnapcallReact.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,11 +63,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "RNSnapcallReact" */;
 			buildPhases = (
-				B61452B93762A30D856BB09F /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
-				8DDBD8C987BCBC3994B78590 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,42 +106,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8DDBD8C987BCBC3994B78590 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RNSnapcallReact/Pods-RNSnapcallReact-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B61452B93762A30D856BB09F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RNSnapcallReact-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -280,7 +218,6 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70A2AC3DCDDF4B61767AC9C3 /* Pods-RNSnapcallReact.debug.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -297,7 +234,6 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8640E01A206D342CC3897C39 /* Pods-RNSnapcallReact.release.xcconfig */;
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
