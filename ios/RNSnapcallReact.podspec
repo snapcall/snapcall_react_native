@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = ""
   s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
-  s.author             = { "author" => "author@domain.cn" }
+  s.license      = { :type => "Custom" }
+  s.author       = { "Noyelle Pierre" => "noyelle.pierre@gmail.com" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/author/RNSnapcallReact.git", :tag => "master" }
   s.source_files  = "RNSnapcallReact/**/*.{h,m}"
@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency "Snapcall_Framework"  
-#s.dependency "others"
 
 end
 
