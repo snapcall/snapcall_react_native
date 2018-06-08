@@ -1,11 +1,8 @@
 
-#if __has_include("RCTBridgeModule.h")
-#import "RCTBridgeModule.h"
+
+#import "React/RCTBridgeModule.h"
 #import "React/RCTEventEmitter.h"
-#else
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
-#endif
+
 #import <PushKit/PushKit.h>
 #import "Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
 #import "Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework.h"
