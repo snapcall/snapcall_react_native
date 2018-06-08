@@ -11,7 +11,7 @@
     "react-native"
   ],
   "author": "noyelle.pierre@gmail.com",
-  "license": "",
+  "license": "custom",
   "peerDependencies": {
     "react-native": "0.55"
   },
