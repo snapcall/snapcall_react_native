@@ -13,7 +13,7 @@
   "author": "noyelle.pierre@gmail.com",
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.55"
+    "react-native": "0.55.4"
   },
   "nativePackage": true
 }
