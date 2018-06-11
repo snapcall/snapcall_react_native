@@ -39,7 +39,7 @@ RNSnapcallEventEmiter * listener;
 @end
     
 
-@implementation RNSnapcallReact
+@implementation RNSnapcallReact 
 
 CallListener * callevent;
 
@@ -122,7 +122,7 @@ RCT_EXPORT_METHOD(isAvailable:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromi
     [[Snapcall   getSnapcall]launchCallWithBidId: @"ZKRbTQdPt0D8hemA" parameter:nil];
 }
 
-RCT_EXPORT_METHOD(launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try {
         
