@@ -4,8 +4,8 @@
 #import "React/RCTEventEmitter.h"
 
 #import <PushKit/PushKit.h>
-#import "/Users/noyelle/Desktop/react native test/rntest2/test3/ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
-#import "/Users/noyelle/Desktop/react native test/rntest2/test3/ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework.h"
+#import "../../../ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
+#import "../../../ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework.h"
 
 @interface CallListener : RCTEventEmitter <Snapcall_Listener>
 

@@ -45,6 +45,10 @@ add plist entries :
   -> Required background modes : App provides Voice over IP services
 
 Android specific :
+
+if you get this error : 
+	'Only Jar-type local dependencies are supported.'
+your android gradle version is to old and don't support aar files, you will need to update it.
 If you clean your Android Project and RNSnapcallReact java library you will need to sync again. the framework is directly cloned in Build part.
 
 ## Use ##
