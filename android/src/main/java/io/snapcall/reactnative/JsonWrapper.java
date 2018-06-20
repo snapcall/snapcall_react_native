@@ -1,4 +1,4 @@
-package com.shellmonger.reactnative;
+package io.snapcall.reactnative;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +28,10 @@ public class JsonWrapper extends JSONObject {
 
     public String getString(String name, String defaultVal)  {
         try {
-            return super.getString(name);
+            String ret = super.getString(name);
+            if (ret.equals("null") || ret.equals("undefined"))
+                ret = defaultVal;
+            return ret;
         }catch (Exception e){
             return  defaultVal;
         }

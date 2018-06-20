@@ -62,8 +62,7 @@ def urlFile = { url, name ->
 dependencies {
     compile 'com.facebook.react:react-native:+'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile urlFile('https://sandbox.snapcall.io/android/1.0.0/snapcall_android_framework-1.1.0.aar', 'snapcall_android_framework')
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework')
 
 }
   

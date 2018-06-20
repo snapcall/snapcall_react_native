@@ -1,13 +1,13 @@
 
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform, DeviceEventEmitter, NativeEventEmitter, PermissionsAndroid } from 'react-native';
 import React, { Component } from 'react';
 const { RNSnapcallReact } = NativeModules;
-
 
 export class SnapcallParameter  extends Component {
 
   constructor (comp) {
     super(comp);
+
     this.displayBrand = null;
     this.displayName = null;
     this.callTitle = null;
@@ -17,73 +17,82 @@ export class SnapcallParameter  extends Component {
     this.notificationBody = null;
     this.externalContext = null;
     this.urlImage = null;
-    this.textColor = 0;
+    this.textColor = null;
     this.pushTransfertData = null
     this.senderBrand = null;
     this.senderName = null;
+    this.hideCart = true;
     this.shouldReturn = false;
   }
 }
+
 let os = Platform.OS === "ios" ? true : false;
 const Snapcall_Module = NativeModules.RNSnapcallReact;
 export class Snapcall  extends Component {
 
-
-    // var launched = false;
-
     constructor (comp){
       super(comp);
-    }
-    restorCallUI (){
-      if (os){
 
-          Snapcall_Module.restorUI()
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
+    }
+
+    restorCallUI(){
+      if (os){
+          return Snapcall_Module.restorUI();
       }
       else {
-        Snapcall_Module.restorUI()
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
+          return Snapcall_Module.restorUI();
       }
-
-
     }
+
     launchCallBid(bid_id, parameter){
       let st_param = JSON.stringify(parameter);
-
-      console.log("loadding")
-      console.log(NativeModules);
-      console.log(NativeModules.RNSnapcallReact);
       if (os){
-        if (!Snapcall_Module)
-          console.log("module null");
-        else if (!Snapcall_Module.launchCallWithbidId)
-          console.log("function null");
-        // else
-         Snapcall_Module.launchCallWithbidId(bid_id, st_param)
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
+         return Snapcall_Module.launchCallWithbidId(bid_id, st_param)
       }else{
-         Snapcall_Module.launchCall(bid_id, st_param)
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
+         return Snapcall_Module.launchCallWithbidId(bid_id, st_param)
+      }
+    }
+
+    launchCallWithIdentifier(bid_id, identifier,parameter){
+      let st_param = JSON.stringify(parameter);
+
+      if (os){
+         return Snapcall_Module.launchCallWithIdentifier(bid_id, identifier, st_param);
+      }else{
+         return Snapcall_Module.launchCallWithIdentifier(bid_id,identifier, st_param);
+      }
+    }
+
+    bidIsClosed(bid, cb){
+      if (os){
+        Snapcall_Module.bidIsClosed(bid).then(res=>{cb(res)}).catch(err=>{cb(false, err)});
+      }
+      else {
+        Snapcall_Module.bidIsClosed(bid).then(res=>{cb(res)}).catch(err=>{cb(false, err)});
+      }
+    }
+
+    askForPermission(Androidreason, Androidmessage){
+      if (os){
+        return Snapcall_Module.askPermission();
+      }
+      else{
+        return PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+          {
+            'title': Androidreason,
+            'message': Androidmessage
+          })
+      }
+
+    }
+
+    releaseSnapcall(){
+      if (os){
+        Snapcall_Module.releaseSnapcall();
+      }else {
+        Snapcall_Module.releaseSnapcall();
       }
     }
 
 }
-
-
-/*
- this.launchCallBid = function(){
-      if (os){
-         Snapcall_Module.restorUI()
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
-      }else{
-         Snapcall_Module.restorUI()
-          .then(res=>{console.log("succes");})
-          .catch(error => {console.log(error); });
-      }
-    }
-*/

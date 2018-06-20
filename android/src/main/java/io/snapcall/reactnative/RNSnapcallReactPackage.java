@@ -1,5 +1,5 @@
 
-package com.shellmonger.reactnative;
+package io.snapcall.reactnative;
 
 import java.util.Arrays;
 import java.util.Collections;

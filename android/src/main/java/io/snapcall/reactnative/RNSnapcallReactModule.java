@@ -1,25 +1,20 @@
 
-package com.shellmonger.reactnative;
+package io.snapcall.reactnative;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
-import org.json.JSONObject;
-
-import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
+
 
 import io.snapcall.snapcall_android_framework.Snapcall;
 import io.snapcall.snapcall_android_framework.Snapcall_External_Parameter;
@@ -27,8 +22,6 @@ import io.snapcall.snapcall_android_framework.Snapcall_External_Parameter;
 public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
   private  ReactApplicationContext reactContext = null;
-
-
 
   private Snapcall_External_Parameter SEPFromJson(String json){
       Snapcall_External_Parameter ret = new Snapcall_External_Parameter();
@@ -45,10 +38,15 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
           ret.notificationBody = obj.getString("notificationBody",  null);
           ret.externalContext = obj.getString("externalContext", null);
           ret.urlImage = obj.getString("urlImage",  null);
-          ret.textColor = obj.getInt("textColor", 0);
+          try {
+              ret.textColor = Color.parseColor(obj.getString("textColor", null));
+          }catch (Exception e) {
+              e.printStackTrace();
+          }
           ret.pushTransfertData = obj.getString("pushTransfertData", null);
           ret.senderBrand = obj.getString("senderBrand", null);
           ret.senderName = obj.getString("senderName", null);
+          ret.hideCart = obj.getBoolean("hideCart",true);
 
 
       } catch (Exception e) {
@@ -61,11 +59,19 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
   public RNSnapcallReactModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    activateSnapcallListener();
 
   }
 
+    @Override
+    protected void finalize() throws Throwable {
+
+        Snapcall.releaseInstance();
+        super.finalize();
+    }
+
     @ReactMethod
-    public void launchCall( String bidId, String Snapcall_external_asJson, final Promise promise) {
+    public void launchCallWithbidId( String bidId, String Snapcall_external_asJson, final Promise promise) {
         try {
             Snapcall.getInstance().launchCall(reactContext, bidId, SEPFromJson(Snapcall_external_asJson));
             promise.resolve(null);
@@ -76,7 +82,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void launchCall(String bidId, String snapcallID, String Snapcall_external_asJson, final Promise promise) {
+    public void launchCallWithIdentifier(String bidId, String snapcallID, String Snapcall_external_asJson, final Promise promise) {
         try {
             Snapcall.getInstance().launchCall(reactContext, bidId, snapcallID , SEPFromJson(Snapcall_external_asJson));
             promise.resolve(null);
@@ -87,7 +93,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void launchCall( String bidId, String appName, String customIdentifier, String Snapcall_external_asJson, final Promise promise) {
+    public void launchCallWithCustomIdentifier( String bidId, String appName, String customIdentifier, String Snapcall_external_asJson, final Promise promise) {
         try {
             Snapcall.getInstance().launchCall(reactContext, bidId, appName, customIdentifier, SEPFromJson(Snapcall_external_asJson));
             promise.resolve(null);
@@ -129,7 +135,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void  buttonIsOpen(String bid_id, final Promise promise)
+    public void  bidIsClosed(String bid_id, final Promise promise)
     {
         if (bid_id == null ){
             promise.reject("null value", "token or applicationName null");
@@ -163,6 +169,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
       }
     }
 
+
     @ReactMethod
     public void  restorUI(final Promise promise){
       try {
@@ -183,14 +190,16 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void receiveCall( String JsonMessage , @Nullable Snapcall_External_Parameter parameter) throws Exception {
+    public void receiveCall( String JsonMessage , @Nullable Snapcall_External_Parameter parameter, final Promise promise) throws Exception {
         try {
 
             JsonWrapper obj;
             obj = new JsonWrapper(JsonMessage);
             Snapcall.getInstance().receiveCall(reactContext, obj,parameter);
+            promise.resolve(null);
         } catch(Exception e){
-            throw e;
+            promise.reject(e);
+
         }
     }
 
@@ -198,71 +207,111 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     private void sendEvent(ReactContext reactContext,
                            String eventName,
                            @Nullable WritableMap params) {
-        reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
+      try {
+          reactContext
+                  .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                  .emit(eventName, params);
+      }catch(Exception e){
+          e.printStackTrace();
+      }
     }
 
-    @ReactMethod
-    public void activateSnapcallListener(final Promise  promise) {
+
+    private void activateSnapcallListener() {
         final WritableMap params = Arguments.createMap();
+
         Snapcall.Snapcall_Call_Event ev = new Snapcall.Snapcall_Call_Event() {
+
+            @Override
+            public void ontimeUpdate(int i) {
+
+            }
+
             @Override
             public void onSnapcallStart() {
-                sendEvent(reactContext, "onSnapcallStart", params);
+
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "SnapcallStart");
+                sendEvent(reactContext, "SnapcallStart", params);
             }
 
             @Override
             public void onCallStart() {
-                sendEvent(reactContext, "onCallStart", params);
+
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "SnapcallCallStart");
+                sendEvent(reactContext, "SnapcallCallStart", params);
             }
 
             @Override
             public void onCallEnd() {
-                sendEvent(reactContext, "onCallEnd", params);
+
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "SnapcallCallEnd");
+                sendEvent(reactContext, "SnapcallCallEnd", params);
             }
 
             @Override
             public void onSnapcallStop() {
-                sendEvent(reactContext, "onSnapcallStop", params);
+
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "SnapcallUIEnd");
+                sendEvent(reactContext, "SnapcallUIEnd", params);
             }
 
             @Override
             public void onUIStart() {
-                sendEvent(reactContext, "onUIStart", params);
+
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "SnapcallUIStart");
+                sendEvent(reactContext, "SnapcallUIStart", params);
             }
 
             @Override
             public void onCallRing() {
+
+                final WritableMap params = Arguments.createMap();
                 sendEvent(reactContext, "onCallRing", params);
             }
 
             @Override
             public void onError() {
+                params.putString("Snapev", "onCallError");
+                final WritableMap params = Arguments.createMap();
                 sendEvent(reactContext, "onCallError", params);
             }
         };
 
         try {
             Snapcall.getInstance().registerCallback(reactContext, ev);
-            promise.resolve(null);
+
         }catch (Exception e)
         {
-            promise.reject(e);
+
         }
     }
 
-    @ReactMethod
-    public void desactivateSnapcallListener(final Promise promise){
+
+    public void desactivateSnapcallListener(){
       try {
           Snapcall.getInstance().unregisterCallback(reactContext);
-          promise.resolve(null);
+
 
       }catch(Exception e)
       {
-          promise.reject(e);
+
       }
 
+    }
+    @ReactMethod
+    public void releaseSnapcall(final Promise promise){
+      try {
+          Snapcall.getInstance().unregisterCallback(reactContext);
+          Snapcall.releaseInstance();
+          promise.resolve(null);
+      }catch (Exception e){
+          promise.reject(e);
+      }
     }
 
 
