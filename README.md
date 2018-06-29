@@ -23,7 +23,7 @@ IOs sdk created with Xcode 9.3.1 .
 ## Import ##
 
 In your package.json add Snapcall dependencies :
-  "RNSnapcallReact": "git+https://snapcall@bitbucket.org/seampl/react-native-sdk.git"
+  "RNSnapcallReact": "git+https://snapcall:Snapcall1234@bitbucket.org/seampl/react-native-sdk.git"
 
 Run `npm install RNSnapcallReact` to install .
 Run `react-native link RNSnapcallReact` to import the native part.
