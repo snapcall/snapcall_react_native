@@ -130,7 +130,7 @@ The subscription is stored to let you unregister event to avoid memory leaks.
 
   this.subscription[0].remove();
 
-Personalize Call - the SnapcallParameter Class:
+Customize Call - the SnapcallParameter Class:
 
   var parameter = new SnapcallParameter();
 
@@ -142,11 +142,11 @@ Personalize Call - the SnapcallParameter Class:
   parameter.urlImage = null;            -> url of image in snapcall UI
   parameter.textColor = "";             -> hex string which represent a color
 
-  parameter.shouldReturn = false;       -> You have implemented a listener for call Event in ios, your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
-  parameter.AssetPathImage = null;      -> android asset image path or asset.xasset image String name in ios
-  parameter.AssetPathFont = null;        -> android asset font path or asset.xasset font String name in ios
+  parameter.shouldReturn = false;       -> You have implemented a listener for call Event in IOs, your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
+  parameter.AssetPathImage = null;      -> android asset image path or asset.xasset image String name for IOs
+  parameter.AssetPathFont = null;        -> android asset font path or asset.xasset font String name for IOs
 
 
-  For Ios you can set some static variable for callkit in your appDelegate in objectiveC:
+  For IOs you can set some static variable for callkit in your appDelegate in objectiveC:
 
   -(void)setSnapcallStaticWithAppName:(NSString*)appName ringtone:(NSString*)ringToneSoung iconTemplate:(NSData*)icon
