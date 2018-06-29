@@ -32,7 +32,7 @@ IOs only :
 
 Snapcall Swift framework come from cocoapod
 
-  pod 'Snapcall_Framework', :git => 'https://snapcall@bitbucket.org/seampl/framework_snapcall_ios.git',:tag => '5.0.0'
+  pod 'Snapcall_Framework', :git => 'https://snapcall:Snapcall1234@bitbucket.org/seampl/framework_snapcall_ios.git',:tag => '5.0.0'
 
 this pod use SwiftWebSocket as dependency to avoid to fix some error for swift 4  set the dependency source :
   pod 'SwiftWebSocket', :git => 'https://github.com/pnoyelle/SwiftWebSocket.git',:branch => 'master'
