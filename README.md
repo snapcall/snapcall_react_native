@@ -13,20 +13,19 @@ It comport :
 
 Android :
   - min Sdk Version set to 16
-  - Created with Android Studio 3.1.0
 IOs :
-  - min IOs version is 10, can compile up to 8
+  - fonctional IOs version is 10, can compile up to 8
 
 Created with react-native version 0.55.4 on MacOs.
 Android sdk created with Android Studio 3.1.3 .
-IOs sdk created with Android Studio 9.3.1 .
+IOs sdk created with Xcode 9.3.1 .
 
 ## Import ##
 
 In your package.json add Snapcall dependencies :
-  "RNSnapcallReact": "git+https://(urls a definir))/seampl/react-native-sdk.git"
+  "RNSnapcallReact": "git+https://snapcall@bitbucket.org/seampl/react-native-sdk.git"
 
-Run `npm install RNSnapcallReact` to install all your dependencies.
+Run `npm install RNSnapcallReact` to install .
 Run `react-native link RNSnapcallReact` to import the native part.
 
 IOs only :
@@ -40,15 +39,32 @@ this pod use SwiftWebSocket as dependency to avoid to fix some error for swift 4
 
 add plist entries :
 
-  -> Privacy - Microphone Usage Description for audio permission
+  -> Privacy - Microphone Usage Description for capture permission
   -> Privacy - Camera Usage Description for video permission. Some part of snapcall framework symbol use apple video api. To avoid to be rejected by apple application store add this entries either you don't use video.
   -> Required background modes : App provides Voice over IP services
 
+  Bitcode must be set to no.
+
 Android specific :
 
-if you get this error : 
+if you get this error :
 	'Only Jar-type local dependencies are supported.'
 your android gradle version is to old and don't support aar files, you will need to update it.
+
+buildscript {
+  repositories {
+      jcenter()
+      maven {
+          url 'https://maven.google.com'
+      }
+  }
+  dependencies {
+      classpath 'com.android.tools.build:gradle:3.1.3'
+      // NOTE: Do not place your application dependencies here; they belong
+      // in the individual module build.gradle files
+  }
+}
+
 If you clean your Android Project and RNSnapcallReact java library you will need to sync again. the framework is directly cloned in Build part.
 
 ## Use ##
@@ -62,7 +78,7 @@ Make a call :
   var parameter = new SnapcallParameter();
   snapcall.launchCallBid("bid", parameter);
 
-Check for button diponibility :
+Check for button availability :
 
   snapcall.bidIsClosed(bid, (res)=>{
     if (!res)
@@ -75,7 +91,7 @@ Get Audio Permission :
 
   snapcall.askForPermission(Androidreason, Androidmessage)
 
-  Parameter are for Android only.
+  Parameter are for Android.
 
 Restor UI of call during a snapCall Call
 
@@ -118,7 +134,7 @@ Personalize Call - the SnapcallParameter Class:
 
   var parameter = new SnapcallParameter();
 
-  parameter.externalContext = null;     -> Context for the call you want to link - You will be able to get it on the other side of call via Snapcall API
+  parameter.externalContext = null;     -> Context for the call you want to link - You will be able to get it via SnapCall API
   parameter.displayBrand = null;        -> name to display on call Screen
   parameter.displayName = null;         -> Second Name to display on call Screen
   parameter.callTitle = null;           -> title on top of Call UI
@@ -126,6 +142,11 @@ Personalize Call - the SnapcallParameter Class:
   parameter.urlImage = null;            -> url of image in snapcall UI
   parameter.textColor = "";             -> hex string which represent a color
 
-  parameter.shouldReturn = false;       -> You have implemented a listener for call Event in ios so your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
+  parameter.shouldReturn = false;       -> You have implemented a listener for call Event in ios, your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
   parameter.AssetPathImage = null;      -> android asset image path or asset.xasset image String name in ios
   parameter.AssetPathFont = null;        -> android asset font path or asset.xasset font String name in ios
+
+
+  For Ios you can set some static variable for callkit in your appDelegate in objectiveC:
+
+  -(void)setSnapcallStaticWithAppName:(NSString*)appName ringtone:(NSString*)ringToneSoung iconTemplate:(NSData*)icon

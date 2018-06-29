@@ -24,14 +24,14 @@ static CallListener * instance = nil;
      return @[@"SnapcallTime", @"SnapcallUIEnd", @"SnapcallCallEnd" , @"SnapcallUIStart", @"SnapcallTime", @"SnapcallError", @"SnapcallCallStart", @"SnapcallStart"];
 }
 -(void)onTimeUpdateWithTime:(NSInteger)time{
-    
+
     NSString * t = [NSString stringWithFormat:@"%ld", (long)time];
 
     [self sendEventWithName:@"SnapcallTime" body:(id)t];
 }
 
 -(void)onLeaveCallUI{
-    
+
     [self sendEventWithName:@"SnapcallUIEnd" body:@"SnapcallUIEnd"];
 }
 
@@ -111,33 +111,33 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
     {
 
         NSDictionary *results = object;
-        
-        
+
+
         testVal(
                 checkNsNul(@"callTitle"){
                     param.callTitle = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"displayName"){
                     param.displayName = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"displayBrand"){
                     param.displayBrand = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"senderName"){
                     param.senderName = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"senderBrand"){
                     param.senderBrand = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"AssetPathImage"){
                     param.nameImage = obj;
@@ -147,8 +147,8 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                     param.urlImage = obj;
                 }
         )
-        
-        
+
+
         testVal(
         id objfontname = [results objectForKey: @"AssetPathFont"];
         if ([objfontname isKindOfClass:[NSString class]])
@@ -159,10 +159,10 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 UIFont *font = [UIFont fontWithName:fontname size: 36];
                 param.fontDescriptor = font.fontDescriptor;
             }
-            
+
         }
         )
-            
+
        testVal(
                id obj = [results objectForKey: @"textColor"];
                if ([obj isKindOfClass:[NSString class]]){
@@ -180,40 +180,40 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                                              alpha:1.0];
         }}
                )
-        
+
         testVal(
                 checkNsNul(@"androidNotificatiobBody"){
                     param.androidNotificatiobBody = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"androidNotificationTitle"){
                     param.androidNotificationTitle = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"externalContext"){
                     param.externalContext = obj;
                 })
-        
+
         testVal(
                 checkNsNul(@"pushTransfertData"){
                     param.pushTransfertData = obj;
                 })
-        
+
         testVal(
                 param.shouldReturn = [results valueForKey: @"shouldReturn"];)
-        
+
         testVal(
                 param.hideCart = [results valueForKey: @"hideCart"];)
-        
+
         param.SnapcallListener = [CallListener getInstance];
 
     }
      }@catch(NSException * e){
          printf("anerroroccur");
          printf("%s", e.description);
-         
+
          return param;
      }
     return param;
@@ -344,7 +344,6 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
     [[Snapcall   getSnapcall]launchCallWithBidId: bidId snapcallIdentifier:snapcallIdentifier parameter:parameter];
 
 }
-
 
 -(void)setSnapcallStaticWithAppName:(NSString*)appName ringtone:(NSString*)ringToneSoung iconTemplate:(NSData*)icon
 {
