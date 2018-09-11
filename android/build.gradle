@@ -48,7 +48,6 @@ repositories {
       dirs 'libs'
       }
 }
-
 def urlFile = { url, name ->
 
     File file = new File("$projectDir/libs/${name}.aar")
@@ -60,12 +59,12 @@ def urlFile = { url, name ->
             }
         }
     }
-    files(file.absolutePath)
-    return name
+    return "${name}"
 }
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile(name: urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework'), ext: 'aar')
+    compile files("$projectDir/libs/${urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework')}")
 }
+
