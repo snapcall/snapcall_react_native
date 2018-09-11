@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
         jcenter()
@@ -44,13 +43,10 @@ buildToolsVersion '27.0.3'
 
 repositories {
     mavenCentral()
-    flatDir{
-      dirs 'libs'
-      }
 }
-def urlFile = { url, name ->
 
-    File file = new File("$projectDir/libs/${name}.aar")
+def urlFile = { url, name ->
+    File file = new File("$buildDir/download/${name}.aar")
     file.parentFile.mkdirs()
     if (!file.exists()) {
         new URL(url).withInputStream { downloadStream ->
@@ -59,12 +55,12 @@ def urlFile = { url, name ->
             }
         }
     }
-    return "${name}"
+    files(file.absolutePath)
 }
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile files("$projectDir/libs/${urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework')}")
-}
+    compile urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework')
 
+}

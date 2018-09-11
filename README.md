@@ -65,7 +65,6 @@ buildscript {
   }
 }
 
-If you clean your Android Project and RNSnapcallReact java library you will need to sync again. the framework is directly cloned in Build part.
 
 ## Use ##
 
