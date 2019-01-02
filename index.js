@@ -1,15 +1,13 @@
 
 import { NativeModules, Platform, DeviceEventEmitter, NativeEventEmitter, PermissionsAndroid } from 'react-native';
-import React, { Component } from 'react';
 const { RNSnapcallReact } = NativeModules;
 const Snapcall_Module = NativeModules.RNSnapcallReact;
 /**
     class with the differente parameter to configure the call UI and the data you send.
 **/
-export class SnapcallParameter  extends Component {
+export class SnapcallParameter {
 
   constructor (comp) {
-    super(comp);
 
     this.displayBrand = null;       // brand to display on the call UI
     this.displayName = null;        // name to display on the call UI
