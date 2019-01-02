@@ -7,7 +7,7 @@ const Snapcall_Module = NativeModules.RNSnapcallReact;
 **/
 export class SnapcallParameter {
 
-  constructor (comp) {
+  constructor () {
 
     this.displayBrand = null;       // brand to display on the call UI
     this.displayName = null;        // name to display on the call UI
@@ -32,10 +32,9 @@ let os = Platform.OS === "ios" ? true : false; // identify the Platform
 /**
     class to access the feature of snapcall.
 **/
-export class Snapcall  extends Component {
+export class Snapcall {
 
-    constructor (comp){
-      super(comp);
+    constructor (){
       this.subscription = [];
       this.eventListener = {"SnapcallUIEnd" : [], "SnapcallCallEnd" :  [], "SnapcallUIStart" : [], "SnapcallError" : [], "SnapcallCallStart" : [], "SnapcallTime" : []};
       this.eventEmitter = os ? new NativeEventEmitter(NativeModules.CallListener) : DeviceEventEmitter;
