@@ -30,6 +30,7 @@ export class SnapcallParameter  extends Component {
 }
 
 let os = Platform.OS === "ios" ? true : false; // identify the Platform
+
 /**
     class to access the feature of snapcall.
 **/
@@ -37,8 +38,35 @@ export class Snapcall  extends Component {
 
     constructor (comp){
       super(comp);
+      this.subscription = [];
+      this.eventListener = {"SnapcallUIEnd" : [], "SnapcallCallEnd" :  [], "SnapcallUIStart" : [], "SnapcallError" : [], "SnapcallCallStart" : [], "SnapcallTime" : []};
+      this.eventEmitter = os ? new NativeEventEmitter(NativeModules.CallListener) : DeviceEventEmitter;
     }
 
+    /** remove listener to snapcall event **/
+    removeEventListener(eventName, _function){
+        if(this.eventListener[eventName])
+        {
+          var i = 0;
+          while (i < this.eventListener[eventName].length)
+          {
+            if (this.eventListener[eventName][i].exec == _function) {
+              this.eventListener[eventName][i].subscription.remove();
+              delete this.eventListener[eventName][i];
+            }
+            i++;
+          }
+        }
+    }
+
+    /** add listener to snapcall event **/
+    addEventListener(eventName, _function){
+      if(this.eventListener[eventName] && this.eventEmitter)
+      {
+        const _listener =  {exec : _function ,subscription:this.eventEmitter.addListener(eventName, _function)}
+        this.eventListener[eventName].push(_listener)
+      }
+    }
     /**
       this function allow to bring to front the call ui when a call is processing.
     **/
