@@ -32,11 +32,8 @@ export class SnapcallParameter  extends Component {
 let os = Platform.OS === "ios" ? true : false; // identify the Platform
 
 /**
-
     class to access the feature of snapcall.
-
 **/
-
 export class Snapcall  extends Component {
 
     constructor (comp){
