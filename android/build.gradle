@@ -46,12 +46,15 @@ repositories {
 }
 
 def urlFile = { url, name ->
-    File file = new File("$buildDir/download/${name}.aar")
-    file.parentFile.mkdirs()
+
+    File file = new File("$projectDir/libs/${name}.aar")
     if (!file.exists()) {
-        new URL(url).withInputStream { downloadStream ->
-            file.withOutputStream { fileOut ->
-                fileOut << downloadStream
+        file.parentFile.mkdirs()
+        if (!file.exists()) {
+            new URL(url).withInputStream { downloadStream ->
+                file.withOutputStream { fileOut ->
+                    fileOut << downloadStream
+                }
             }
         }
     }
