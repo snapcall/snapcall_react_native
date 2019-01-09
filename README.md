@@ -1,4 +1,4 @@
-#Snapcall React Native Module#
+# Snapcall React-Native Library
 
 ## Getting Started ##
 
@@ -20,22 +20,25 @@ Created with react-native version 0.55.4 on MacOs.
 Android sdk created with Android Studio 3.1.3 .
 IOs sdk created with Xcode 9.3.1 .
 
+currently tested on :
+Xcode 10
+android studio 3.1.3
+react-native 0.57.8
+
 ## Import ##
 
 In your package.json add Snapcall dependencies :
-  "RNSnapcallReact": "git+https://snapcall:Snapcall1234@bitbucket.org/seampl/react-native-sdk.git"
+  "react-native-snapcall": "url"
 
-Run `npm install RNSnapcallReact` to install .
-Run `react-native link RNSnapcallReact` to import the native part.
+Run `npm install react-native-snapcall` to install .
+Run `react-native link react-native-snapcall` to import the native part.
 
 IOs only :
 
-Snapcall Swift framework come from cocoapod
+Snapcall Swift framework come with cocoapod
 
-  pod 'Snapcall_Framework', :git => 'https://snapcall:Snapcall1234@bitbucket.org/seampl/framework_snapcall_ios.git',:tag => '5.0.0'
+  pod 'Snapcall_Framework', :git => 'https://snapcall:Snapcall1234@bitbucket.org/seampl/framework_snapcall_ios.git',:tag => '5.1.0'
 
-this pod use SwiftWebSocket as dependency to avoid to fix some error for swift 4  set the dependency source :
-  pod 'SwiftWebSocket', :git => 'https://github.com/pnoyelle/SwiftWebSocket.git',:branch => 'master'
 
 add plist entries :
 
@@ -68,84 +71,112 @@ buildscript {
 
 ## Use ##
 
-import :
-  import {Snapcall, SnapcallParameter} from 'RNSnapcallReact';
+In the next part bid is the Button identifier from snapcall, it's the identifier which identify your account and the place you want to call.
+In  your javascript file :
 
-Make a call :
+### import :
+  import {Snapcall, SnapcallParameter} from 'react-native-snapcall';
 
+### Make a call
+
+```  
   var snapcall = new Snapcall();
+  snapcall.askForPermission('Androidreason', 'Androidmessage')
   var parameter = new SnapcallParameter();
-  snapcall.launchCallBid("bid", parameter);
+  function onPressCallButton() {snapcall.launchCallBid("bid", parameter)};
+  ```
 
-Check for button availability :
+### Check for button availability :
 
+```
   snapcall.bidIsClosed(bid, (res)=>{
     if (!res)
     {
-      showButton();
+      showCallButton();
     }
     })
+```
 
-Get Audio Permission :
+### Get Audio Permission :
 
+For android Permission are mandatory before to launch the call therefore the library will throw an error.
+iOS will ask automatically if not granted.
+
+```
   snapcall.askForPermission(Androidreason, Androidmessage)
+```
 
-  Parameter are for Android.
 
-Restor UI of call during a snapCall Call
 
-  Snapcall.restorCallUI()
+### Release snapcall ressource :
 
-Release native part :
+The snapcall main native class when instanced keep a reference on herself. If you want to release it call this function.
 
+```
   Snapcall.releaseSnapcall()
+```
 
-Follow the Snapcall call Event :
-  import { NativeModules, Platform, DeviceEventEmitter, NativeEventEmitter } from 'react-native';
+### Restor UI of call during a snapCall Call
 
-To manage event in snapcall you need to register to the event fired by snapCall
-  this.subscription = [];
-IOs:
+When a call is started and your user navigate in the app you can place Call ui on front.
 
-  this.eventEmitter = new NativeEventEmitter(NativeModules.CallListener);
-  this.subscription.push(this.eventEmitter.addListener('SnapcallTime', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallUIEnd', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallCallEnd', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallUIStart', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallError', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallCallStart', ()=>{}));
-  this.subscription.push(this.eventEmitter.addListener('SnapcallStart', ()=>{}));
+```
+  Snapcall.restorCallUI()
+```
 
-Android :
+### Follow the Snapcall call Event :
+To monitor if a call is processing you can add event listener  
+  ```
+ snapcall.addEventListener(eventName, _function)
+```
+event list :
+- SnapcallUIEnd
+- SnapcallCallEnd
+- SnapcallUIStart
+- SnapcallError
+- SnapcallCallStart
+- SnapcallTime
 
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallUIEnd', ()=>{}));
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallCallEnd', ()=>{}));
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallUIStart', ()=>{}));
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallError', ()=>{}));
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallCallStart', ()=>{}));
-    this.subscription.push(DeviceEventEmitter.addListener('SnapcallStart', ()=>{}));
+## Customize Call
 
-The subscription is stored to let you unregister event to avoid memory leaks.
+### the SnapcallParameter Class:
 
-  this.subscription[0].remove();
-
-Customize Call - the SnapcallParameter Class:
-
+```
   var parameter = new SnapcallParameter();
+  parameter.externalContext = null;     // Context for the call you want to link - You will be able to get it via SnapCall API
+  parameter.displayBrand = null;        // name to display on call Screen
+  parameter.displayName = null;         // Second Name to display on call Screen
+  parameter.callTitle = null;           // title on top of Call UI
 
-  parameter.externalContext = null;     -> Context for the call you want to link - You will be able to get it via SnapCall API
-  parameter.displayBrand = null;        -> name to display on call Screen
-  parameter.displayName = null;         -> Second Name to display on call Screen
-  parameter.callTitle = null;           -> title on top of Call UI
+  parameter.urlImage = null;            // url of image in snapcall UI
+  parameter.textColor = "";             // hex string which represent a color
 
-  parameter.urlImage = null;            -> url of image in snapcall UI
-  parameter.textColor = "";             -> hex string which represent a color
+  parameter.shouldReturn = false;       // You have implemented a listener for call Event in IOs, your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
+  parameter.AssetPathImage = null;      // android asset image path or asset.xasset image String name for IOs
+  parameter.AssetPathFont = null;       //  android asset font path or asset.xasset font String name for IOs
 
-  parameter.shouldReturn = false;       -> You have implemented a listener for call Event in IOs, your user can continue the navigation in your app (for android the user can always retrieve the call via notification).
-  parameter.AssetPathImage = null;      -> android asset image path or asset.xasset image String name for IOs
-  parameter.AssetPathFont = null;        -> android asset font path or asset.xasset font String name for IOs
-
+```
+### Static parameter
 
   For IOs you can set some static variable for callkit in your appDelegate in objectiveC:
+```
+  -(void)setSnapcallStaticWithAppName:
+  (NSString*)appName
+  ringtone:(NSString*)ringToneSoung
+  iconTemplate:(NSData*)icon
+```
 
-  -(void)setSnapcallStaticWithAppName:(NSString*)appName ringtone:(NSString*)ringToneSoung iconTemplate:(NSData*)icon
+
+## TEST App
+
+In the _test repository you can find a sample app.
+To test android studio and xcode are needed, also yarn/npm ,cocoapod(ruby), node, and of course react-native(cli - link)
+I use yarn because by adding library by path npm to symlink and the RN cli sims to not handle it.
+If you use yarn after Adding the module remove the _test directory from /node_module/react-native-snapcall.
+
+yarn install
+cd iOS && pod install && cd ..
+react-native link
+open -a xcode ios/TestCall.xcworkplace
+open -a 'android studio' android/
+react-native start
