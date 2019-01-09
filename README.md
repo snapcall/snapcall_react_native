@@ -33,27 +33,27 @@ In your package.json add Snapcall dependencies :
 Run `npm install react-native-snapcall` to install .
 Run `react-native link react-native-snapcall` to import the native part.
 
-IOs only :
+### IOs only
 
 Snapcall Swift framework come with cocoapod
 
   pod 'Snapcall_Framework', :git => 'https://snapcall:Snapcall1234@bitbucket.org/seampl/framework_snapcall_ios.git',:tag => '5.1.0'
 
-
 add plist entries :
 
-  -> Privacy - Microphone Usage Description for capture permission
-  -> Privacy - Camera Usage Description for video permission. Some part of snapcall framework symbol use apple video api. To avoid to be rejected by apple application store add this entries either you don't use video.
-  -> Required background modes : App provides Voice over IP services
+- Privacy - Microphone Usage Description for capture permission
+- Privacy - Camera Usage Description for video permission. Some part of snapcall framework symbol use apple video api. To avoid to be rejected by apple application store add this entries either you don't use video.
+- Required background modes : App provides Voice over IP services
 
   Bitcode must be set to no.
 
-Android specific :
+### Android
 
 if you get this error :
 	'Only Jar-type local dependencies are supported.'
 your android gradle version is to old and don't support aar files, you will need to update it.
 
+```
 buildscript {
   repositories {
       jcenter()
@@ -67,7 +67,7 @@ buildscript {
       // in the individual module build.gradle files
   }
 }
-
+```
 
 ## Use ##
 
