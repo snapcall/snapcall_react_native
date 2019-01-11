@@ -2,6 +2,9 @@
 
 
 ## Next Version
+
+Readme updated
+App Test in _test/ directory
 clarify and comment  code
 remove duplicate name 
 
