@@ -36,7 +36,7 @@ export class Snapcall {
 
     constructor (){
       this.subscription = [];
-      this.eventListener = {"SnapcallUIEnd" : [], "SnapcallCallEnd" :  [], "SnapcallUIStart" : [], "SnapcallError" : [], "SnapcallCallStart" : [], "SnapcallTime" : []};
+      this.eventListener = {"onUIEnd" : [], "onCallEnd" :  [], "onUIStart" : [], "onError" : [], "onCallStart" : [], "onTime" : []};
       this.eventEmitter = os ? new NativeEventEmitter(NativeModules.CallListener) : DeviceEventEmitter;
     }
 
