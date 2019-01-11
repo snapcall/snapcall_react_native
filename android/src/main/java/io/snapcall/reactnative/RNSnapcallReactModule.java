@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -22,6 +24,7 @@ import io.snapcall.snapcall_android_framework.Snapcall_External_Parameter;
 public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
   private  ReactApplicationContext reactContext = null;
+//  private  static RNSnapcallReactModule instance = null;
 
   private Snapcall_External_Parameter SEPFromJson(String json){
       Snapcall_External_Parameter ret = new Snapcall_External_Parameter();
@@ -41,7 +44,8 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
           try {
               ret.textColor = Color.parseColor(obj.getString("textColor", null));
           }catch (Exception e) {
-              e.printStackTrace();
+              Log.i("RNSnapcallReact", e.getMessage());
+
           }
           ret.pushTransfertData = obj.getString("pushTransfertData", null);
           ret.senderBrand = obj.getString("senderBrand", null);
@@ -60,6 +64,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     super(reactContext);
     this.reactContext = reactContext;
     activateSnapcallListener();
+//    RNSnapcallReactModule.instance = this;
 
   }
 
@@ -204,9 +209,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     }
 
 
-    private void sendEvent(ReactContext reactContext,
-                           String eventName,
-                           @Nullable WritableMap params) {
+    private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
       try {
           reactContext
                   .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -218,67 +221,85 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
 
     private void activateSnapcallListener() {
+        System.out.println("ActiveteListener");
         final WritableMap params = Arguments.createMap();
 
         Snapcall.Snapcall_Call_Event ev = new Snapcall.Snapcall_Call_Event() {
 
-            @Override
-            public void ontimeUpdate(int i) {
 
+
+            @Override
+            public void onTime(int i) {
+                System.out.println("onTime");
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "onTime");
+                params.putInt("time", i);
+                sendEvent(reactContext, "onTime", params);
             }
 
             @Override
-            public void onSnapcallStart() {
-
+            public void onStart() {
+                System.out.println("onStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "SnapcallStart");
-                sendEvent(reactContext, "SnapcallStart", params);
+                params.putString("Snapev", "onStart");
+                sendEvent(reactContext, "onStart", params);
             }
 
             @Override
             public void onCallStart() {
-
+                System.out.println("onCallStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "SnapcallCallStart");
-                sendEvent(reactContext, "SnapcallCallStart", params);
+                params.putString("Snapev", "onCallStart");
+                sendEvent(reactContext, "onCallStart", params);
             }
 
             @Override
             public void onCallEnd() {
-
+                System.out.println("onCallEnd");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "SnapcallCallEnd");
-                sendEvent(reactContext, "SnapcallCallEnd", params);
+                params.putString("Snapev", "onCallEnd");
+                sendEvent(reactContext, "onCallEnd", params);
             }
 
             @Override
-            public void onSnapcallStop() {
-
+            public void onEnd() {
+                System.out.println("onEnd");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "SnapcallUIEnd");
-                sendEvent(reactContext, "SnapcallUIEnd", params);
+                params.putString("Snapev", "onEnd");
+                sendEvent(reactContext, "onEnd", params);
             }
 
             @Override
             public void onUIStart() {
-
+                System.out.println("onUIStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "SnapcallUIStart");
-                sendEvent(reactContext, "SnapcallUIStart", params);
+                params.putString("Snapev", "onUIStart");
+                sendEvent(reactContext, "onUIStart", params);
             }
 
             @Override
-            public void onCallRing() {
+            public void onUIEnd() {
+                System.out.println("onUIEnd");
+                final WritableMap params = Arguments.createMap();
+                params.putString("Snapev", "onUIEnd");
+                sendEvent(reactContext, "onUIEnd", params);
+            }
 
+
+            @Override
+            public void onCallRing() {
+                System.out.println("onCallRing");
                 final WritableMap params = Arguments.createMap();
                 sendEvent(reactContext, "onCallRing", params);
             }
 
             @Override
-            public void onError() {
-                params.putString("Snapev", "onCallError");
+            public void onError(String error) {
+                System.out.println("onError");
+                params.putString("Snapev", "onError");
                 final WritableMap params = Arguments.createMap();
-                sendEvent(reactContext, "onCallError", params);
+                params.putString("error", error);
+                sendEvent(reactContext, "onError", params);
             }
         };
 

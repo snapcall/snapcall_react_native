@@ -16,43 +16,53 @@ static CallListener * instance = nil;
     return (self);
 
 }
+
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 +(CallListener*)getInstance{
     return instance;
 }
 
 -(NSArray<NSString *> *)supportedEvents{
-     return @[@"SnapcallTime", @"SnapcallUIEnd", @"SnapcallCallEnd" , @"SnapcallUIStart", @"SnapcallTime", @"SnapcallError", @"SnapcallCallStart", @"SnapcallStart"];
+     return @[@"onTime", @"onUIEnd", @"onCallEnd" , @"onUIStart", @"onError", @"onCallStart", @"onStart", @"onEnd"];
 }
--(void)onTimeUpdateWithTime:(NSInteger)time{
+-(void)onTime:(NSInteger)time{
 
     NSString * t = [NSString stringWithFormat:@"%ld", (long)time];
 
-    [self sendEventWithName:@"SnapcallTime" body:(id)t];
+    [self sendEventWithName:@"onTime" body:(id)t];
 }
 
--(void)onLeaveCallUI{
+-(void)onUIEnd{
 
-    [self sendEventWithName:@"SnapcallUIEnd" body:@"SnapcallUIEnd"];
+    [self sendEventWithName:@"onUIEnd" body:@"onUIEnd"];
 }
 
 -(void)onCallEnd{
-    [self sendEventWithName:@"SnapcallCallEnd" body:@"SnapcallCallEnd"];
+    [self sendEventWithName:@"onCallEnd" body:@"onCallEnd"];
 
 }
 
 -(void)onUIStart{
-    [self sendEventWithName:@"SnapcallUIStart" body:@"SnapcallUIStart"];
+    [self sendEventWithName:@"onUIStart" body:@"onUIStart"];
 }
--(void)onError{
-    [self sendEventWithName:@"SnapcallError" body:@"SnapcallError"];
+-(void)onError:NSString *error{
+    [self sendEventWithName:@"onError" body:error];
 }
 
 -(void)onCallStart{
-[self sendEventWithName:@"SnapcallCallStart" body:@"SnapcallCallStart"];
+[self sendEventWithName:@"onCallStart" body:@"onCallStart"];
 }
 
--(void)onSnapcallStart{
-    [self sendEventWithName:@"SnapcallStart" body:@"SnapcallStart"];
+-(void)onStart{
+    [self sendEventWithName:@"onStart" body:@"onStart"];
+}
+
+-(void)onEnd{
+    [self sendEventWithName:@"onEnd" body:@"onEnd"];
 }
 
 - (void)startObserving{
@@ -80,6 +90,10 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 
 //CallListener * callevent;
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
 
 - (instancetype)init
 {
