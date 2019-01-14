@@ -7,29 +7,28 @@
 
 RCT_EXPORT_MODULE(CallListener);
 bool active = false;
-static CallListener * instance = nil;
+
 //
 -(instancetype)init{
 //
     self = [super init];
-    instance = self;
-    return (self);
+    [[Snapcall getSnapcall] removeAllEventListener];
+    [[Snapcall getSnapcall] addEventListenerWithListener:self];
 
+    return (self);
 }
+
 
 + (BOOL)requiresMainQueueSetup
 {
     return YES;
 }
 
-+(CallListener*)getInstance{
-    return instance;
-}
 
 -(NSArray<NSString *> *)supportedEvents{
      return @[@"onTime", @"onUIEnd", @"onCallEnd" , @"onUIStart", @"onError", @"onCallStart", @"onStart", @"onEnd"];
 }
--(void)onTime:(NSInteger)time{
+-(void)onTimeWithTime:(NSInteger)time{
 
     NSString * t = [NSString stringWithFormat:@"%ld", (long)time];
 
@@ -49,7 +48,8 @@ static CallListener * instance = nil;
 -(void)onUIStart{
     [self sendEventWithName:@"onUIStart" body:@"onUIStart"];
 }
--(void)onError:NSString *error{
+
+- (void)onErrorWithError:(NSString *)error{
     [self sendEventWithName:@"onError" body:error];
 }
 
@@ -83,7 +83,7 @@ static CallListener * instance = nil;
 //
 @end
 
-#define testVal(x) @try{ x }@catch(NSException * e ){printf("anerroroccur");}
+#define testVal(x) @try{ x }@catch(NSException * e ){printf("anErrorOccur");}
 #define checkNsNul(x) id obj = [results objectForKey: x]; if ([obj isKindOfClass:[NSString class]])
 @implementation RNSnapcallReact
 RCT_EXPORT_MODULE(RNSnapcallReact)
@@ -98,11 +98,13 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
-//        callevent = [[CallListener alloc] init];
-    }
+//    if (CallListener.getInstance == nil) {
+//      CallListener* cl = [[CallListener alloc] init];
+//    }
     return self;
 }
+
+
 
 - (dispatch_queue_t)methodQueue
 {
@@ -113,6 +115,7 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 -(Snapcall_External_Parameter *)SnapcallParamFromJSON:(NSString*)JsonString
 {
     Snapcall_External_Parameter * param = [[Snapcall_External_Parameter alloc] init];
+    printf("json: %s", JsonString);
      @try {
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:[JsonString dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
@@ -214,14 +217,16 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 checkNsNul(@"pushTransfertData"){
                     param.pushTransfertData = obj;
                 })
-
+        printf("here\n");
         testVal(
-                param.shouldReturn = [results valueForKey: @"shouldReturn"];)
-
+                printf("%@\n", [results valueForKey: @"shouldReturn"]);
+                BOOL shouldReturn = (BOOL)[results valueForKey: @"shouldReturn"];
+                printf("shouldreturn : %d\n", shouldReturn);
+                param.shouldReturn = shouldReturn;)
         testVal(
-                param.hideCart = [results valueForKey: @"hideCart"];)
-
-        param.SnapcallListener = [CallListener getInstance];
+                BOOL hideCart = (BOOL)[results valueForKey: @"hideCart"];
+                printf("hideCart : %d\n", hideCart);
+                param.hideCart = hideCart;)
 
     }
      }@catch(NSException * e){

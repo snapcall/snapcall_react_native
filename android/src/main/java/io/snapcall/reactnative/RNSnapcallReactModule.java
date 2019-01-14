@@ -221,90 +221,77 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
 
     private void activateSnapcallListener() {
-        System.out.println("ActiveteListener");
         final WritableMap params = Arguments.createMap();
-
         Snapcall.Snapcall_Call_Event ev = new Snapcall.Snapcall_Call_Event() {
-
-
 
             @Override
             public void onTime(int i) {
-                System.out.println("onTime");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onTime");
+                params.putString("event_name", "onTime");
                 params.putInt("time", i);
                 sendEvent(reactContext, "onTime", params);
             }
 
             @Override
             public void onStart() {
-                System.out.println("onStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onStart");
+                params.putString("event_name", "onStart");
                 sendEvent(reactContext, "onStart", params);
             }
 
             @Override
             public void onCallStart() {
-                System.out.println("onCallStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onCallStart");
+                params.putString("event_name", "onCallStart");
                 sendEvent(reactContext, "onCallStart", params);
             }
 
             @Override
             public void onCallEnd() {
-                System.out.println("onCallEnd");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onCallEnd");
+                params.putString("event_name", "onCallEnd");
                 sendEvent(reactContext, "onCallEnd", params);
             }
 
             @Override
             public void onEnd() {
-                System.out.println("onEnd");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onEnd");
+                params.putString("event_name", "onEnd");
                 sendEvent(reactContext, "onEnd", params);
             }
 
             @Override
             public void onUIStart() {
-                System.out.println("onUIStart");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onUIStart");
+                params.putString("event_name", "onUIStart");
                 sendEvent(reactContext, "onUIStart", params);
             }
 
             @Override
             public void onUIEnd() {
-                System.out.println("onUIEnd");
                 final WritableMap params = Arguments.createMap();
-                params.putString("Snapev", "onUIEnd");
+                params.putString("event_name", "onUIEnd");
                 sendEvent(reactContext, "onUIEnd", params);
             }
 
 
             @Override
             public void onCallRing() {
-                System.out.println("onCallRing");
                 final WritableMap params = Arguments.createMap();
                 sendEvent(reactContext, "onCallRing", params);
             }
 
             @Override
             public void onError(String error) {
-                System.out.println("onError");
-                params.putString("Snapev", "onError");
                 final WritableMap params = Arguments.createMap();
+                params.putString("event_name", "onError");
                 params.putString("error", error);
                 sendEvent(reactContext, "onError", params);
             }
         };
 
         try {
-            Snapcall.getInstance().registerCallback(reactContext, ev);
+            Snapcall.getInstance().addEventListener(reactContext, ev);
 
         }catch (Exception e)
         {
@@ -315,7 +302,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
     public void desactivateSnapcallListener(){
       try {
-          Snapcall.getInstance().unregisterCallback(reactContext);
+          Snapcall.getInstance().removeAllEventListener(reactContext);
 
 
       }catch(Exception e)
@@ -327,7 +314,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void releaseSnapcall(final Promise promise){
       try {
-          Snapcall.getInstance().unregisterCallback(reactContext);
+          Snapcall.getInstance().removeAllEventListener(reactContext);
           Snapcall.releaseInstance();
           promise.resolve(null);
       }catch (Exception e){

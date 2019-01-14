@@ -19,13 +19,22 @@ const instructions = Platform.select({
 
 type Props = {};
   const snapcall = new Snapcall();
-  snapcall.addEventListener("SnapcallError", (e)=>{console.log("Snapcall_error", e)})
-  snapcall.addEventListener("SnapcallUIStart", (e)=>{console.log("SnapcallUIStart", e)})
-  snapcall.addEventListener("SnapcallCallStart", (e)=>{console.log("SnapcallCallStart", e)})
-  snapcall.addEventListener("SnapcallCallEnd", (e)=>{console.log("SnapcallCallEnd", e)})
-  snapcall.addEventListener("SnapcallUIEnd", (e)=>{console.log("SnapcallCallEnd", e)})
-  snapcall.addEventListener("SnapcallTime", (e)=>{console.log("SnapcallTime", e)})
+  this.eventListener = {"onUIEnd" : [], "onCallEnd" :  [], "onUIStart" : [], "onError" : [], "onStart" : [], "onTime" : [], "onCallStart":[], "onEnd" : [] };
+
+  snapcall.addEventListener("onUIEnd", (e)=>{console.log("Snapcall_onuiend", e)})
+  snapcall.addEventListener("onUIStart", (e)=>{console.log("Snapcall_onUistart", e)})
+
+  snapcall.addEventListener("onCallEnd", (e)=>{console.log("Snapcall_onCallEnd", e)})
+  snapcall.addEventListener("onCallStart", (e)=>{console.log("Snapcall_onCallStart", e)})
+
+  snapcall.addEventListener("onTime", (e)=>{console.log("Snapcall_onTime", e)})
+  snapcall.addEventListener("onError", (e)=>{console.log("Snapcall_onError", e)})
+
+  snapcall.addEventListener("onStart", (e)=>{console.log("Snapcall_onStart", e)})
+  snapcall.addEventListener("onEnd", (e)=>{console.log("Snapcall_onEnd", e)})
   const parameter = new SnapcallParameter();
+  parameter.shouldReturn = true;
+  parameter.hideCart = true;
   var bid = "88b3d0f3a44311e78f9b0ae03a1ae33f";
   var pickA;
 export default class App extends Component<Props> {

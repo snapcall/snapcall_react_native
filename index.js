@@ -36,7 +36,7 @@ export class Snapcall {
 
     constructor (){
       this.subscription = [];
-      this.eventListener = {"onUIEnd" : [], "onCallEnd" :  [], "onUIStart" : [], "onError" : [], "onCallStart" : [], "onTime" : []};
+      this.eventListener = {"onUIEnd" : [], "onCallEnd" :  [], "onUIStart" : [], "onError" : [], "onStart" : [], "onTime" : [], "onCallStart":[], "onEnd" : [] };
       this.eventEmitter = os ? new NativeEventEmitter(NativeModules.CallListener) : DeviceEventEmitter;
     }
 
@@ -76,6 +76,7 @@ export class Snapcall {
     **/
     launchCallBid(bid_id, parameter){
       let st_param = JSON.stringify(parameter);
+      console.log(st_param);
       return Snapcall_Module.launchCallWithbidId(bid_id, st_param)
     }
 
