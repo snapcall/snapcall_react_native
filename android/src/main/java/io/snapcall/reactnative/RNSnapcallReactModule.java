@@ -35,8 +35,8 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
           ret.displayBrand = obj.getString("displayBrand", null);
           ret.displayName = obj.getString("displayName", null);
           ret.callTitle = obj.getString("callTitle", null);
-          ret.AssetPathImage = obj.getString("AssetPathImage", null);
-          ret.AssetPathFont = obj.getString("AssetPathFont", null);
+          ret.AssetPathImage = obj.getString("android_AssetPathImage", null);
+          ret.AssetPathFont = obj.getString("android_AssetPathFont", null);
           ret.notificationTittle = obj.getString("notificationTittle", null);
           ret.notificationBody = obj.getString("notificationBody",  null);
           ret.externalContext = obj.getString("externalContext", null);
@@ -45,8 +45,12 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
               ret.textColor = Color.parseColor(obj.getString("textColor", null));
           }catch (Exception e) {
               Log.i("RNSnapcallReact", e.getMessage());
-
           }
+          try {
+               ret.backgroundColor = Color.parseColor(obj.getString("backgroundColor", null));
+           }catch (Exception e) {
+               Log.i("RNSnapcallReact", e.getMessage());
+           }
           ret.pushTransfertData = obj.getString("pushTransfertData", null);
           ret.senderBrand = obj.getString("senderBrand", null);
           ret.senderName = obj.getString("senderName", null);

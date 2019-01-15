@@ -16,7 +16,7 @@ const instructions = Platform.select({
     'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu',
 });
-
+let os = Platform.OS === "ios" ? true : false;
 type Props = {};
   const snapcall = new Snapcall();
   this.eventListener = {"onUIEnd" : [], "onCallEnd" :  [], "onUIStart" : [], "onError" : [], "onStart" : [], "onTime" : [], "onCallStart":[], "onEnd" : [] };
@@ -33,8 +33,22 @@ type Props = {};
   snapcall.addEventListener("onStart", (e)=>{console.log("Snapcall_onStart", e)})
   snapcall.addEventListener("onEnd", (e)=>{console.log("Snapcall_onEnd", e)})
   const parameter = new SnapcallParameter();
+
+
+  parameter.displayBrand = "@Snapcall";
+  parameter.displayName = "Hello";
+  parameter.callTitle = "TestCall";
+  parameter.android_AssetPathImage = "images/infob.png";
+  parameter.android_AssetPathFont = "fonts/snapcallfont.otf";
+  parameter.iOS_AssetPathImage = "infob";
+  parameter.iOS_AssetPathFont = "Roboto-Thin";
+
+  parameter.externalContext = '{"Hello" : "snapcall"}';
+  // parameter.urlImage = "https://snapcall.io/assets/img/landing-transfertvoix.png";
+  parameter.textColor = "#00FF00";
+  parameter.backgroundColor = '#0000FF';
+  parameter.hideCart = true;           // boolean to hide the cart in the call UI
   parameter.shouldReturn = true;
-  parameter.hideCart = true;
   var bid = "88b3d0f3a44311e78f9b0ae03a1ae33f";
   var pickA;
 export default class App extends Component<Props> {
@@ -61,6 +75,14 @@ export default class App extends Component<Props> {
       accessibilityLabel="Learn more about this purple button"
       />
     )
+    var retrieve = (  <Button
+      onPress={snapcall.restorCallUI}
+      title="callUI"
+      color="#841584"
+      style={[appStyles.container]}
+      accessibilityLabel="Learn more about this purple button"
+      />
+    )
 
     var render = (  <Button
       onPress={this.makeerror}
@@ -73,7 +95,11 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         {render}
+        <Text >{"\n"}</Text>
         {call}
+        <Text >{"\n"}</Text>
+        {retrieve}
+        <Text >{"\n"}</Text>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>

@@ -8,13 +8,11 @@
 RCT_EXPORT_MODULE(CallListener);
 bool active = false;
 
-//
 -(instancetype)init{
-//
+
     self = [super init];
     [[Snapcall getSnapcall] removeAllEventListener];
     [[Snapcall getSnapcall] addEventListenerWithListener:self];
-
     return (self);
 }
 
@@ -41,41 +39,49 @@ bool active = false;
 }
 
 -(void)onCallEnd{
-    [self sendEventWithName:@"onCallEnd" body:@"onCallEnd"];
 
+    [self sendEventWithName:@"onCallEnd" body:@"onCallEnd"];
 }
 
 -(void)onUIStart{
+
     [self sendEventWithName:@"onUIStart" body:@"onUIStart"];
 }
 
 - (void)onErrorWithError:(NSString *)error{
+
     [self sendEventWithName:@"onError" body:error];
 }
 
 -(void)onCallStart{
+
 [self sendEventWithName:@"onCallStart" body:@"onCallStart"];
 }
 
 -(void)onStart{
+
     [self sendEventWithName:@"onStart" body:@"onStart"];
 }
 
 -(void)onEnd{
+
     [self sendEventWithName:@"onEnd" body:@"onEnd"];
 }
 
 - (void)startObserving{
+
     active = true;
     [super startObserving];
 }
 
 - (void)stopObserving{
+
     active = false;
     [super stopObserving];
 }
 
 - (void)sendEventWithName:(NSString *)name body:(id)body{
+
     if (active){
         [super sendEventWithName:name body:body];
     }
@@ -83,12 +89,10 @@ bool active = false;
 //
 @end
 
-#define testVal(x) @try{ x }@catch(NSException * e ){printf("anErrorOccur");}
+#define testVal(x) @try{ x }@catch(NSException * e ){printf("anErrorOccur\n");}
 #define checkNsNul(x) id obj = [results objectForKey: x]; if ([obj isKindOfClass:[NSString class]])
 @implementation RNSnapcallReact
 RCT_EXPORT_MODULE(RNSnapcallReact)
-
-//CallListener * callevent;
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -98,9 +102,6 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 - (instancetype)init
 {
     self = [super init];
-//    if (CallListener.getInstance == nil) {
-//      CallListener* cl = [[CallListener alloc] init];
-//    }
     return self;
 }
 
@@ -115,7 +116,6 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 -(Snapcall_External_Parameter *)SnapcallParamFromJSON:(NSString*)JsonString
 {
     Snapcall_External_Parameter * param = [[Snapcall_External_Parameter alloc] init];
-    printf("json: %s", JsonString);
      @try {
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:[JsonString dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
@@ -156,7 +156,7 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 })
 
         testVal(
-                checkNsNul(@"AssetPathImage"){
+                checkNsNul(@"iOS_AssetPathImage"){
                     param.nameImage = obj;
                 })
         testVal(
@@ -167,7 +167,7 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 
 
         testVal(
-        id objfontname = [results objectForKey: @"AssetPathFont"];
+        id objfontname = [results objectForKey: @"iOS_AssetPathFont"];
         if ([objfontname isKindOfClass:[NSString class]])
         {
             NSString* fontname = objfontname;
@@ -197,6 +197,23 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                                              alpha:1.0];
         }}
                )
+        testVal(
+                id obj = [results objectForKey: @"backgroundColor"];
+                if ([obj isKindOfClass:[NSString class]]){
+                  NSString* NScolor = obj;
+                  if (NScolor != nil) {
+                    unsigned result = 0;
+                    NSScanner *scanner = [NSScanner scannerWithString:NScolor];
+                    [scanner setScanLocation:1];
+                    [scanner scanHexInt:&result];
+
+                    int color = result;
+                    param.backgroundColor = [UIColor colorWithRed:((float)((color & 0xFF0000) >> 16))/255.0 \
+                                                     green:((float)((color & 0x00FF00) >>  8))/255.0 \
+                                                      blue:((float)((color & 0x0000FF) >>  0))/255.0 \
+                                                     alpha:1.0];
+                }}
+                  )
 
         testVal(
                 checkNsNul(@"androidNotificatiobBody"){
@@ -217,21 +234,18 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 checkNsNul(@"pushTransfertData"){
                     param.pushTransfertData = obj;
                 })
-        printf("here\n");
+
         testVal(
-                printf("%@\n", [results valueForKey: @"shouldReturn"]);
-                BOOL shouldReturn = (BOOL)[results valueForKey: @"shouldReturn"];
-                printf("shouldreturn : %d\n", shouldReturn);
+                BOOL shouldReturn = [[results valueForKey: @"shouldReturn"] compare:(@"true")] == NSOrderedSame ? true : false;
                 param.shouldReturn = shouldReturn;)
         testVal(
-                BOOL hideCart = (BOOL)[results valueForKey: @"hideCart"];
-                printf("hideCart : %d\n", hideCart);
+                BOOL hideCart = [[results valueForKey: @"hideCart"] compare:(@"true")] == NSOrderedSame ? true : false;
                 param.hideCart = hideCart;)
 
     }
      }@catch(NSException * e){
-         printf("anerroroccur");
-         printf("%s", e.description);
+         printf("error\n");
+         printf("%s\n", e.description);
 
          return param;
      }
@@ -250,10 +264,8 @@ RCT_REMAP_METHOD(bidIsClosed,bid: (NSString *)bidID resolve:(RCTPromiseResolveBl
 RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try {
-        printf("hereforagoodreason");
 
        [self launchCallWithBidId:bidId parameter:[self SnapcallParamFromJSON:parameter]];
-        // [self launchCallWithBidId:bidId parameter:nil];
         resolve(@YES);
     }@catch(NSException * e){
 
@@ -349,11 +361,10 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
 
 
 
-//
 -(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(Snapcall_External_Parameter*)parameter{
    [[Snapcall   getSnapcall]launchCallWithBidId:bidId applicationName:AppName customClientIdentifier:customIdentifier parameter:parameter];
 }
-//
+
 -(void)launchCallWithBidId:(NSString *)bidId  parameter:(Snapcall_External_Parameter*)parameter{
     [[Snapcall   getSnapcall]launchCallWithBidId: bidId parameter:parameter];
 }
@@ -370,8 +381,6 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
    Snapcall.callIconTemplate = icon;
    Snapcall.ringtoneSound = ringToneSoung;
 }
-
-
 
 -(bool)registerUserwithcredential : (PKPushCredentials*)cred identifier:(NSString*)identifier customClientIdentifier:(NSString*)customId applicationName :(NSString*)appName callback:(void(^)(NSString* string))callback
 {
