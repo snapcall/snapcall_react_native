@@ -221,6 +221,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
 
 
     private void activateSnapcallListener() {
+        System.out.println("ActiveteListener");
         final WritableMap params = Arguments.createMap();
         Snapcall.Snapcall_Call_Event ev = new Snapcall.Snapcall_Call_Event() {
 
