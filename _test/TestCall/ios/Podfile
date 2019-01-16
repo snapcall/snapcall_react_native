@@ -1,0 +1,29 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'TestCall' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for TestCall
+	  pod 'Snapcall_Framework', {:git => 'https://github.com/snapcall/iOS_framework_release.git', :tag => '5.2.0'}
+
+  target 'TestCallTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'TestCall-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for TestCall-tvOS
+
+  target 'TestCall-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

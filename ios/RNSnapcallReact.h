@@ -7,20 +7,15 @@
 #import "../../../ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
 #import "../../../ios/Pods/Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework.h"
 
-@interface CallListener : RCTEventEmitter <Snapcall_Listener>
+@interface CallListener : RCTEventEmitter <Snapcall_eventListener>
 
 
-+(CallListener*)getInstance;
-//-(void)onTimeUpdateWithTime:(NSInteger)time;
-//-(void)onLeaveCallUI;
-//-(void)onCallEnd;
+
+
 @end
 
-//@interface SnapcallEventReceiver :NSObject
-//
-//
-//@end
-//
+
+
 
 
 @interface RNSnapcallReact : NSObject  <RCTBridgeModule>

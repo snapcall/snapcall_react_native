@@ -2,8 +2,15 @@
 
 
 ## Next Version
-clarify and comment  code
-remove duplicate name 
+
+- testApp with all parameter
+- eventName formated
+- BackgroundColor 
+- bugfix ios event listener
+- Readme updated
+- App Test in _test/ directory
+- clarify and comment  code
+- remove duplicate name 
 
 ## 0.1.0
 - ios bridge

@@ -46,12 +46,15 @@ repositories {
 }
 
 def urlFile = { url, name ->
-    File file = new File("$buildDir/download/${name}.aar")
-    file.parentFile.mkdirs()
+
+    File file = new File("$projectDir/libs/${name}.aar")
     if (!file.exists()) {
-        new URL(url).withInputStream { downloadStream ->
-            file.withOutputStream { fileOut ->
-                fileOut << downloadStream
+        file.parentFile.mkdirs()
+        if (!file.exists()) {
+            new URL(url).withInputStream { downloadStream ->
+                file.withOutputStream { fileOut ->
+                    fileOut << downloadStream
+                }
             }
         }
     }
@@ -59,8 +62,8 @@ def urlFile = { url, name ->
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
-    compile urlFile('https://p2.snapcall.io/android/2.0.0/snapcall_android_framework.aar', 'snapcall_android_framework')
+    implementation 'com.facebook.react:react-native:+'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation urlFile('https://s3-eu-west-1.amazonaws.com/snapcall-sdk-android/snapcall_android_framework_2.1.0.aar', 'snapcall_android_framework')
 
 }
