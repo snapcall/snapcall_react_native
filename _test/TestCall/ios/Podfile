@@ -6,7 +6,7 @@ target 'TestCall' do
   # use_frameworks!
 
   # Pods for TestCall
-	  pod 'Snapcall_Framework', {:git => 'https://github.com/snapcall/iOS_framework_release.git', :tag => '5.1.0'}
+	  pod 'Snapcall_Framework', {:git => 'https://github.com/snapcall/iOS_framework_release.git', :tag => '5.2.0'}
 
   target 'TestCallTests' do
     inherit! :search_paths

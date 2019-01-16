@@ -218,8 +218,37 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSData * _Null_unspecifi
 + (void)releaseSnapcall;
 @end
 
+@class NSString;
+
+SWIFT_PROTOCOL("_TtP18Snapcall_Framework22Snapcall_eventListener_")
+@protocol Snapcall_eventListener
+- (void)onStart;
+- (void)onErrorWithError:(NSString * _Nonnull)error;
+- (void)onCallStart;
+- (void)onUIStart;
+- (void)onTimeWithTime:(NSInteger)time;
+- (void)onUIEnd;
+- (void)onCallEnd;
+- (void)onEnd;
+@end
+
+
+SWIFT_AVAILABILITY(ios,introduced=10.0)
+@interface Snapcall (SWIFT_EXTENSION(Snapcall_Framework)) <Snapcall_eventListener>
+- (void)onStart;
+- (void)onErrorWithError:(NSString * _Nonnull)error;
+- (void)onCallStart;
+- (void)onUIStart;
+- (void)onTimeWithTime:(NSInteger)time;
+- (void)onUIEnd;
+- (void)onCallEnd;
+- (void)onEnd;
+- (NSInteger)addEventListenerWithListener:(id <Snapcall_eventListener> _Nonnull)listener SWIFT_WARN_UNUSED_RESULT;
+- (void)removeEventListenerWithIndex:(NSInteger)index;
+- (void)removeAllEventListener;
+@end
+
 @class UIColor;
-@protocol Snapcall_Listener;
 @class UIFontDescriptor;
 
 SWIFT_CLASS("_TtC18Snapcall_Framework27Snapcall_External_Parameter")
@@ -234,25 +263,13 @@ SWIFT_CLASS("_TtC18Snapcall_Framework27Snapcall_External_Parameter")
 @property (nonatomic, copy) NSString * _Null_unspecified senderBrand;
 @property (nonatomic) BOOL hideCart;
 @property (nonatomic, strong) UIColor * _Null_unspecified textColor;
-@property (nonatomic, strong) id <Snapcall_Listener> _Null_unspecified SnapcallListener;
+@property (nonatomic, strong) UIColor * _Null_unspecified backgroundColor;
 @property (nonatomic, copy) NSString * _Null_unspecified externalContext;
 @property (nonatomic, copy) NSString * _Null_unspecified pushTransfertData;
 @property (nonatomic, strong) UIFontDescriptor * _Null_unspecified fontDescriptor;
 @property (nonatomic, copy) NSString * _Null_unspecified androidNotificationTitle;
 @property (nonatomic, copy) NSString * _Null_unspecified androidNotificatiobBody;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_PROTOCOL("_TtP18Snapcall_Framework17Snapcall_Listener_")
-@protocol Snapcall_Listener
-- (void)onSnapcallStart;
-- (void)onError;
-- (void)onCallStart;
-- (void)onUIStart;
-- (void)onTimeUpdateWithTime:(NSInteger)time;
-- (void)onLeaveCallUI;
-- (void)onCallEnd;
 @end
 
 
@@ -273,6 +290,7 @@ SWIFT_CLASS("_TtC18Snapcall_Framework18Snapcall_WebSocket")
 /// :param: data The message (binary) to be sent to the server.
 - (void)sendWithData:(NSData * _Nonnull)data;
 @end
+
 
 
 

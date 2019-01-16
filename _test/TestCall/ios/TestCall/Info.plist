@@ -32,6 +32,11 @@
 	<string>voip call</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>voip call</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DancingScript-Bold.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>voip</string>

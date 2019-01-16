@@ -1,6 +1,6 @@
 {
   "name": "Snapcall_Framework",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "license": {
     "type": "Custom"
   },
@@ -11,7 +11,7 @@
   "summary": "Make snapcall call with ios",
   "source": {
     "git": "https://github.com/snapcall/iOS_framework_release.git",
-    "tag": "5.1.0"
+    "tag": "5.2.0"
   },
   "platforms": {
     "ios": "8.0"
@@ -23,7 +23,7 @@
   "libraries": "z",
   "dependencies": {
     "WebRTC": [
-
+      "61.5.19063"
     ]
   }
 }
