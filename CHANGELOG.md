@@ -3,6 +3,7 @@
 
 ## Next Version
 
+- externalContext is now a json object
 - testApp with all parameter
 - eventName formated
 - BackgroundColor 
