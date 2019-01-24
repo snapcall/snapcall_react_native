@@ -43,7 +43,7 @@ type Props = {};
   parameter.iOS_AssetPathImage = "infob";
   parameter.iOS_AssetPathFont = "Roboto-Thin";
 
-  parameter.externalContext = '{"Hello" : "snapcall"}';
+  parameter.externalContext = {"Hello" : "snapcall"};
   // parameter.urlImage = "https://snapcall.io/assets/img/landing-transfertvoix.png";
   parameter.textColor = "#00FF00";
   parameter.backgroundColor = '#0000FF';

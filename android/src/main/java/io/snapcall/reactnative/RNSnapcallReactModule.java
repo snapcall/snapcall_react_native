@@ -39,7 +39,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
           ret.AssetPathFont = obj.getString("android_AssetPathFont", null);
           ret.notificationTittle = obj.getString("notificationTittle", null);
           ret.notificationBody = obj.getString("notificationBody",  null);
-          ret.externalContext = obj.getString("externalContext", null);
           ret.urlImage = obj.getString("urlImage",  null);
           try {
               ret.textColor = Color.parseColor(obj.getString("textColor", null));
@@ -55,7 +54,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule {
           ret.senderBrand = obj.getString("senderBrand", null);
           ret.senderName = obj.getString("senderName", null);
           ret.hideCart = obj.getBoolean("hideCart",true);
-
+          ret.externalContext = obj.getJSONObject("externalContext");
 
       } catch (Exception e) {
           e.printStackTrace();
