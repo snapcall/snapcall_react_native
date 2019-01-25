@@ -1,25 +1,25 @@
 PODS:
-  - Snapcall_Framework (5.2.0):
+  - Snapcall_Framework (5.3.0):
     - WebRTC (= 61.5.19063)
   - WebRTC (61.5.19063)
 
 DEPENDENCIES:
-  - Snapcall_Framework (from `https://github.com/snapcall/iOS_framework_release.git`, tag `5.2.0`)
+  - Snapcall_Framework (from `https://github.com/snapcall/snapcall_sdk_ios.git`, tag `5.3.0`)
 
 EXTERNAL SOURCES:
   Snapcall_Framework:
-    :git: https://github.com/snapcall/iOS_framework_release.git
-    :tag: 5.2.0
+    :git: https://github.com/snapcall/snapcall_sdk_ios.git
+    :tag: 5.3.0
 
 CHECKOUT OPTIONS:
   Snapcall_Framework:
-    :git: https://github.com/snapcall/iOS_framework_release.git
-    :tag: 5.2.0
+    :git: https://github.com/snapcall/snapcall_sdk_ios.git
+    :tag: 5.3.0
 
 SPEC CHECKSUMS:
-  Snapcall_Framework: b8a0903ee355ee66c17282b0b947b5e762e3084f
+  Snapcall_Framework: 0305a43fb14bff69e6a8b6ab572b47b10e58dcbb
   WebRTC: 141474ba648e0b940a70696c183451b4a3b2b10f
 
-PODFILE CHECKSUM: 584c88f539e76ac623fba8190d519696f9d6cf5b
+PODFILE CHECKSUM: 712262fafb598d4f85d2f051a69f85a63394d4d6
 
 COCOAPODS: 1.4.0

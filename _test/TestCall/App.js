@@ -43,13 +43,21 @@ type Props = {};
   parameter.iOS_AssetPathImage = "infob";
   parameter.iOS_AssetPathFont = "Roboto-Thin";
 
-  parameter.externalContext = {"Hello" : "snapcall"};
+  parameter.externalContext = {
+    fn :"pierre",
+    ln : "reactnative",
+    e : "hello@snapcall.io",
+    test : "test react native",
+    other : "check"
+
+  };
   // parameter.urlImage = "https://snapcall.io/assets/img/landing-transfertvoix.png";
   parameter.textColor = "#00FF00";
   parameter.backgroundColor = '#0000FF';
   parameter.hideCart = true;           // boolean to hide the cart in the call UI
   parameter.shouldReturn = true;
   var bid = "88b3d0f3a44311e78f9b0ae03a1ae33f";
+  var bidZendesk = "9522b6bbec8911e7b62e0611b42a59b4";
   var pickA;
 export default class App extends Component<Props> {
 
@@ -70,6 +78,15 @@ export default class App extends Component<Props> {
     var call = (  <Button
       onPress={this.launchcall}
       title="call"
+      color="#841584"
+      style={[appStyles.container]}
+      accessibilityLabel="Learn more about this purple button"
+      />
+    )
+
+    var callzendesk = (  <Button
+      onPress={this.launchcallZendesk}
+      title="call zendesk"
       color="#841584"
       style={[appStyles.container]}
       accessibilityLabel="Learn more about this purple button"
@@ -98,6 +115,8 @@ export default class App extends Component<Props> {
         <Text >{"\n"}</Text>
         {call}
         <Text >{"\n"}</Text>
+        {callzendesk}
+        <Text >{"\n"}</Text>
         {retrieve}
         <Text >{"\n"}</Text>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
@@ -124,6 +143,11 @@ export default class App extends Component<Props> {
   launchcall () {
 
     snapcall.launchCallBid(bid, parameter);
+  }
+
+  launchcallZendesk () {
+
+    snapcall.launchCallBid(bidZendesk, parameter);
   }
 }
 

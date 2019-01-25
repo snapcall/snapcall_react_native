@@ -2,8 +2,8 @@
 //  Snapcall_Framework.h
 //  Snapcall_Framework
 //
-//  Created by Noyelle on 31/07/2017.
-//  Copyright © 2017 Seampl. All rights reserved.
+//  Created by Noyelle on 17/01/2019.
+//  Copyright © 2019 Seampl. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
