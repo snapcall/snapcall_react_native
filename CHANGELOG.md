@@ -3,6 +3,11 @@
 
 ## Next Version
 
+# 1.1.0
+- externalContext is now a json object
+- context in zendesk format
+
+# 1.0.0
 - testApp with all parameter
 - eventName formated
 - BackgroundColor 
