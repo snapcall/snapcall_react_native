@@ -91,6 +91,8 @@ bool active = false;
 
 #define testVal(x) @try{ x }@catch(NSException * e ){printf("anErrorOccur\n");}
 #define checkNsNul(x) id obj = [results objectForKey: x]; if ([obj isKindOfClass:[NSString class]])
+#define checkDataNsNul(x) id obj = [results objectForKey: x]; if (obj != nil)
+
 @implementation RNSnapcallReact
 RCT_EXPORT_MODULE(RNSnapcallReact)
 
@@ -226,8 +228,10 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 })
 
         testVal(
-                checkNsNul(@"externalContext"){
-                    param.externalContext = obj;
+                checkDataNsNul(@"externalContext"){
+                  NSDictionary *dic = obj;
+                  NSMutableDictionary * parsedData  = [dic mutableCopy];
+                  param.externalContext = parsedData;
                 })
 
         testVal(
