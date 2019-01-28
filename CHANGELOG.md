@@ -2,6 +2,8 @@
 
 
 ## Next Version
+
+## 1.1.1
 - jcenter repository put at the end of build.graddle (conflict with google). see [issues](https://github.com/react-native-community/react-native-camera/issues/1875) in rn community
 
 # 1.1.0
