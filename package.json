@@ -22,7 +22,7 @@
   },
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.57.8"
+    "react-native": "0.59"
   },
   "nativePackage": true
 }
