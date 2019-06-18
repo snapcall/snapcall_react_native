@@ -9,6 +9,7 @@
   "files": [
       "README.md",
       "index.js",
+      "SnapcallListener.js",
       "android/",
       "ios/"
     ],
