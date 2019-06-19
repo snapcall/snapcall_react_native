@@ -35,15 +35,13 @@ export default class SnapcallBtn extends Component {
   }
 
   render() {
-    return this.html;
+    return (<Button
+      onPress={ios_onPress}
+      title={self.state.button}
+      color="#841584"
+      accessibilityLabel="Learn more about this purple button"
+      />);
   }
-
-  html = (<Button
-    onPress={ios_onPress}
-    title={self.state.button}
-    color="#841584"
-    accessibilityLabel="Learn more about this purple button"
-    />)
 
 
     click() {
