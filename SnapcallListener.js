@@ -2,68 +2,67 @@
 import { NativeModules, DeviceEventEmitter, NativeEventEmitter } from 'react-native';
 
 function onConnectionReady(parameter) {
-  console.log("onConnectionReady", parameter);
+
   callEvent("onConnectionReady", parameter)
 }
 
 function onCreated(parameter) {
-  console.log("onCreated", parameter);
+
   callEvent("onCreated", parameter)
 }
 
 function onRinging(parameter) {
-  console.log("onRinging", parameter);
+
   callEvent("onRinging", parameter)
 }
 
 function onAnswer(parameter) {
-  console.log("onAnswer", parameter);
+
   callEvent("onAnswer", parameter)
 }
 
 function onInternetDown(parameter) {
-  console.log("onInternetDown", parameter);
+
   callEvent("onInternetDown", parameter)
 }
 
 function onInternetUP(parameter) {
-  console.log("onInternetUP", parameter);
+
   callEvent("onInternetUP", parameter)
 }
 
 function onHangup(parameter) {
-  console.log("onHangup", parameter);
+
   callEvent("onHangup", parameter)
 }
 
 function onMuteChange(parameter) {
-  console.log("onMuteChange", parameter);
+
   callEvent("onMuteChange", parameter)
 }
 
 function onSpeakerChange(parameter) {
-  console.log("onSpeakerChange", parameter);
+
   callEvent("onSpeakerChange", parameter)
 }
 
 function onHeld(parameter) {
-  console.log("onHeld", parameter);
+
   callEvent("onHeld", parameter)
 }
 
 function onUnheld(parameter) {
-  console.log("onUnheld", parameter);
+
   callEvent("onUnheld", parameter)
 }
 
 function onTime(parameter) {
-  console.log("onTime", parameter, typeof parameter);
 
   callEvent("onTime", parameter)
 }
 
 function onConnectionShutDown() {
-  console.log("onConnectionShutDown");
+
   var i = 0;
   while  (i < eventListener["onConnectionShutDown"].length){
     eventListener["onConnectionShutDown"][i]();
@@ -73,16 +72,13 @@ function onConnectionShutDown() {
 
 function callEvent(eventName, parameter) {
   var eventObject = null;
-  console.log(parameter);
+
   if (typeof parameter.data == "string") {
-    console.log("detec")
      eventObject = JSON.parse(parameter.data) ;
   }
   else if (parameter) {
-    console.log("detec 2")
     eventObject = parameter.data
   }
-  console.log("event paramter :",  eventObject);
   var i = 0;
   while  (i < eventListener[eventName].length){
     eventListener[eventName][i](eventObject);
@@ -108,8 +104,9 @@ const eventListener = {
 };
 
 function getData(parameter) {
+
   if (parameter) {
-    const clientEvent = Json.parse(parameter);
+    const clientEvent = JSON.parse(parameter);
     return clientEvent.data;
   }
   return null;
