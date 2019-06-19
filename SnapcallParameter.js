@@ -18,7 +18,7 @@ export class SnapcallParameter {
 
   transformJsonParameter(obj) {
 
-    return JSON.stringify(snapcallParameter);
+    return JSON.stringify(obj);
   }
 
   constructor () {
