@@ -2,8 +2,7 @@
 import { NativeModules, Platform, DeviceEventEmitter, NativeEventEmitter, PermissionsAndroid, Image } from 'react-native';
 import { SnapcallListener } from './SnapcallListener'
 import React from 'react';
-const { RNSnapcallReact } = NativeModules;
-const Snapcall_Module = NativeModules.RNSnapcallReact;
+const snapcallModule = NativeModules.RNSnapcallReact;
 
 let os = Platform.OS === "ios" ? true : false; // identify the Platform
 /**
@@ -31,7 +30,7 @@ export class Snapcall {
       this function allow to bring to front the call ui when a call is processing.
     */
     restorCallUI() {
-      return Snapcall_Module.restorUI();
+      return snapcallModule.restorUI();
     }
 
     /**
@@ -42,36 +41,34 @@ export class Snapcall {
     */
     activeDefaultInterface(value) {
 
-      return Snapcall_Module.activeDefaultInterface(value);
+      return snapcallModule.activeDefaultInterface(value);
     }
     /**
       simply launch the call with the button identifier.
     **/
     launchCallBid(bid_id, parameter){
-      console.log("launchcall",parameter);
-      let st_param = parameter.transformJsonParameter(parameter);
-      console.log(st_param);
-      return Snapcall_Module.launchCallWithbidId(bid_id, st_param)
+      const st_param = parameter.transformJsonParameter(parameter);
+      return snapcallModule.launchCallWithbidId(bid_id, st_param)
     }
 
     /**
       launch the call with an identifier link to one user.
     **/
     launchCallWithIdentifier(bid_id, identifier,parameter){
-      let st_param = parameter.transformJsonParameter(parameter);
-      return Snapcall_Module.launchCallWithIdentifier(bid_id,identifier, st_param);
+      const st_param = parameter.transformJsonParameter(parameter);
+      return snapcallModule.launchCallWithIdentifier(bid_id,identifier, st_param);
     }
 
     /**
       Check if the button identifier allow to launch a call. If res is false the service is close (out of the shedule set on the back office).
     **/
     bidIsClosed(bid, cb){
-      return Snapcall_Module.bidIsClosed(bid);
+      return snapcallModule.bidIsClosed(bid);
     }
 
     getCurrentState() {
       return new Promise((resolve, reject)=> {
-        Snapcall_Module.getCurrentState().then((result)=>{
+        snapcallModule.getCurrentState().then((result)=>{
             if (!os) {
               resolve(JSON.parse(result));
             }else {
@@ -84,19 +81,19 @@ export class Snapcall {
     }
 
     rateLastCall(rate) {
-      return Snapcall_Module.rateLastCall(rate);
+      return snapcallModule.rateLastCall(rate);
     }
 
     mute() {
-      return Snapcall_Module.mute();
+      return snapcallModule.mute();
     }
 
     setSpeaker() {
-      return Snapcall_Module.setSpeaker();
+      return snapcallModule.setSpeaker();
     }
 
     hangup() {
-      return Snapcall_Module.hangup();
+      return snapcallModule.hangup();
     }
 
     /**
@@ -104,7 +101,7 @@ export class Snapcall {
     **/
     askForPermission(Androidreason, Androidmessage){
       if (os){
-        return Snapcall_Module.askPermission();
+        return snapcallModule.askPermission();
       }
       else{
         return PermissionsAndroid.request(
@@ -117,6 +114,6 @@ export class Snapcall {
       call this function in order to release the reference on snapcall so it can be free
     **/
     releaseSnapcall(){
-      Snapcall_Module.releaseSnapcall();
+      snapcallModule.releaseSnapcall();
     }
 }
