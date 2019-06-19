@@ -201,8 +201,10 @@ class SnapcallClientListener implements SCClientListener {
         if (call == null)
             return null;
         jsonCall.accumulate("callIdentifier", call.getCallIdentifier());
+        jsonCall.accumulate("held", call.isHeld());
         jsonCall.accumulate("agentMail", call.getAgentMail());
-        jsonCall.accumulate("callState", call.getCurrentCallState());
+        jsonCall.accumulate("transferred", call.isTransferred());
+        jsonCall.accumulate("calslState", call.getCurrentCallState());
         jsonCall.accumulate("date", call.getDate());
         jsonCall.accumulate("brand", call.getDisplayBrand());
         jsonCall.accumulate("name", call.getDisplayName());
