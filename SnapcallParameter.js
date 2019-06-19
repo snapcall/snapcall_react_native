@@ -18,19 +18,6 @@ export class SnapcallParameter {
 
   transformJsonParameter(obj) {
 
-    let snapcallParameter = {};
-    if (obj) {
-      let keys =  Object.keys(obj)
-      for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        if (os && typeof obj[key] == "boolean") {
-          snapcallParameter[key] = obj[key] == true ? "true" : "false";
-        }
-        else {
-          snapcallParameter[key] = obj[key]
-        }
-      }
-    }
     return JSON.stringify(snapcallParameter);
   }
 

@@ -162,11 +162,11 @@ RNSnapcallEventListener *snapcallListener;
                 })
 
         testVal(
-                BOOL shouldReturn = [[results valueForKey: @"shouldReturn"] compare:(@"true")] == NSOrderedSame ? true : false;
-                param.shouldReturn = shouldReturn;)
+                param.shouldReturn = [[results valueForKey: @"shouldReturn"] boolValue];
+                )
         testVal(
-                BOOL hideCart = [[results valueForKey: @"hideCart"] compare:(@"true")] == NSOrderedSame ? true : false;
-                param.hideCart = hideCart;)
+                param.hideCart = [[results valueForKey: @"hideCart"] boolValue];
+                )
 
     }
      }@catch(NSException * e){
