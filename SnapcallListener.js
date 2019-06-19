@@ -73,7 +73,7 @@ function onConnectionShutDown() {
 function callEvent(eventName, parameter) {
   var eventObject = null;
 
-  if (typeof parameter.data == "string") {
+  if (typeof parameter.data === "string") {
      eventObject = JSON.parse(parameter.data) ;
   }
   else if (parameter) {
