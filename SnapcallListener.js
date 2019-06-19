@@ -103,27 +103,6 @@ const eventListener = {
   "onConnectionShutDown": []
 };
 
-function getData(parameter) {
-
-  if (parameter) {
-    const clientEvent = JSON.parse(parameter);
-    return clientEvent.data;
-  }
-  return null;
-}
-function callEventListener(eventName, parameter) {
-
-  const data = getData(parameter);
-  var i = 0;
-
-  if (eventListener[eventName]) {
-    while (i < eventListener[eventName]) {
-      eventListener[eventName][i](data);
-      i++;
-    }
-  }
-}
-
 export class SnapcallListener {
 
   subscription = []

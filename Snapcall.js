@@ -114,6 +114,7 @@ export class Snapcall {
       call this function in order to release the reference on snapcall so it can be free
     **/
     releaseSnapcall(){
+      this.listener.release();
       snapcallModule.releaseSnapcall();
     }
 }

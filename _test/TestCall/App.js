@@ -42,7 +42,7 @@ type Props = {};
   parameter.textColor = "#00FF00";
   parameter.backgroundColor = '#0000FF';
   parameter.hideCart = true;           // boolean to hide the cart in the call UI
-  parameter.shouldReturn = false;
+  parameter.shouldReturn = true;
 
   var bid = "88b3d0f3a44311e78f9b0ae03a1ae33f";
   var bidZendesk = "0999b36e472111e997380ae222c5da84";
