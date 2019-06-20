@@ -20,7 +20,7 @@ RNSnapcallEventListener *snapcallListener;
 - (instancetype)init
 {
     self = [super init];
-    
+
     snapcallClient = [[SCClient alloc] init];
     snapcallListener = [[RNSnapcallEventListener alloc] init];
     if (snapcallListener != nil){
@@ -183,6 +183,7 @@ RCT_REMAP_METHOD(setSpeaker, setSpeakerWithResolve:(RCTPromiseResolveBlock)resol
     [snapcallClient setSpeakerAndReturnError: &error];
     if (error != nil){
         reject(@"-1", @"failed to call hangup", error);
+        return ;
     }
     resolve(@YES);
 }
@@ -193,6 +194,7 @@ RCT_REMAP_METHOD(mute, muteWithResolve:(RCTPromiseResolveBlock)resolve rejecter:
     [snapcallClient muteAndReturnError: &error];
     if (error != nil){
         reject(@"-1", @"failed to call hangup", error);
+        return ;
     }
     resolve(@YES);
 }
@@ -203,6 +205,7 @@ RCT_REMAP_METHOD(hangup, hangupWithResolve:(RCTPromiseResolveBlock)resolve rejec
     [snapcallClient hangupAndReturnError: &error ];
     if (error != nil){
         reject(@"-1", @"failed to call hangup", error);
+        return ;
     }
     resolve(@YES);
 }
@@ -220,7 +223,7 @@ RCT_REMAP_METHOD(bidIsClosed,bid: (NSString *)bidID resolve:(RCTPromiseResolveBl
         if (!res){
             reject(@"-1", @"bad format", nil);
         }
-            
+
     }@catch(NSException *e){
         reject(e.reason, e.description, nil);
     }

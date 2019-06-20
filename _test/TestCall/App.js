@@ -236,6 +236,10 @@ export default class App extends Component<Props> {
 
   }
 
+  hangup() {
+    snapcall.hangup().then(console.log).catch(console.log);
+  }
+
   render() {
     const call = createButton(this.launchcall, "call", colorDefault, [appStyles.container]);
     const callzendesk = createButton(this.launchcallZendesk, "call zendesk", colorDefault, [appStyles.container]);
@@ -251,7 +255,7 @@ export default class App extends Component<Props> {
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
       {createButton(snapcall.mute, this.state.textMute, colorDefault, [appStyles.container])}
       <Text>{" "}</Text>
-      {createButton(snapcall.hangup, "hangup", colorDefault, [appStyles.container])}
+      {createButton(this.hangup, "hangup", colorDefault, [appStyles.container])}
       <Text>{" "}</Text>
       {createButton(snapcall.setSpeaker, this.state.textSpeaker, colorDefault, [appStyles.container])}
       </View>
