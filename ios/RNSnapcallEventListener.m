@@ -68,7 +68,7 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 
         if (call != nil) {
             callParameter = @{
-                            @"isTransferred": [call isTransferred] ? @YES : @NO,
+                            @"transferred": [call isTransferred] ? @YES : @NO,
                             @"displayName": [self preventNilForValue:[call getDisplayName]],
                             @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
                             @"callState": state,

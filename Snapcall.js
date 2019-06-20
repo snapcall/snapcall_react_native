@@ -67,7 +67,7 @@ export class Snapcall {
     /**
       Check if the button identifier allow to launch a call. If res is false the service is close (out of the shedule set on the back office).
     **/
-    bidIsClosed(bid, cb){
+    bidIsClosed(bid){
       return snapcallModule.bidIsClosed(bid);
     }
 

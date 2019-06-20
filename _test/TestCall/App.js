@@ -26,10 +26,11 @@ type Props = {};
   parameter.displayName = "Hello";
   parameter.callTitle = "TestCall";
   parameter.androidResimage = "images_img2snapcall";
+  parameter.showBackButton = true;
   parameter.android_AssetPathFont = "fonts/snapcallfont.otf";
   parameter.iOS_AssetPathFont = "Roboto-Thin";
   parameter.iOS_AssetPathImage = "infob";
-  parameter.showBackButton = true;
+
   parameter.externalContext = {
     fn :"pierre",
     ln : "reactnative",
