@@ -11,7 +11,7 @@
 @implementation RNSnapcallEventListener
 
 objc_SCClientEvent *lastCall = nil;
-NSString *String *STATE_CREATED = @"STATE_CREATED";
+NSString *STATE_CREATED = @"STATE_CREATED";
 NSString *STATE_CONNECTED = @"STATE_CONNECTED";
 NSString *STATE_RECONNECT = @"STATE_RECONNECT";
 NSString *STATE_TERMINATED = @"STATE_TERMINATED";
@@ -47,18 +47,6 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 
 - (NSDictionary *) makeJSONEventWithEvent: (objc_SCClientEvent *)snapcallEvent {
     NSDictionary *ret = nil;
-    NSString *iosState = [call getCurrentCallState];
-    NSString *state = [NSNull null];
-    if (iosState != nil) {
-      if ([iosState isEqualToString:@"Disconnected"])
-        state = STATE_RECONNECT;
-      else if ([iosState isEqualToString:@"connected"])
-        state = STATE_CONNECTED;
-      else if ([iosState isEqualToString:@"Ended"])
-        state = STATE_TERMINATED;
-      else
-        state = STATE_CREATED;
-    }
 
     if (snapcallEvent != nil) {
         NSDictionary *callParameter = nil;
@@ -67,6 +55,18 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 
 
         if (call != nil) {
+          NSString *iosState = [call getCurrentCallState];
+          NSString *state = [NSNull null];
+          if (iosState != nil) {
+            if ([iosState isEqualToString:@"Disconnected"])
+              state = STATE_RECONNECT;
+            else if ([iosState isEqualToString:@"connected"])
+              state = STATE_CONNECTED;
+            else if ([iosState isEqualToString:@"Ended"])
+              state = STATE_TERMINATED;
+            else
+              state = STATE_CREATED;
+          }
             callParameter = @{
                             @"transferred": [call isTransferred] ? @YES : @NO,
                             @"displayName": [self preventNilForValue:[call getDisplayName]],
