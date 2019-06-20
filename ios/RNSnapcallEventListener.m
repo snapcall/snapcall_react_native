@@ -9,15 +9,21 @@
 #import "RNSnapcallEventListener.h"
 
 @implementation RNSnapcallEventListener
+
 objc_SCClientEvent *lastCall = nil;
+NSString *String *STATE_CREATED = @"STATE_CREATED";
+NSString *STATE_CONNECTED = @"STATE_CONNECTED";
+NSString *STATE_RECONNECT = @"STATE_RECONNECT";
+NSString *STATE_TERMINATED = @"STATE_TERMINATED";
+
 - (instancetype)init {
-    
+
     self = [super init];
     return self;
 }
 
 - (objc_SCClientEvent*)getLastCall {
-    
+
     return lastCall;
 }
 
@@ -33,21 +39,39 @@ objc_SCClientEvent *lastCall = nil;
     }
     return [NSNull null];
 }
+// Created" ` | the call has been created
+// `let DISCONNECTED: String = "Disconnected"` | an error has occurred we try to reconnect
+// `let RINGING: String = "RINGING"` | sound start, waiting for answer
+// `let CONNECTED: String = "connected"` | the call is running
+// `let ENDED: String = "Ended"` | the call hangup
 
 - (NSDictionary *) makeJSONEventWithEvent: (objc_SCClientEvent *)snapcallEvent {
     NSDictionary *ret = nil;
-    printf("make Event");
+    NSString *iosState = [call getCurrentCallState];
+    NSString *state = [NSNull null];
+    if (iosState != nil) {
+      if ([iosState isEqualToString:@"Disconnected"])
+        state = STATE_RECONNECT;
+      else if ([iosState isEqualToString:@"connected"])
+        state = STATE_CONNECTED;
+      else if ([iosState isEqualToString:@"Ended"])
+        state = STATE_TERMINATED;
+      else
+        state = STATE_CREATED;
+    }
+
     if (snapcallEvent != nil) {
         NSDictionary *callParameter = nil;
         objc_SCCall *call = [snapcallEvent getCall];
-        
-        
+
+
+
         if (call != nil) {
             callParameter = @{
                             @"isTransferred": [call isTransferred] ? @YES : @NO,
                             @"displayName": [self preventNilForValue:[call getDisplayName]],
                             @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
-                            @"callState": [self preventNilForValue:[call getCurrentCallState]],
+                            @"callState": state,
                             @"time": [NSNumber numberWithLong:[call getTime]],
                             @"startedDate": [self preventNilForValue:[call getStartedData]],
                             @"duration": [NSNumber numberWithLong:[call getDuration]],
@@ -107,7 +131,7 @@ objc_SCClientEvent *lastCall = nil;
 }
 
 - (void)onMessageWithCallID:(NSString * _Nonnull)callID message:(id _Nonnull)message {
-    
+
 }
 
 - (void)onMuteChange:(objc_SCClientEvent * _Nonnull)parameter {

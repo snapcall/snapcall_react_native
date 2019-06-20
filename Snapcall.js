@@ -10,6 +10,11 @@ let os = Platform.OS === "ios" ? true : false; // identify the Platform
  */
 export class Snapcall {
 
+    STATE_CREATED = "STATE_CREATED";
+    STATE_CONNECTED = "STATE_CONNECTED";
+    STATE_RECONNECT = "STATE_RECONNECT";
+    STATE_TERMINATED = "STATE_TERMINATED";
+
     listener =  new SnapcallListener(os)
 
     constructor() {
