@@ -142,7 +142,7 @@ class SnapcallClientListener implements SCClientListener {
 
     void onUserInterfaceRequest(SCClientEvent parameter) {
 
-        sendEvent("onUserInterfaceRequest", parameter);
+        sendEvent("onUIRequest", parameter);
     }
 
     /**

@@ -38,6 +38,13 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     private SCClient snapcallClient;
     private SimpleRequestBroadcastReceiver snapcallIntentListener;
     private SnapcallClientListener snapcallClientListener;
+    private static Intent customRestorInterfaceIntent = null;
+
+
+    public static void setCustomReloadIntent(Intent intent) {
+
+        customRestorInterfaceIntent = intent;
+    }
 
   private Snapcall_External_Parameter SEPFromJson(String json) {
 
@@ -337,6 +344,8 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     public void onRequestReceived(Intent value) {
 
         snapcallClientListener.onUserInterfaceRequest(snapcallClient.getCurrentState());
+        if (customRestorInterfaceIntent != null)
+            reactContext.startActivity(customRestorInterfaceIntent);
     }
 
     @Override

@@ -157,6 +157,10 @@ export default class App extends Component<Props> {
     this.onEvent(ev)
   }
 
+  onUIRequest(ev){
+    
+  }
+
   onHangup (e) {
 
     console.log("ontime" , e);
@@ -205,6 +209,7 @@ export default class App extends Component<Props> {
     this.onUnheld = this.onMuteChange.bind(this);
     this.onInternetUP = this.onMuteChange.bind(this);
     this.onInternetDown = this.onMuteChange.bind(this);
+    this.onUIRequest = this.onUIRequest.bind(this);
     this.render=this.render.bind(this);
 
     snapcall.addEventListener("onTime", this.onTime);

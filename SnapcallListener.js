@@ -61,6 +61,11 @@ function onTime(parameter) {
   callEvent("onTime", parameter)
 }
 
+function onUIRequest(parameter) {
+
+  callEvent("onUIRequest", parameter)
+}
+
 function onConnectionShutDown() {
 
   var i = 0;
@@ -97,6 +102,7 @@ const eventListener = {
   "onHangup": [],
   "onMuteChange": [],
   "onSpeakerChange": [],
+  "onUIRequest": [],
   "onHeld": [],
   "onUnheld": [],
   "onTime": [],
@@ -121,6 +127,7 @@ export class SnapcallListener {
     this.subscription.push(eventEmitter.addListener("onUnheld", onUnheld));
     this.subscription.push(eventEmitter.addListener("onMuteChange", onMuteChange));
     this.subscription.push(eventEmitter.addListener("onSpeakerChange", onSpeakerChange));
+    this.subscription.push(eventEmitter.addListener("onUIRequest", onUIRequest));
     this.subscription.push(eventEmitter.addListener("onTime", onTime));
     this.subscription.push(eventEmitter.addListener("onConnectionShutDown", onConnectionShutDown));
   }
