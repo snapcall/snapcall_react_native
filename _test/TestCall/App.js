@@ -194,8 +194,13 @@ export default class App extends Component<Props> {
     checkIfBIDIsEnabled("bce3ace3606711erandom20ae222c5da84", true, "wrong");
 
     snapcall.askForPermission("voip", "voip").then((res)=>{
+        console.log(res);
+        if (res == "denied")
+          console.log("permission refused");
+        if (res == "granted")
+          console.log("permission succes");
 
-        console.log("permission succes")
+
 
       }).catch(()=>{
         console.log("permission failed");

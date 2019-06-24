@@ -295,16 +295,15 @@ RCT_REMAP_METHOD(askPermission,permission:(RCTPromiseResolveBlock)resolve reject
     @try {
         [[Snapcall  getSnapcall] requestPermissionWithCallback:^(BOOL ret ) {
             if (ret) {
-                resolve(@YES);
+                resolve(@"granted");
             }
-            else{
-                reject(@"-1", @"microphone permission rejected", nil);
+            else {
+                resolve(@"denied");
             }
         }];
     } @catch(NSException *e){
         reject(e.reason, e.description, nil);
     }
-
 }
 
 RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
