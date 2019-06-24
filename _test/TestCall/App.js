@@ -30,17 +30,15 @@ type Props = {};
   parameter.android_AssetPathFont = "fonts/snapcallfont.otf";
   parameter.iOS_AssetPathFont = "Roboto-Thin";
   parameter.iOS_AssetPathImage = "infob";
-
   parameter.externalContext = {
     fn :"pierre",
     ln : "reactnative",
     e : "hello@snapcall.io",
     test : "test react native",
     other : "check"
-
   };
   // parameter.urlImage = "https://snapcall.io/assets/img/landing-transfertvoix.png";
-  parameter.textColor = "#00FF00";
+  parameter.textColor = "#FF0000";
   parameter.backgroundColor = '#0000FF';
   parameter.hideCart = true;           // boolean to hide the cart in the call UI
   parameter.shouldReturn = true;
@@ -199,7 +197,7 @@ export default class App extends Component<Props> {
           console.log("permission refused");
         if (res == "granted")
           console.log("permission succes");
-          
+
       }).catch(()=>{
         console.log("permission failed");
         });

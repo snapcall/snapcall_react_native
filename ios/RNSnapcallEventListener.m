@@ -88,7 +88,6 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
                             };
         ret = event;
     }
-    printf("make Event ended");
     return @{@"data":[self preventNilForValue: ret]};
 }
 
