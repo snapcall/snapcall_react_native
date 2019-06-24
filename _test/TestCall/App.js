@@ -199,9 +199,7 @@ export default class App extends Component<Props> {
           console.log("permission refused");
         if (res == "granted")
           console.log("permission succes");
-
-
-
+          
       }).catch(()=>{
         console.log("permission failed");
         });

@@ -31,7 +31,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Intent restor = new Intent(getApplicationContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        Intent restor = new Intent(getApplicationContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         RNSnapcallReactModule.setCustomReloadIntent(restor);
     }
 
@@ -41,4 +41,3 @@ public class MainActivity extends ReactActivity {
         RNSnapcallReactModule.setCustomReloadIntent(null);
     }
 }
-
