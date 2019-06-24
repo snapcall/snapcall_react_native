@@ -1,6 +1,6 @@
 {
   "name": "react-native-snapcall",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Easy Voip Call in RN",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "files": [
       "README.md",
       "index.js",
+      "Snapcall.js",
       "SnapcallParameter.js",
       "SnapcallListener.js",
       "android/",

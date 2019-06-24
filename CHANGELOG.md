@@ -3,7 +3,7 @@
 
 ## Next Version
 
-## 1.2.0
+## 1.2.1
 - add a return button on android if necessary.
 - You can now build your own User interface in react-native for a snapcall call.
 - update ios and android to latest snapcall release.
