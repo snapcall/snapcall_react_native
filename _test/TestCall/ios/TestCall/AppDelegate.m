@@ -14,6 +14,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  printf("number of image : %ld\n ",[[[NSBundle mainBundle] pathsForResourcesOfType:@"png" inDirectory:@"images"] count]);
   NSURL *jsCodeLocation;
 
   #ifdef DEBUG
@@ -21,7 +22,6 @@
   #else
     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   #endif
-
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TestCall"
                                                initialProperties:nil

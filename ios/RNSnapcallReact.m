@@ -2,99 +2,15 @@
 #import "RNSnapcallReact.h"
 #import <PushKit/PushKit.h>
 
-
-@implementation CallListener
-
-RCT_EXPORT_MODULE(CallListener);
-bool active = false;
-
--(instancetype)init{
-
-    self = [super init];
-    [[Snapcall getSnapcall] removeAllEventListener];
-    [[Snapcall getSnapcall] addEventListenerWithListener:self];
-    return (self);
-}
-
-
-+ (BOOL)requiresMainQueueSetup
-{
-    return YES;
-}
-
-
--(NSArray<NSString *> *)supportedEvents{
-     return @[@"onTime", @"onUIEnd", @"onCallEnd" , @"onUIStart", @"onError", @"onCallStart", @"onStart", @"onEnd"];
-}
--(void)onTimeWithTime:(NSInteger)time{
-
-    NSString * t = [NSString stringWithFormat:@"%ld", (long)time];
-
-    [self sendEventWithName:@"onTime" body:(id)t];
-}
-
--(void)onUIEnd{
-
-    [self sendEventWithName:@"onUIEnd" body:@"onUIEnd"];
-}
-
--(void)onCallEnd{
-
-    [self sendEventWithName:@"onCallEnd" body:@"onCallEnd"];
-}
-
--(void)onUIStart{
-
-    [self sendEventWithName:@"onUIStart" body:@"onUIStart"];
-}
-
-- (void)onErrorWithError:(NSString *)error{
-
-    [self sendEventWithName:@"onError" body:error];
-}
-
--(void)onCallStart{
-
-[self sendEventWithName:@"onCallStart" body:@"onCallStart"];
-}
-
--(void)onStart{
-
-    [self sendEventWithName:@"onStart" body:@"onStart"];
-}
-
--(void)onEnd{
-
-    [self sendEventWithName:@"onEnd" body:@"onEnd"];
-}
-
-- (void)startObserving{
-
-    active = true;
-    [super startObserving];
-}
-
-- (void)stopObserving{
-
-    active = false;
-    [super stopObserving];
-}
-
-- (void)sendEventWithName:(NSString *)name body:(id)body{
-
-    if (active){
-        [super sendEventWithName:name body:body];
-    }
-}
-//
-@end
-
 #define testVal(x) @try{ x }@catch(NSException * e ){printf("anErrorOccur\n");}
 #define checkNsNul(x) id obj = [results objectForKey: x]; if ([obj isKindOfClass:[NSString class]])
 #define checkDataNsNul(x) id obj = [results objectForKey: x]; if (obj != nil)
 
 @implementation RNSnapcallReact
 RCT_EXPORT_MODULE(RNSnapcallReact)
+
+SCClient *snapcallClient;
+RNSnapcallEventListener *snapcallListener;
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -104,6 +20,12 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
 - (instancetype)init
 {
     self = [super init];
+
+    snapcallClient = [[SCClient alloc] init];
+    snapcallListener = [[RNSnapcallEventListener alloc] init];
+    if (snapcallListener != nil){
+        [snapcallClient objc_setListenerWithListener:snapcallListener];
+    }
     return self;
 }
 
@@ -240,35 +162,75 @@ RCT_EXPORT_MODULE(RNSnapcallReact)
                 })
 
         testVal(
-                BOOL shouldReturn = [[results valueForKey: @"shouldReturn"] compare:(@"true")] == NSOrderedSame ? true : false;
-                param.shouldReturn = shouldReturn;)
+                param.shouldReturn = [[results valueForKey: @"shouldReturn"] boolValue];
+                )
         testVal(
-                BOOL hideCart = [[results valueForKey: @"hideCart"] compare:(@"true")] == NSOrderedSame ? true : false;
-                param.hideCart = hideCart;)
+                param.hideCart = [[results valueForKey: @"hideCart"] boolValue];
+                )
 
     }
      }@catch(NSException * e){
          printf("error\n");
          printf("%s\n", e.description);
-
          return param;
      }
     return param;
 }
+
+RCT_REMAP_METHOD(setSpeaker, setSpeakerWithResolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject ) {
+    NSError *error;
+
+    [snapcallClient setSpeakerAndReturnError: &error];
+    if (error != nil){
+        reject(@"-1", @"failed to call hangup", error);
+        return ;
+    }
+    resolve(@YES);
+}
+
+RCT_REMAP_METHOD(mute, muteWithResolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject ) {
+    NSError *error;
+
+    [snapcallClient muteAndReturnError: &error];
+    if (error != nil){
+        reject(@"-1", @"failed to call hangup", error);
+        return ;
+    }
+    resolve(@YES);
+}
+
+RCT_REMAP_METHOD(hangup, hangupWithResolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject ) {
+    NSError *error;
+
+    [snapcallClient hangupAndReturnError: &error ];
+    if (error != nil){
+        reject(@"-1", @"failed to call hangup", error);
+        return ;
+    }
+    resolve(@YES);
+}
+
+RCT_REMAP_METHOD(activeDefaultInterface, active: (BOOL)value resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+    Snapcall.defaultUserInterfaceOff = !value;
+    resolve(@YES);
+}
+
 RCT_REMAP_METHOD(bidIsClosed,bid: (NSString *)bidID resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     @try {
-        [[Snapcall getSnapcall] buttonIsClosedWithBid_id: bidID snapcallCallBack:^(BOOL res) {
+        bool res = [[Snapcall getSnapcall] buttonIsClosedWithBid_id: bidID snapcallCallBack:^(BOOL res) {
             resolve((res?@YES:@NO));
         }];
+        if (!res){
+            reject(@"-1", @"bad format", nil);
+        }
+
     }@catch(NSException *e){
         reject(e.reason, e.description, nil);
     }
 }
 
-RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
-{
+RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     @try {
-
        [self launchCallWithBidId:bidId parameter:[self SnapcallParamFromJSON:parameter]];
         resolve(@YES);
     }@catch(NSException * e){
@@ -330,21 +292,51 @@ RCT_REMAP_METHOD(restorUI,restor:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 
 RCT_REMAP_METHOD(askPermission,permission:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  @try{
-   if ([[Snapcall getSnapcall] requestPermission]){
-    resolve(@YES);
-  }else{
-    resolve(@NO);
-  }
-}@catch(NSException *e){
-    reject(e.reason, e.description, nil);
-}
-
+    @try {
+        [[Snapcall  getSnapcall] requestPermissionWithCallback:^(BOOL ret ) {
+            if (ret) {
+                resolve(@"granted");
+            }
+            else {
+                resolve(@"denied");
+            }
+        }];
+    } @catch(NSException *e){
+        reject(e.reason, e.description, nil);
+    }
 }
 
 RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     [Snapcall releaseSnapcall];
 
+}
+
+RCT_REMAP_METHOD(getCurrentState, getCurrentStateWithPromise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    NSError *err;
+    objc_SCClientEvent *currentState = [snapcallClient objc_getCurrentClientEventAndReturnError:(&err)];
+    if (err != nil) {
+        reject(@"-1", @"not connected", err);
+    }else {
+        resolve([snapcallListener makeJSONEventWithEvent:currentState]);
+    }
+}
+
+
+RCT_REMAP_METHOD(rateLastCall, rateLastCallWithRate: (NSInteger)rate  Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+    objc_SCClientEvent *call = [snapcallListener getLastCall];
+
+    [[Snapcall getSnapcall] rateCallWithCall:[call getCall] rate:rate requestCallBack:^(NSError *err, BOOL res) {
+        if (err != nil) {
+            reject(@"-1", @"bad paramter", err);
+        }
+        else if (res == false){
+            reject(@"-1", @"request failed", err);
+        }
+        else {
+            resolve(@YES);
+        }
+    }
+      ];
 }
 
 -(void)restorUI
@@ -362,8 +354,6 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
    [[Snapcall getSnapcall]receiveCallWithPushKitPayload:payload parameter:parameter];
 
 }
-
-
 
 -(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(Snapcall_External_Parameter*)parameter{
    [[Snapcall   getSnapcall]launchCallWithBidId:bidId applicationName:AppName customClientIdentifier:customIdentifier parameter:parameter];
@@ -394,7 +384,6 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
 -(bool)ActiveUserwithActive :(BOOL)active credential : (PKPushCredentials*)cred identifier:(NSString*)identifier customClientIdentifier:(NSString*)customId applicationName :(NSString*)appName callback:(void(^)(BOOL string))callback
 {
    return ([[Snapcall getSnapcall] setUserActiveWithActive:active credential:cred identifier:identifier customClientIdentifier:customId applicationName:appName snapcallCallBack:callback]);
-
 }
 
 @end

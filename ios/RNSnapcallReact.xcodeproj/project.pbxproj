@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094FAED222B1386D003B8A3F /* RNSnapcallEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 094FAED122B1386D003B8A3F /* RNSnapcallEventListener.m */; };
+		094FAED322B13889003B8A3F /* RNSnapcallEventListener.h in Sources */ = {isa = PBXBuildFile; fileRef = 094FAED022B13811003B8A3F /* RNSnapcallEventListener.h */; };
+		0953A51922B2B7E200B0153B /* RNSnapcallEmitEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0953A51822B2B7E100B0153B /* RNSnapcallEmitEvent.m */; };
 		09948A9C21E3A90400ED3C97 /* RNSnapcallReact.h in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5881CC2AC0600A0062D /* RNSnapcallReact.h */; };
 		B3E7B58A1CC2AC0600A0062D /* RNSnapcallReact.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */; };
 /* End PBXBuildFile section */
@@ -24,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		094FAED022B13811003B8A3F /* RNSnapcallEventListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNSnapcallEventListener.h; sourceTree = "<group>"; };
+		094FAED122B1386D003B8A3F /* RNSnapcallEventListener.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNSnapcallEventListener.m; sourceTree = "<group>"; };
+		0953A51822B2B7E100B0153B /* RNSnapcallEmitEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNSnapcallEmitEvent.m; sourceTree = "<group>"; };
+		0953A51A22B2B87A00B0153B /* RNSnapcallEmitEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNSnapcallEmitEvent.h; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libRNSnapcallReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSnapcallReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5881CC2AC0600A0062D /* RNSnapcallReact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSnapcallReact.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSnapcallReact.m; sourceTree = "<group>"; };
@@ -51,6 +58,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				0953A51A22B2B87A00B0153B /* RNSnapcallEmitEvent.h */,
+				0953A51822B2B7E100B0153B /* RNSnapcallEmitEvent.m */,
+				094FAED022B13811003B8A3F /* RNSnapcallEventListener.h */,
+				094FAED122B1386D003B8A3F /* RNSnapcallEventListener.m */,
 				B3E7B5881CC2AC0600A0062D /* RNSnapcallReact.h */,
 				B3E7B5891CC2AC0600A0062D /* RNSnapcallReact.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -96,6 +107,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
@@ -113,8 +125,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0953A51922B2B7E200B0153B /* RNSnapcallEmitEvent.m in Sources */,
+				094FAED322B13889003B8A3F /* RNSnapcallEventListener.h in Sources */,
 				09948A9C21E3A90400ED3C97 /* RNSnapcallReact.h in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNSnapcallReact.m in Sources */,
+				094FAED222B1386D003B8A3F /* RNSnapcallEventListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,16 +238,21 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"${PODS_ROOT}/**",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(inherited)/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
+					"${PODS_ROOT}/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"${PROJECT_DIR}/**",
+					"\"$(SRCROOT)/../../../ios/\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
@@ -244,16 +264,21 @@
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs",
+					"${PODS_ROOT}/**",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
+					"$(inherited)/**",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
+					"${PODS_ROOT}/**",
 					"$(SRCROOT)/../../react-native/React/**",
+					"${PROJECT_DIR}/**",
+					"\"$(SRCROOT)/../../../ios/\"/**",
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";

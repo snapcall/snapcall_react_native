@@ -9,18 +9,19 @@ buildscript {
             dirs 'libs'
         }
         jcenter()
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.4.1'
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-compileSdkVersion 27
-buildToolsVersion '27.0.3'
+compileSdkVersion 28
+buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 16
@@ -39,31 +40,47 @@ buildToolsVersion '27.0.3'
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 repositories {
     mavenCentral()
 }
 
-def urlFile = { url, name ->
-
+def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
+    Collection v = name.split(":")
+    if (v.size() != 2)
+        throw new GradleException("getGithubRelease: wrong aar name [name:release]")
+    String aarVersion = v.get(1)
+    String aarName = v.get(0)
+    String url = "https://github.com/${githubRepo}/releases/download/"
     File file = new File("$projectDir/libs/${name}.aar")
     if (!file.exists()) {
+        delete fileTree("$projectDir/libs/").matching { include "${aarName}*.aar" }
         file.parentFile.mkdirs()
-        if (!file.exists()) {
-            new URL(url).withInputStream { downloadStream ->
+        try {
+            new URL("${url}${aarVersion}/${aarName}.aar").withInputStream { downloadStream ->
                 file.withOutputStream { fileOut ->
                     fileOut << downloadStream
                 }
             }
+        } catch (Exception e) {
+            throw new GradleException("getGithubRelease: could not download aar file")
         }
     }
+    if (!file.exists())
+        throw new GradleException("getGithubRelease: could not find aar file")
     files(file.absolutePath)
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation urlFile('https://github.com/snapcall/snapcall_sdk_android/releases/download/2.2.0/snapcall_android_framework.aar', 'snapcall_android_framework')
 
+    implementation getGitHubRelease('snapcall_android_framework:2.3.9')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'org.webrtc:google-webrtc:1.0.27771'
+    implementation "com.facebook.react:react-native:+"
 }

@@ -9,6 +9,8 @@
   "files": [
       "README.md",
       "index.js",
+      "SnapcallParameter.js",
+      "SnapcallListener.js",
       "android/",
       "ios/"
     ],
@@ -22,7 +24,7 @@
   },
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.57.8"
+    "react-native": "0.59"
   },
   "nativePackage": true
 }

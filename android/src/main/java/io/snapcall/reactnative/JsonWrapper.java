@@ -10,6 +10,7 @@ public class JsonWrapper extends JSONObject {
         super(json);
     }
 
+
     public boolean getBoolean(String name, Boolean defaultVal)  {
         try {
             return super.getBoolean(name);
@@ -36,4 +37,13 @@ public class JsonWrapper extends JSONObject {
             return  defaultVal;
         }
     }
+
+    public JsonWrapper getJsonObject(String name, JsonWrapper defaultVal)  {
+        try {
+            return new JsonWrapper(super.getJSONObject(name).toString());
+        }catch (Exception e){
+            return  defaultVal;
+        }
+    }
+
 }
