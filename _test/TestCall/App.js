@@ -158,7 +158,7 @@ export default class App extends Component<Props> {
   }
 
   onUIRequest(ev){
-    
+
   }
 
   onHangup (e) {
@@ -193,7 +193,13 @@ export default class App extends Component<Props> {
     checkIfBIDIsEnabled("bce3ace3606711e993320ae222c5da84", true, "inactive");
     checkIfBIDIsEnabled("bce3ace3606711erandom20ae222c5da84", true, "wrong");
 
-    snapcall.askForPermission("voip", "voip");
+    snapcall.askForPermission("voip", "voip").then((res)=>{
+
+        console.log("permission succes")
+
+      }).catch(()=>{
+        console.log("permission failed");
+        });
     console.log("construct");
     super(Props);
     this.setTimer = this.setTimer.bind(this);

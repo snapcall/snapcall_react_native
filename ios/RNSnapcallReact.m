@@ -292,15 +292,18 @@ RCT_REMAP_METHOD(restorUI,restor:(RCTPromiseResolveBlock)resolve rejecter:(RCTPr
 
 RCT_REMAP_METHOD(askPermission,permission:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
-  @try{
-   if ([[Snapcall getSnapcall] requestPermission]){
-    resolve(@YES);
-  }else{
-    resolve(@NO);
-  }
-}@catch(NSException *e){
-    reject(e.reason, e.description, nil);
-}
+    @try {
+        [[Snapcall  getSnapcall] requestPermissionWithCallback:^(BOOL ret ) {
+            if (ret) {
+                resolve(@YES);
+            }
+            else{
+                reject(@"-1", @"microphone permission rejected", nil);
+            }
+        }];
+    } @catch(NSException *e){
+        reject(e.reason, e.description, nil);
+    }
 
 }
 
