@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
 
   s.preserve_paths = 'LICENSE', 'README.md', 'package.json', 'index.js', 'SnapcallListener.js', 'SnapcallParameter.js', 'Snapcall.js' 
   s.source_files   = 'ios/*.{h,m}'
+  s.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${SRCROOT}/Snapcall_Framework"' }
 
   s.dependency 'React'
   s.dependency 'Snapcall_Framework', '5.4.3'
