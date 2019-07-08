@@ -52,6 +52,7 @@ repositories {
 
 def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
     Collection v = name.split(":")
+    name = v.get(0) + "_" + v.get(1)
     if (v.size() != 2)
         throw new GradleException("getGithubRelease: wrong aar name [name:release]")
     String aarVersion = v.get(1)
