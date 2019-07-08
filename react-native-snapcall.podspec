@@ -6,11 +6,11 @@ Pod::Spec.new do |s|
   s.name           = 'react-native-twilio-video-webrtc'
   s.version        = package['version']
   s.summary        = package['description']
-  s.description    = package['description']
+  s.description    = "add voip call feature to your react native app"
   s.license        = package['license']
   s.author         = package['author']
-  s.homepage       = package['homepage']
-  s.source         = { git: 'https://github.com/snapcall/snapcall_react_native', tag: s.version }
+  s.homepage       = "snapcall.io"
+  s.source         = { git: 'https://github.com/snapcall/snapcall_react_native.git', tag: s.version }
 
   s.platform       = :ios, '8.0'
 
