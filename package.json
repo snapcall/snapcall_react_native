@@ -13,7 +13,8 @@
       "SnapcallParameter.js",
       "SnapcallListener.js",
       "android/",
-      "ios/"
+      "ios/",
+      "react-native-snapcall.podspec"
     ],
   "keywords": [
     "react-native"
