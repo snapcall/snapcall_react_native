@@ -48,10 +48,12 @@ buildToolsVersion '28.0.3'
 
 repositories {
     mavenCentral()
+    google()
 }
 
 def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
     Collection v = name.split(":")
+    name = v.get(0) + "_" + v.get(1)
     if (v.size() != 2)
         throw new GradleException("getGithubRelease: wrong aar name [name:release]")
     String aarVersion = v.get(1)
@@ -79,7 +81,7 @@ def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
 dependencies {
 
     implementation getGitHubRelease('snapcall_android_framework:2.3.10')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'org.webrtc:google-webrtc:1.0.27771'
     implementation "com.facebook.react:react-native:+"

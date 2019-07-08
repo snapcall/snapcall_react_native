@@ -1,6 +1,6 @@
 {
   "name": "react-native-snapcall",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Easy Voip Call in RN",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,12 @@
   "files": [
       "README.md",
       "index.js",
+      "Snapcall.js",
       "SnapcallParameter.js",
       "SnapcallListener.js",
       "android/",
-      "ios/"
+      "ios/",
+      "react-native-snapcall.podspec"
     ],
   "keywords": [
     "react-native"
@@ -24,7 +26,7 @@
   },
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.59"
+    "react-native": "0.60"
   },
   "nativePackage": true
 }

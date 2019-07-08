@@ -3,7 +3,7 @@
 #import "React/RCTEventEmitter.h"
 
 #import <PushKit/PushKit.h>
-#import "Snapcall_Framework/Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
+#import "Snapcall_Framework.framework/Headers/Snapcall_Framework-Swift.h"
 #import "RNSnapcallEventListener.h"
 
 @interface RNSnapcallReact : NSObject  <RCTBridgeModule>

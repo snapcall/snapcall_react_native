@@ -7,10 +7,9 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import io.snapcall.snapcall_android_framework.SCCall;
 import io.snapcall.snapcall_android_framework.SCClient;

@@ -3,6 +3,11 @@
 
 ## Next Version
 
+## 1.2.2
+- update to react native 0.60 , introducing auto link, androidX, and cocoapod by default
+- update android native sdk
+
+## 1.2.1
 ## 1.2.0
 - add a return button on android if necessary.
 - You can now build your own User interface in react-native for a snapcall call.
