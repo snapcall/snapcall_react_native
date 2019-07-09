@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.8.6",
     "react-native": "0.60.0",
-    "react-native-snapcall": "snapcall/snapcall_react_native#feature/react-native60"
+    "react-native-snapcall": "1.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
