@@ -9,8 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import io.snapcall.snapcall_android_framework.SCCall;
 import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
@@ -31,7 +29,7 @@ class SnapcallClientListener implements SCClientListener {
         context = null;
     }
 
-    private void sendEvent(String eventName, @Nullable SCClientEvent event) {
+    private void sendEvent(String eventName, SCClientEvent event) {
         try {
             Log.d(TAG, String.format("event Name : %s ", eventName));
             final WritableMap params = Arguments.createMap();

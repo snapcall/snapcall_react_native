@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import android.util.Log;
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -299,7 +297,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
     }
 
-    public void receiveCall(@NonNull Context context, Map message , @Nullable Snapcall_External_Parameter parameter) throws Exception {
+    public void receiveCall(Context context, Map message , Snapcall_External_Parameter parameter) throws Exception {
       try {
           Snapcall.getInstance().receiveCall(context, message,parameter);
       } catch(Exception e){
@@ -308,7 +306,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void receiveCall(String JsonMessage , @Nullable Snapcall_External_Parameter parameter, final Promise promise) throws Exception {
+    public void receiveCall(String JsonMessage , Snapcall_External_Parameter parameter, final Promise promise) throws Exception {
         try {
 
             JsonWrapper obj;
