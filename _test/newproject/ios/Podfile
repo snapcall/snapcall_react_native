@@ -1,0 +1,29 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'newproject' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for newproject
+pod 'Snapcall_Framework', :git => 'https://github.com/snapcall/snapcall_sdk_ios.git', :tag => '5.4.3'
+
+  target 'newprojectTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'newproject-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for newproject-tvOS
+
+  target 'newproject-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
