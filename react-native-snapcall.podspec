@@ -14,9 +14,9 @@ Pod::Spec.new do |s|
 
   s.platform       = :ios, '8.0'
 
-  s.preserve_paths = 'LICENSE', 'README.md', 'package.json', 'index.js', 'SnapcallListener.js', 'SnapcallParameter.js', 'Snapcall.js' 
+  s.preserve_paths = 'LICENSE', 'README.md', 'package.json', 'index.js', 'SnapcallListener.js', 'SnapcallParameter.js', 'Snapcall.js'
   s.source_files   = 'ios/*.{h,m}'
   s.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${SRCROOT}/Snapcall_Framework"' }
 
-  s.dependency 'Snapcall_Framework', '5.4.3'
+  s.dependency 'Snapcall_Framework', '5.5.1'
 end
