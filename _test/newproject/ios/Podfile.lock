@@ -1,10 +1,10 @@
 PODS:
   - iOSWebRTCFramework (76)
-  - Snapcall_Framework (5.5.1):
+  - Snapcall_Framework (5.5.2):
     - iOSWebRTCFramework (= 76)
 
 DEPENDENCIES:
-  - Snapcall_Framework (from `https://github.com/snapcall/snapcall_sdk_ios.git`, tag `5.5.1`)
+  - Snapcall_Framework (from `https://github.com/snapcall/snapcall_sdk_ios.git`, tag `5.5.2`)
 
 SPEC REPOS:
   trunk:
@@ -13,17 +13,17 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Snapcall_Framework:
     :git: https://github.com/snapcall/snapcall_sdk_ios.git
-    :tag: 5.5.1
+    :tag: 5.5.2
 
 CHECKOUT OPTIONS:
   Snapcall_Framework:
     :git: https://github.com/snapcall/snapcall_sdk_ios.git
-    :tag: 5.5.1
+    :tag: 5.5.2
 
 SPEC CHECKSUMS:
   iOSWebRTCFramework: 25265e49cdb3cf768798657a69205224833fa447
-  Snapcall_Framework: 6c2b22b00e3b48e97804c8e94d043970e2bcfe00
+  Snapcall_Framework: 4c8fe59c276e321bcb475c466990cb42d17e4c62
 
-PODFILE CHECKSUM: ecb2478353abac39f80a19ba7a24263d19f8669f
+PODFILE CHECKSUM: ed50a28d52b5f29538e8ecde6875f20a6087d0f6
 
 COCOAPODS: 1.8.1
