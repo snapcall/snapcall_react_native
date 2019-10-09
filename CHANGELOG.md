@@ -4,7 +4,7 @@
 ## Next Version
 
 ## 1.2.3
-
+- media connection issue fixed.
 - update for xcode 11 and ios 13.
 
 ## 1.2.2
