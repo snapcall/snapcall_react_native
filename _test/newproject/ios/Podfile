@@ -6,7 +6,7 @@ target 'newproject' do
   # use_frameworks!
 
   # Pods for newproject
-pod 'Snapcall_Framework', :git => 'https://github.com/snapcall/snapcall_sdk_ios.git', :tag => '5.4.3'
+pod 'Snapcall_Framework', :git => 'https://github.com/snapcall/snapcall_sdk_ios.git', :tag => '5.5.2'
 
   target 'newprojectTests' do
     inherit! :search_paths
