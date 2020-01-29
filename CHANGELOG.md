@@ -2,6 +2,10 @@
 
 
 ## Next Version
+
+## 2.0.1
+- fixed a bug that prevent to compile when calling swift from objective c for a simulator. 
+
 ## 2.0.0
 - update ios and android snapcall lib to latest
 - snapcall for react native >  0.60
