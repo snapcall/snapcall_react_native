@@ -7,26 +7,26 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-      "README.md",
-      "index.js",
-      "Snapcall.js",
-      "SnapcallParameter.js",
-      "SnapcallListener.js",
-      "android/",
-      "ios/",
-      "react-native-snapcall.podspec"
-    ],
+    "README.md",
+    "index.js",
+    "Snapcall.js",
+    "SnapcallParameter.js",
+    "SnapcallListener.js",
+    "android/",
+    "ios/",
+    "react-native-snapcall.podspec"
+  ],
   "keywords": [
     "react-native"
   ],
   "author": "noyelle.pierre@gmail.com",
   "repository": {
-     "type": "git",
-     "url": "https://github.com/snapcall/snapcall_react_native.git"
+    "type": "git",
+    "url": "https://github.com/snapcall/snapcall_react_native.git"
   },
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.61"
+    "react-native": "0.64"
   },
   "nativePackage": true
 }

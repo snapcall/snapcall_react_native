@@ -9,10 +9,10 @@
 #import "RNSnapcallEmitEvent.h"
 #import <Foundation/Foundation.h>
 
-@interface RNSnapcallEventListener : NSObject <objc_SCClientListener>
+@interface RNSnapcallEventListener : NSObject <SCClientListenerObjC>
 
-- (objc_SCClientEvent*)getLastCall;
-- (NSDictionary *) makeJSONEventWithEvent: (objc_SCClientEvent *)snapcallEvent;
+- (SCClientEventObjC*)getLastCall;
+- (NSDictionary *) makeJSONEventWithEvent: (SCClientEventObjC *)snapcallEvent;
 - (instancetype)init;
 
 @end
