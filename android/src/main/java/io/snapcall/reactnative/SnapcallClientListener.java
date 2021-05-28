@@ -11,6 +11,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import io.snapcall.snapcall_android_framework.CallError;
 import io.snapcall.snapcall_android_framework.SCCall;
 import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
@@ -106,6 +107,26 @@ class SnapcallClientListener implements SCClientListener {
     public void onTime(SCClientEvent parameter) {
 
         sendEvent("onTime", parameter);
+    }
+
+    @Override
+    public void onRemoteVideoInfo(SCClientEvent scClientEvent) {
+
+    }
+
+    @Override
+    public void onUnhook(SCClientEvent scClientEvent) {
+
+    }
+
+    @Override
+    public void onError(CallError callError) {
+
+    }
+
+    @Override
+    public void onAgentConnected(String s) {
+
     }
 
     @Override

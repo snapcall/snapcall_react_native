@@ -23,10 +23,14 @@ import org.json.JSONObject;
 
 import java.util.Map;
 import java.util.Random;
+
+import io.snapcall.snapcall_android_framework.Agent.Agent;
+import io.snapcall.snapcall_android_framework.Partner.PartnerInterface;
 import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
 import io.snapcall.snapcall_android_framework.SCLogger;
 import io.snapcall.snapcall_android_framework.Snapcall;
+import io.snapcall.snapcall_android_framework.SnapcallExternalParameter;
 import io.snapcall.snapcall_android_framework.Snapcall_External_Parameter;
 
 public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements SimpleRequestBroadcastReceiver.onRequestReceived {
@@ -46,6 +50,10 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     public static void setCustomReloadIntent(Intent intent) {
 
         customRestorInterfaceIntent = intent;
+    }
+
+    private SnapcallExternalParameter externalParameterFromJson(String json) {
+        return  (SnapcallExternalParameter)SEPFromJson(json);
     }
 
   private Snapcall_External_Parameter SEPFromJson(String json) {
@@ -77,9 +85,10 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
           ret.pushTransfertData = obj.getString("pushTransfertData", null);
           ret.senderBrand = obj.getString("senderBrand", null);
           ret.senderName = obj.getString("senderName", null);
-          ret.hideCart = obj.getBoolean("hideCart",true);
           ret.externalContext = obj.getJsonObject("externalContext", null);
-          ret.shouldReturn = obj.getBoolean("shouldReturn", true);
+          ret.showBackButton = obj.getBoolean("shouldReturn", true);
+          ret.persistentAgent = obj.getBoolean("persistentAgent", true);
+          ret.video = obj.getBoolean("video", false);
           String resImage = obj.getString("androidResimage", null);
           if (resImage != null)
             ret.setResImage(resImage, reactContext.getApplicationContext().getPackageName()) ;
@@ -320,6 +329,73 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
         }
     }
+
+    @ReactMethod
+    public void setApiCredentials(String apiKey) {
+        Snapcall.getInstance().setApiCredentials(apiKey);
+    }
+
+    @ReactMethod
+    public void connectAgent(String agent, String snapcallExternalJson, final Promise promise) {
+        SEPFromJson(snapcallExternalJson);
+        Snapcall.getInstance().getAgent(agent, (Exception err, Agent a) -> {
+            if (a != null) {
+                Snapcall.getInstance().connectAgent(reactContext, a, SEPFromJson(snapcallExternalJson));
+                promise.resolve(a.getAgentMail());
+
+            } else {
+                promise.reject(err);
+            }
+        });
+    }
+
+     @ReactMethod
+     public void  connectPartnerAgent(int id, String agent,  String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().connectPartnerAgent(reactContext, id, agent, externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
+            promise.resolve(agent);
+        });
+     }
+
+    @ReactMethod
+    public void  sendPartnerCallInvitation(int id, String chatID, String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext, id, chatID, (Exception err, Boolean result) -> {
+            if (err != null) {
+                promise.reject(err);
+            } else {
+                promise.resolve(result);
+            }
+        });
+    }
+
+
+    @ReactMethod
+    public void  sendPartnerCallInvitation(int id, String agent, String chatID, String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext, id, agent, chatID, externalParameterFromJson(snapcallExternalJson), new PartnerInterface() {
+            @Override
+            public void onAgentCreated(Agent agent) {
+                // ignore
+            }
+
+            @Override
+            public void onCallingCartSent() {
+                promise.resolve(agent);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                promise.reject(e);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void disconnect() {
+        Snapcall.getInstance().disconnect(reactContext);
+    }
+
+
+
+
 
     private void releaseSnapcallInternal() {
 
