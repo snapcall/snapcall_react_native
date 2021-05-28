@@ -39,7 +39,7 @@ export class SnapcallParameter {
     this.pushTransfertData = null;  // If app to app call the data to transfert directly to the other application
     this.senderBrand = null;        // if app to app call the brand to send to the other application
     this.senderName = null;         // if app to app call the name to send to the other application
-    this.hideCart = true;           // boolean to hide the cart in the call UI
+    this.video = null; //activate video
     this.shouldReturn = false;      // boolean if false your user will not be able to navigate on your app during the call
     this.androidResimage = null; // image name in your res folder without extension.
   }

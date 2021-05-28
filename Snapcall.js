@@ -64,6 +64,51 @@ export class Snapcall {
       return snapcallModule.launchCallWithIdentifier(bid_id,identifier, st_param);
     }
 
+    setApiCredentials(apiKey) {
+      if (!os) {
+        return snapcallModule.setApiCredentials(apiKey);
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+
+    connectAgent(agent, param) {
+      if (!os) {
+        return snapcallModule.connectAgent(agent, param.transformJsonParameter(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+    
+    connectPartnerAgent(id, agent, param) {
+      if (!os) {
+        return snapcallModule.connectPartnerAgent(id, agent, param.transformJsonParameter(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+
+    sendPartnerCallInvitation(id, agent, chatID,  param) {
+      if (!os) {
+        return snapcallModule.connectPartnerAgent(id, agent, chatID,  param.transformJsonParameter(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }  
+    
+    sendPartnerCall(id, chatID, param) {
+      if (!os) {
+        return snapcallModule.connectPartnerAgent(id, chatID,  param.transformJsonParameter(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }  
+
     /**
       Check if the button identifier allow to launch a call. If res is false the service is close (out of the shedule set on the back office).
     **/
