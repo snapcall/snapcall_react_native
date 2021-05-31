@@ -27,7 +27,7 @@ export class Snapcall {
     }
 
     /** add listener from snapcall event */
-    addEventListener(eventName, _function){
+    addEventListener(eventName, _function) {
       this.listener.addEventListener(eventName, _function)
     }
 
@@ -45,22 +45,21 @@ export class Snapcall {
      @param boolean false to active
     */
     activeDefaultInterface(value) {
-
       return snapcallModule.activeDefaultInterface(value);
     }
     /**
       simply launch the call with the button identifier.
     **/
-    launchCallBid(bid_id, parameter){
-      const st_param = parameter.transformJsonParameter(parameter);
+    launchCallBid(bid_id, parameter) {
+      const st_param = JSON.stringify(parameter);
       return snapcallModule.launchCallWithbidId(bid_id, st_param)
     }
 
     /**
       launch the call with an identifier link to one user.
     **/
-    launchCallWithIdentifier(bid_id, identifier,parameter){
-      const st_param = parameter.transformJsonParameter(parameter);
+    launchCallWithIdentifier(bid_id, identifier,parameter) {
+      const st_param = JSON.stringify(parameter);
       return snapcallModule.launchCallWithIdentifier(bid_id,identifier, st_param);
     }
 
@@ -68,14 +67,11 @@ export class Snapcall {
       if (!os) {
         return snapcallModule.setApiCredentials(apiKey);
       }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
     }
 
     connectAgent(agent, param) {
       if (!os) {
-        return snapcallModule.connectAgent(agent, param.transformJsonParameter(param));
+        return snapcallModule.connectAgent(agent, JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
@@ -84,7 +80,7 @@ export class Snapcall {
     
     connectPartnerAgent(id, agent, param) {
       if (!os) {
-        return snapcallModule.connectPartnerAgent(id, agent, param.transformJsonParameter(param));
+        return snapcallModule.connectPartnerAgent(id, agent, JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
@@ -93,7 +89,7 @@ export class Snapcall {
 
     sendPartnerCallInvitation(id, agent, chatID,  param) {
       if (!os) {
-        return snapcallModule.connectPartnerAgent(id, agent, chatID,  param.transformJsonParameter(param));
+        return snapcallModule.sendPartnerCallInvitation(id, agent, chatID,  JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
@@ -102,12 +98,21 @@ export class Snapcall {
     
     sendPartnerCall(id, chatID, param) {
       if (!os) {
-        return snapcallModule.connectPartnerAgent(id, chatID,  param.transformJsonParameter(param));
+        return snapcallModule.connectPartnerAgent(id, chatID,  JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
       });
-    }  
+    }
+
+    disconnect() {
+      if (!os) {
+        return snapcallModule.disconnect();
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
 
     /**
       Check if the button identifier allow to launch a call. If res is false the service is close (out of the shedule set on the back office).
