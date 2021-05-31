@@ -4,7 +4,8 @@
   "description": "Easy Voip Call in RN",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ext .js ./"
   },
   "files": [
     "README.md",
@@ -27,6 +28,12 @@
   "license": "custom",
   "peerDependencies": {
     "react-native": "0.64"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-native": "^3.11.0"
   },
   "nativePackage": true
 }
