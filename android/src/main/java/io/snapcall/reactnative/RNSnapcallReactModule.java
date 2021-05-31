@@ -48,7 +48,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
 
     public static void setCustomReloadIntent(Intent intent) {
-
         customRestorInterfaceIntent = intent;
     }
 
@@ -58,7 +57,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
   private Snapcall_External_Parameter SEPFromJson(String json) {
 
-      Snapcall_External_Parameter ret = new Snapcall_External_Parameter();
+      SnapcallExternalParameter ret = new SnapcallExternalParameter();
       JsonWrapper obj;
 
       try {
@@ -351,14 +350,14 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
      @ReactMethod
      public void  connectPartnerAgent(int id, String agent,  String snapcallExternalJson, final Promise promise) {
-        Snapcall.getInstance().connectPartnerAgent(reactContext, id, agent, externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
+        Snapcall.getInstance().connectPartnerAgent(reactContext.getCurrentActivity(), id, agent, externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
             promise.resolve(agent);
         });
      }
 
     @ReactMethod
     public void  sendPartnerCallInvitation(int id, String chatID, String snapcallExternalJson, final Promise promise) {
-        Snapcall.getInstance().sendPartnerCallInvitation(reactContext, id, chatID, (Exception err, Boolean result) -> {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext.getCurrentActivity(), id, chatID, (Exception err, Boolean result) -> {
             if (err != null) {
                 promise.reject(err);
             } else {
@@ -370,7 +369,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void  sendPartnerCallInvitation(int id, String agent, String chatID, String snapcallExternalJson, final Promise promise) {
-        Snapcall.getInstance().sendPartnerCallInvitation(reactContext, id, agent, chatID, externalParameterFromJson(snapcallExternalJson), new PartnerInterface() {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext.getCurrentActivity(), id, agent, chatID, externalParameterFromJson(snapcallExternalJson), new PartnerInterface() {
             @Override
             public void onAgentCreated(Agent agent) {
                 // ignore
@@ -392,10 +391,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     public void disconnect() {
         Snapcall.getInstance().disconnect(reactContext);
     }
-
-
-
-
 
     private void releaseSnapcallInternal() {
 

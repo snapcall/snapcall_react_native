@@ -16,6 +16,7 @@ import io.snapcall.snapcall_android_framework.SCCall;
 import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
 import io.snapcall.snapcall_android_framework.SCClientListener;
+import io.snapcall.snapcall_android_framework.VideoInfo;
 
 class SnapcallClientListener implements SCClientListener {
 
@@ -39,6 +40,24 @@ class SnapcallClientListener implements SCClientListener {
             params.putString("event", eventName);
             if (event != null) {
                 params.putString("data", convertSCClientEventToJSONString(event));
+            }
+            if (context != null) {
+                context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit(eventName, params);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void sendEvent(String eventName, @Nullable String data) {
+        try {
+            Log.d(TAG, String.format("event Name : %s ", eventName));
+            Log.d(TAG, String.format("event Name : %s ", data));
+            final WritableMap params = Arguments.createMap();
+            params.putString("event", eventName);
+            if (data != null) {
+                params.putString("data", data);
             }
             if (context != null) {
                 context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
@@ -111,43 +130,43 @@ class SnapcallClientListener implements SCClientListener {
 
     @Override
     public void onRemoteVideoInfo(SCClientEvent scClientEvent) {
-
+        sendEvent("onRemoteVideoInfo", scClientEvent);
     }
 
     @Override
     public void onUnhook(SCClientEvent scClientEvent) {
-
+        sendEvent("onUnhook", scClientEvent);
     }
 
     @Override
     public void onError(CallError callError) {
-
+        sendEvent("onError", callError.getDescription());
     }
 
     @Override
     public void onAgentConnected(String s) {
-
+        System.out.println(s);
+        sendEvent("onAgentConnected", s);
     }
 
     @Override
     public void onConnectionShutDown() {
-
-        sendEvent("onConnectionShutDown", null);
+        sendEvent("onConnectionShutDown", "");
     }
 
     @Override
     public void onMessage(String callIdentifier, String message) {
-
+        sendEvent("onAgentConnected", message);
     }
 
     @Override
     public void onMessage(String callIdentifier, Integer message) {
-
+        sendEvent("onAgentConnected", Integer.toString(message));
     }
 
     @Override
     public void onMessage(String callIdentifier, JSONObject message) {
-
+        sendEvent("onMessage", message.toString());
     }
 
     void onSpeakerChange(SCClientEvent parameter) {
@@ -207,6 +226,17 @@ class SnapcallClientListener implements SCClientListener {
         return jsonEvent;
     }
 
+    private JSONObject convertVideoInfoToJSOn(VideoInfo info) throws JSONException {
+        JSONObject result = new JSONObject();
+        if (info == null) {
+            return null;
+        }
+        result.accumulate("videoType", info.getVideoType());
+        result.accumulate("active", info.isActive());
+        result.accumulate("setup", info.isSetup());
+        return result;
+    }
+
     /**
      *  convert a SCCall instance to a JSON Object in order to send it to the RN in Front
      *
@@ -230,7 +260,8 @@ class SnapcallClientListener implements SCClientListener {
         jsonCall.accumulate("displayName", call.getDisplayName());
         jsonCall.accumulate("duration", call.getDuration());
         jsonCall.accumulate("time", call.getDuration());
-
+        jsonCall.accumulate("remoteVideoInfo", convertVideoInfoToJSOn(call.getRemoteVideoInfo()));
+        jsonCall.accumulate("localVideoInfo", convertVideoInfoToJSOn(call.getLocalVideoInfo()));
 
         return jsonCall;
     }
