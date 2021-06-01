@@ -277,6 +277,11 @@ export default class App extends Component<Props> {
       .catch(() => {
         console.log('snapcall not started');
       });
+      try {
+        console.log("agent", snapcall.getConnectedAgent())
+      } catch(e) {
+          console.log("agent not connected");
+      }
   }
 
   defaultUI = true;

@@ -460,6 +460,16 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public String getConnectedAgent() {
+        try {
+            String agent = snapcallClient.getConnectedAgentMail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ReactMethod
     public void  connectPartnerAgent(int id, String agent,  String snapcallExternalJson, final Promise promise) {
         Snapcall.getInstance().connectPartnerAgent(reactContext.getCurrentActivity(), id, agent, externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
             promise.resolve(agent);

@@ -151,6 +151,13 @@ export class Snapcall {
       return snapcallModule.hangup();
     }
 
+    getConnectedAgent() {
+      if (!os) {
+        return snapcallModule.getConnectedAgent()
+      }
+      return null;
+    }
+
     /**
       Show the popin to ask for access on microphone feature.
     **/
