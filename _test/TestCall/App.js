@@ -51,12 +51,18 @@ parameter.textColor = '#FF0000';
 parameter.backgroundColor = '#0000FF';
 parameter.hideCart = true; // boolean to hide the cart in the call UI
 parameter.shouldReturn = true;
-
+// parameter.userInterfaceProperty.appLogo.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
+// parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
+parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
+parameter.userInterfaceProperty.backgroundColor = "#FFFFFFFF"
+parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFFFF" };
+// parameter.userInterfaceProperty.userPortrait.package = "com.testcall2";
 var bid = '88b3d0f3a44311e78f9b0ae03a1ae33f';
 var bidZendesk = '0999b36e472111e997380ae222c5da84';
 var pickA;
 
-const textSpeakerOn = 'speaker On';
+
+const textSpeakerOn = 'speaker On ';
 const textSpeakerOff = 'speaker low';
 const textMuteOn = 'unmute';
 const textMuteOff = 'mute';
@@ -210,7 +216,7 @@ export default class App extends Component<Props> {
   }
 
   sendPartnerCall() {
-    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter)
+    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter);
   }
 
   constructor(Props) {
