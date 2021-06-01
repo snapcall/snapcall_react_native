@@ -4,16 +4,12 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import io.snapcall.snapcall_android_framework.CallError;
 import io.snapcall.snapcall_android_framework.SCCall;
-import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
 import io.snapcall.snapcall_android_framework.SCClientListener;
 import io.snapcall.snapcall_android_framework.VideoInfo;

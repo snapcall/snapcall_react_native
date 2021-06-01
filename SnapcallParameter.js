@@ -27,5 +27,22 @@ export class SnapcallParameter {
     // boolean if false your user will not be able to navigate on your app during the call
     this.shouldReturn = false;
     this.androidResimage = null; // image name in your res folder without extension.
+    this.userInterfaceProperty = {
+      backgroundColor: null, // #FFFFFFFF used by Color.parseColor
+      actionBarColor: null,
+      iconColor: { background: null, color: null },
+      hangup: { background: null, color: null },
+      back: { background: null, color: null },
+      refuse: { background: null, color: null },
+      answer: { background: null, color: null },
+      boldTextColor: null,
+      smallTextColor: null,
+      appPortraitBackgroundColor: null,
+      colorTextState: null,
+      nameLabelText: null,
+      appLabelText: null,
+      appLogo: { url: null, path: null, package: null, filename: null },
+      userPortrait: { url: null, path: null, package: null, filename: null },
+    };
   }
 }

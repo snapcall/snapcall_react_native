@@ -1,4 +1,3 @@
-
 package io.snapcall.reactnative;
 
 import android.content.Context;
@@ -9,22 +8,17 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.views.image.ReactImageManager;
-
-import org.json.JSONObject;
-
+import java.net.URL;
 import java.util.Map;
 import java.util.Random;
-
 import io.snapcall.snapcall_android_framework.Agent.Agent;
+import io.snapcall.snapcall_android_framework.CallUserInterface.CallViewProperties;
+import io.snapcall.snapcall_android_framework.CallUserInterface.IconColor;
+import io.snapcall.snapcall_android_framework.CallUserInterface.ImageLocation;
 import io.snapcall.snapcall_android_framework.Partner.PartnerInterface;
 import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
@@ -55,72 +49,189 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         return  (SnapcallExternalParameter)SEPFromJson(json);
     }
 
-  private Snapcall_External_Parameter SEPFromJson(String json) {
+    private String getColor(JsonWrapper object, String key) {
+        if (object != null) {
+            String stringColor = object.getString(key, null);
+            return stringColor;
+        }
+        return null;
+    }
 
-      SnapcallExternalParameter ret = new SnapcallExternalParameter();
-      JsonWrapper obj;
+    private IconColor getIconColor(JsonWrapper obj, String key) {
+        if (obj != null) {
+            JsonWrapper color = obj.getJsonObject(key, null);
+            if (color != null) {
+                String bg = getColor(color, "background");
+                String normal = getColor(color, "color");
+                if (bg != null && normal != null) {
+                    return new IconColor(Color.parseColor(normal), Color.parseColor(bg));
+                }
+            }
+        }
+        return null;
+    }
 
-      try {
-          obj = new JsonWrapper(json);
-          ret.displayBrand = obj.getString("displayBrand", null);
-          ret.displayName = obj.getString("displayName", null);
-          ret.callTitle = obj.getString("callTitle", null);
-          ret.AssetPathImage = obj.getString("android_AssetPathImage", null);
-          ret.AssetPathFont = obj.getString("android_AssetPathFont", null);
-          ret.notificationTittle = obj.getString("notificationTittle", null);
-          ret.notificationBody = obj.getString("notificationBody",  null);
-          ret.urlImage = obj.getString("urlImage",  null);
-          ret.showBackButton = obj.getBoolean("showBackButton", false);
-          try {
-              ret.textColor = Color.parseColor(obj.getString("textColor", null));
-          }catch (Exception e) {
-              Log.i("RNSnapcallReact", e.getMessage());
-          }
-          try {
-               ret.backgroundColor = Color.parseColor(obj.getString("backgroundColor", null));
-           }catch (Exception e) {
-               Log.i("RNSnapcallReact", e.getMessage());
-           }
-          ret.pushTransfertData = obj.getString("pushTransfertData", null);
-          ret.senderBrand = obj.getString("senderBrand", null);
-          ret.senderName = obj.getString("senderName", null);
-          ret.externalContext = obj.getJsonObject("externalContext", null);
-          ret.showBackButton = obj.getBoolean("shouldReturn", true);
-          ret.persistentAgent = obj.getBoolean("persistentAgent", true);
-          ret.video = obj.getBoolean("video", false);
-          String resImage = obj.getString("androidResimage", null);
-          if (resImage != null)
-            ret.setResImage(resImage, reactContext.getApplicationContext().getPackageName()) ;
-      } catch (Exception e) {
-          Log.e(TAG, "SEPFromJson failed converting to JSON", e);
-      }
-      return ret;
-  }
+    private ImageLocation getImageLocation(JsonWrapper obj, String key) {
+        if (obj != null) {
+            JsonWrapper img = obj.getJsonObject(key, null);
+            if (img != null) {
+                String url = img.getString("url", null);
+                if (url != null) {
+                    try {
+                        return new ImageLocation(new URL(url));
+                    } catch (Exception e) {}
+                }
 
-   RNSnapcallReactModule(ReactApplicationContext reactContext) {
+                String path = img.getString("path", null);
+                if (path != null) {
+                    return new ImageLocation((path));
+                }
+                String packageName = img.getString("package", null);
+                String name = img.getString("filename", null);
+                if (packageName == null) {
+                    packageName = reactContext.getApplicationContext().getPackageName();
+                }
+                if (name != null) {
+                    return new ImageLocation(name, packageName);
+                }
+            }
+        }
+        return null;
+    }
 
-      super(reactContext);
+    private void setCustomUIV2Props(JsonWrapper  object) {
+        if (object == null) return;
+        JsonWrapper jprops = object.getJsonObject("userInterfaceProperty", null);
+        CallViewProperties prop = Snapcall.getInstance().getCallViewProperties();
+        String backgroundColor = getColor(jprops, "backgroundColor");
+        if (backgroundColor != null) {
+            prop.setBackgroundColor(Color.parseColor(backgroundColor));
+        }
+        String actionBarColor = getColor(jprops, "actionBarColor");
+        if (actionBarColor != null) {
+            prop.setActionBarColor(Color.parseColor(actionBarColor));
+        }
+        IconColor iconColor = getIconColor(jprops, "iconColor");
+        if (iconColor != null) {
+            prop.setIconColor(iconColor);
+        }
+        IconColor hangup = getIconColor(jprops, "hangup");
+        if (hangup != null) {
+            prop.setHangup(hangup);
+        }
+        IconColor back = getIconColor(jprops, "back");
+        if (back != null) {
+            prop.setBack(back);
+        }
+        IconColor refuse = getIconColor(jprops, "refuse");
+        if (refuse != null) {
+            prop.setRefuse(refuse);
+        }
+        IconColor answer = getIconColor(jprops, "answer");
+        if (answer != null) {
+            prop.setAnswer(answer);
+        }
+        String boldTextColor = getColor(jprops, "boldTextColor");
+        if (boldTextColor != null) {
+            prop.setBoldTextColor(Color.parseColor(boldTextColor));
+        }
+        String smallTextColor = getColor(jprops, "smallTextColor");
+        if (smallTextColor != null) {
+            prop.setSmallTextColor(Color.parseColor(smallTextColor));
+        }
+        String appPortraitBackgroundColor = getColor(jprops, "appPortraitBackgroundColor");
+        if (appPortraitBackgroundColor != null) {
+            prop.setAppPortraitBackgroundColor(Color.parseColor(appPortraitBackgroundColor));
+        }
+        String colorTextState = getColor(jprops, "colorTextState");
+        if (colorTextState != null) {
+            prop.setColorTextState(Color.parseColor(colorTextState));
+        }
+        String name = jprops.getString("nameLabelText", null);
+        if (name != null) {
+            prop.setNameLabelText(name);
+        }
+        String appLabelText = jprops.getString("appLabelText", null);
+        if (appLabelText != null) {
+            prop.setAppLabelText(appLabelText);
+        }
+        ImageLocation appLogo = getImageLocation(jprops, "appLogo");
+        if (appLogo != null) {
+            prop.setAppLogo(appLogo);
+        }
+        ImageLocation userPortrait = getImageLocation(jprops, "userPortrait");
+        if (userPortrait != null) {
+            prop.setUserPortrait(userPortrait);
+        }
+    }
 
-       SCLogger.debug = true;
-       SCLogger.error = true;
-       SCLogger.verbose = true;
-       SCLogger.info = true;
-      this.reactContext = reactContext;
+    private Snapcall_External_Parameter SEPFromJson(String json) {
 
-      restorInterfaceIntent =  new Intent();
-      restorInterfaceIntent.setAction(interfaceRequestedAction);
-      restorInterfaceIntent.putExtra("staticApplicationKey", intentKey);
-      Snapcall.getInstance().setLoadUIIntent(restorInterfaceIntent);
+        SnapcallExternalParameter ret = new SnapcallExternalParameter();
+        JsonWrapper obj = null;
 
-      snapcallIntentListener = new SimpleRequestBroadcastReceiver(reactContext, interfaceRequestedAction, "staticApplicationKey" ,intentKey);
-      snapcallIntentListener.addListener(this);
-      snapcallIntentListener.startObeserver();
+        try {
+            obj = new JsonWrapper(json);
+            ret.displayBrand = obj.getString("displayBrand", null);
+            ret.displayName = obj.getString("displayName", null);
+            ret.callTitle = obj.getString("callTitle", null);
+            ret.AssetPathImage = obj.getString("android_AssetPathImage", null);
+            ret.AssetPathFont = obj.getString("android_AssetPathFont", null);
+            ret.notificationTittle = obj.getString("notificationTittle", null);
+            ret.notificationBody = obj.getString("notificationBody",  null);
+            ret.urlImage = obj.getString("urlImage",  null);
+            ret.showBackButton = obj.getBoolean("showBackButton", false);
+            try {
+                ret.textColor = Color.parseColor(obj.getString("textColor", null));
+            }catch (Exception e) {
+                Log.i("RNSnapcallReact", e.getMessage());
+            }
+            try {
+                ret.backgroundColor = Color.parseColor(obj.getString("backgroundColor", null));
+            }catch (Exception e) {
+                Log.i("RNSnapcallReact", e.getMessage());
+            }
+            ret.pushTransfertData = obj.getString("pushTransfertData", null);
+            ret.senderBrand = obj.getString("senderBrand", null);
+            ret.senderName = obj.getString("senderName", null);
+            ret.externalContext = obj.getJsonObject("externalContext", null);
+            ret.showBackButton = obj.getBoolean("shouldReturn", true);
+            ret.persistentAgent = obj.getBoolean("persistentAgent", true);
+            ret.video = obj.getBoolean("video", false);
+            String resImage = obj.getString("androidResimage", null);
+            if (resImage != null)
+                ret.setResImage(resImage, reactContext.getApplicationContext().getPackageName()) ;
+        } catch (Exception e) {
+            Log.e(TAG, "SEPFromJson failed converting to JSON", e);
+        }
+        try {
+            setCustomUIV2Props(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
 
-      snapcallClientListener = new SnapcallClientListener(reactContext);
-      snapcallClient = new SCClient(reactContext);
-      snapcallClient.setListener(snapcallClientListener);
-      snapcallClient.connect();
-  }
+    RNSnapcallReactModule(ReactApplicationContext reactContext) {
+        super(reactContext);
+        SCLogger.debug = true;
+        SCLogger.error = true;
+        SCLogger.verbose = true;
+        SCLogger.info = true;
+        this.reactContext = reactContext;
+        restorInterfaceIntent =  new Intent();
+        restorInterfaceIntent.setAction(interfaceRequestedAction);
+        restorInterfaceIntent.putExtra("staticApplicationKey", intentKey);
+        Snapcall.getInstance().setLoadUIIntent(restorInterfaceIntent);
+        snapcallIntentListener = new SimpleRequestBroadcastReceiver(reactContext, interfaceRequestedAction, "staticApplicationKey" ,intentKey);
+        snapcallIntentListener.addListener(this);
+        snapcallIntentListener.startObeserver();
+
+        snapcallClientListener = new SnapcallClientListener(reactContext);
+        snapcallClient = new SCClient(reactContext);
+        snapcallClient.setListener(snapcallClientListener);
+        snapcallClient.connect();
+    }
 
     @Override
     protected void finalize() throws Throwable {
@@ -133,12 +244,12 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void hangup(final Promise promise) {
 
-      try {
-          snapcallClient.hangup();
-          promise.resolve(null);
-      } catch (Exception e) {
-          promise.reject(e);
-      }
+        try {
+            snapcallClient.hangup();
+            promise.resolve(null);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
     }
 
     @ReactMethod
@@ -252,67 +363,67 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void isSnapcallRunning(final Promise promise) {
 
-      try {
-          promise.resolve(Snapcall.getInstance().isSnapcallRunning(reactContext));
-      }catch(Exception e){
-          promise.reject(e);
-      }
+        try {
+            promise.resolve(Snapcall.getInstance().isSnapcallRunning(reactContext));
+        }catch(Exception e){
+            promise.reject(e);
+        }
     }
 
     @ReactMethod
     public void  permissionStatus(final Promise promise){
-      try {
-          promise.resolve(Snapcall.getInstance().permissionStatus(reactContext));
-      }catch (Exception e){
-          promise.reject(e);
-      }
+        try {
+            promise.resolve(Snapcall.getInstance().permissionStatus(reactContext));
+        }catch (Exception e){
+            promise.reject(e);
+        }
     }
 
     @ReactMethod
     public void getCurrentState(final Promise promise) {
-      try {
+        try {
 
-          SCClientEvent ev = snapcallClient.getCurrentState();
-          String eventString = snapcallClientListener.convertSCClientEventToJSONString(ev);
-          promise.resolve(eventString);
-      } catch (Exception e) {
-          promise.reject("snapcall not running", e);
-      }
+            SCClientEvent ev = snapcallClient.getCurrentState();
+            String eventString = snapcallClientListener.convertSCClientEventToJSONString(ev);
+            promise.resolve(eventString);
+        } catch (Exception e) {
+            promise.reject("snapcall not running", e);
+        }
     }
 
 
     @ReactMethod
     public void rateLastCall(int rate, final Promise promise){
-      Snapcall.getInstance().rateLastCall(reactContext, rate, new Snapcall.RequestResult() {
-          @Override
-          public void onSuccess(String s) {
-              promise.resolve(null);
-          }
+        Snapcall.getInstance().rateLastCall(reactContext, rate, new Snapcall.RequestResult() {
+            @Override
+            public void onSuccess(String s) {
+                promise.resolve(null);
+            }
 
-          @Override
-          public void onError(String s, Throwable throwable) {
-              promise.reject(throwable);
-          }
-      });
+            @Override
+            public void onError(String s, Throwable throwable) {
+                promise.reject(throwable);
+            }
+        });
     }
 
     @ReactMethod
     public void  restorUI(final Promise promise){
-      try {
-          Snapcall.getInstance().restorCallUi(reactContext);
-          promise.resolve(null);
-      } catch (Exception e){
-          promise.reject(e);
-      }
+        try {
+            Snapcall.getInstance().restorCallUi(reactContext);
+            promise.resolve(null);
+        } catch (Exception e){
+            promise.reject(e);
+        }
 
     }
 
     public void receiveCall(@NonNull Context context, Map message , @Nullable Snapcall_External_Parameter parameter) throws Exception {
-      try {
-          Snapcall.getInstance().receiveCall(context, message,parameter);
-      } catch(Exception e){
-          throw e;
-      }
+        try {
+            Snapcall.getInstance().receiveCall(context, message,parameter);
+        } catch(Exception e){
+            throw e;
+        }
     }
 
     @ReactMethod
@@ -348,12 +459,12 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         });
     }
 
-     @ReactMethod
-     public void  connectPartnerAgent(int id, String agent,  String snapcallExternalJson, final Promise promise) {
+    @ReactMethod
+    public void  connectPartnerAgent(int id, String agent,  String snapcallExternalJson, final Promise promise) {
         Snapcall.getInstance().connectPartnerAgent(reactContext.getCurrentActivity(), id, agent, externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
             promise.resolve(agent);
         });
-     }
+    }
 
     @ReactMethod
     public void  sendPartnerCallInvitation(int id, String chatID, String snapcallExternalJson, final Promise promise) {
