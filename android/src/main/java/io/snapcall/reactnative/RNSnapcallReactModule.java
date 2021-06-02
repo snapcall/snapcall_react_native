@@ -165,6 +165,11 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         }
     }
 
+    @ReactMethod
+    private void setNameLabelText(String nameLabelText) {
+        Snapcall.getInstance().getCallViewProperties().setNameLabelText(nameLabelText);
+    }
+
     private Snapcall_External_Parameter SEPFromJson(String json) {
 
         SnapcallExternalParameter ret = new SnapcallExternalParameter();
@@ -463,6 +468,8 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     public String getConnectedAgent() {
         try {
             String agent = snapcallClient.getConnectedAgentMail();
+            System.out.println("agent co");
+            System.out.println(agent);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -139,6 +139,10 @@ export class Snapcall {
       return snapcallModule.rateLastCall(rate);
     }
 
+    setNameLabelText(nameLabelText) {
+      return snapcallModule.setNameLabelText(nameLabelText);
+    }
+
     mute() {
       return snapcallModule.mute();
     }
