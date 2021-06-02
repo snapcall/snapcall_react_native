@@ -219,10 +219,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
     RNSnapcallReactModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        SCLogger.debug = true;
-        SCLogger.error = true;
-        SCLogger.verbose = true;
-        SCLogger.info = true;
         this.reactContext = reactContext;
         restorInterfaceIntent =  new Intent();
         restorInterfaceIntent.setAction(interfaceRequestedAction);
