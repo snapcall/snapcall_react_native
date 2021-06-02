@@ -3,6 +3,12 @@
 
 ## Next Version
 
+## 2.1.0-beta.0
+
+- android Agent.
+- android partner connection.
+- android video support.
+
 ## 2.0.1
 - fixed a bug that prevent to compile when calling swift from objective c for a simulator. 
 
