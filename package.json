@@ -27,7 +27,7 @@
   },
   "license": "custom",
   "peerDependencies": {
-    "react-native": "0.64"
+    "react-native": ""
   },
   "devDependencies": {
     "eslint": "^7.23.0",
