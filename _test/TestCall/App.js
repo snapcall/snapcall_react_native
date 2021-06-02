@@ -173,8 +173,7 @@ export default class App extends Component<Props> {
   }
 
   onTime(ev) {
-    console.log('ontime app', ev);
-    this.onEvent(ev);
+    // this.onEvent(ev);
     this.setTimer(ev.call.duration);
   }
 
@@ -216,7 +215,9 @@ export default class App extends Component<Props> {
   }
 
   sendPartnerCall() {
-    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter);
+    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter).then(()=> {
+      snapcall.setNameLabelText("John Doe");
+    });
   }
 
   constructor(Props) {
@@ -239,38 +240,23 @@ export default class App extends Component<Props> {
     snapcall.setApiCredentials(APIKEY);
     console.log('construct');
     super(Props);
-    this.setTimer = this.setTimer.bind(this);
-    this.onTime = this.onTime.bind(this);
-    this.changeSnapcallUI = this.changeSnapcallUI.bind(this);
-    this.onHangup = this.onHangup.bind(this);
-    this.onSpeakerChange = this.onSpeakerChange.bind(this);
-    this.onMuteChange = this.onMuteChange.bind(this);
-    this.onConnectionReady = this.onConnectionReady.bind(this);
-    this.onRinging = this.onMuteChange.bind(this);
-    this.onAnswer = this.onMuteChange.bind(this);
-    this.onHeld = this.onMuteChange.bind(this);
-    this.onUnheld = this.onMuteChange.bind(this);
-    this.onInternetUP = this.onMuteChange.bind(this);
-    this.onInternetDown = this.onMuteChange.bind(this);
-    this.onUIRequest = this.onUIRequest.bind(this);
-    this.render = this.render.bind(this);
 
-    snapcall.addEventListener('onTime', this.onTime);
-    snapcall.addEventListener('onHangup', this.onHangup);
-    snapcall.addEventListener('onMuteChange', this.onMuteChange);
-    snapcall.addEventListener('onSpeakerChange', this.onSpeakerChange);
-    snapcall.addEventListener('onHeld', this.onHeld);
-    snapcall.addEventListener('onUnheld', this.onUnheld);
-    snapcall.addEventListener('onConnectionReady', this.onConnectionReady);
-    snapcall.addEventListener('onAnswer', this.onAnswer);
-    snapcall.addEventListener('onRinging', this.onRinging);
-    snapcall.addEventListener('onCreated', this.onUnheld);
-    snapcall.addEventListener('onInternetUP', this.onInternetUP);
-    snapcall.addEventListener('onInternetDown', this.onInternetDown);
-    snapcall.addEventListener('onAgentConnected', this.onAgentConnected);
-    snapcall.addEventListener('onError', this.onError);
-    snapcall.addEventListener('onMessage', this.onMessage);
-    snapcall.addEventListener('onUnhook', this.onUnhook);
+    snapcall.addEventListener('onTime', (ev) => { this.onTime(ev) });
+    snapcall.addEventListener('onHangup', (ev) => { this.onHangup(ev) });
+    snapcall.addEventListener('onMuteChange', (ev) => { this.onMuteChange(ev) });
+    snapcall.addEventListener('onSpeakerChange', (ev) => { this.onSpeakerChange(ev) });
+    snapcall.addEventListener('onHeld', (ev) => { this.onHeld(ev) });
+    snapcall.addEventListener('onUnheld', (ev) => { this.onUnheld(ev) });
+    snapcall.addEventListener('onConnectionReady', (ev) => { this.onConnectionReady(ev) });
+    snapcall.addEventListener('onAnswer', (ev) => { this.onAnswer(ev) });
+    snapcall.addEventListener('onRinging', (ev) => { this.onRinging(ev) });
+    snapcall.addEventListener('onCreated', (ev) => { this.onUnheld(ev) });
+    snapcall.addEventListener('onInternetUP', (ev) => { this.onInternetUP(ev) });
+    snapcall.addEventListener('onInternetDown', (ev) => { this.onInternetDown(ev) });
+    snapcall.addEventListener('onAgentConnected', (ev) => { this.onAgentConnected(ev) });
+    snapcall.addEventListener('onError', (ev) => { this.onError(ev) });
+    snapcall.addEventListener('onMessage', (ev) => { this.onMessage(ev) });
+    snapcall.addEventListener('onUnhook', (ev) => { this.onUnhook(ev) });
     snapcall
       .getCurrentState()
       .then(this.onEvent.bind(this))

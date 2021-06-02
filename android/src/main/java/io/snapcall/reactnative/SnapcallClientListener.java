@@ -78,7 +78,7 @@ class SnapcallClientListener implements SCClientListener {
 
     @Override
     public void onRinging(SCClientEvent parameter) {
-
+        System.out.println("ringing");
         sendEvent("onRinging", parameter);
     }
 
