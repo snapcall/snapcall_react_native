@@ -64,7 +64,11 @@ function onError(parameter) {
 }
 
 function onAgentConnected(parameter) {
-  callEvent("onAgentConnected", parameter)
+  let i = 0;
+  while  (i < eventListener["onAgentConnected"].length){
+    eventListener["onAgentConnected"][i](parameter);
+    i++;
+  }
 }
 
 function onRemoteVideoInfo(parameter) {
