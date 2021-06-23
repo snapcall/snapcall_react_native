@@ -3,6 +3,12 @@
 
 ## Next Version
 
+## 2.1.0-beta.1
+
+- ios: arm64 simulator build
+- android: agent connection event fixed
+- android: customisation of notification
+
 ## 2.1.0-beta.0
 
 - android Agent.
