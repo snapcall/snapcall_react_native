@@ -141,7 +141,8 @@ export class SnapcallListener {
   subscription = []
 
   constructor(isIOS) {
-    eventEmitter = isIOS ? new NativeEventEmitter(NativeModules.RNSnapcallEmitEvent) : DeviceEventEmitter;
+    const eventEmitter = isIOS ? new NativeEventEmitter(NativeModules.RNSnapcallEmitEvent) : DeviceEventEmitter;
+
     this.subscription.push(eventEmitter.addListener("onConnectionReady", onConnectionReady));
     this.subscription.push(eventEmitter.addListener("onCreated", onCreated));
     this.subscription.push(eventEmitter.addListener("onRinging", onRinging));
