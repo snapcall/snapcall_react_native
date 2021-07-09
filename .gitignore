@@ -47,3 +47,4 @@ buck-out/
 _test/TestCall/yarn.lock
 android/libs/snapcall_android_framework:*.aar
 android/libs/snapcall_android_framework_*.aar
+_test/TestCall/.env

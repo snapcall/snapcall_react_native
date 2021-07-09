@@ -4,17 +4,15 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
+import io.snapcall.snapcall_android_framework.CallError;
 import io.snapcall.snapcall_android_framework.SCCall;
-import io.snapcall.snapcall_android_framework.SCClient;
 import io.snapcall.snapcall_android_framework.SCClientEvent;
 import io.snapcall.snapcall_android_framework.SCClientListener;
+import io.snapcall.snapcall_android_framework.VideoInfo;
 
 class SnapcallClientListener implements SCClientListener {
 
@@ -48,6 +46,24 @@ class SnapcallClientListener implements SCClientListener {
         }
     }
 
+    private void sendEvent(String eventName, @Nullable String data) {
+        try {
+            Log.d(TAG, String.format("event Name : %s ", eventName));
+            Log.d(TAG, String.format("event Name : %s ", data));
+            final WritableMap params = Arguments.createMap();
+            params.putString("event", eventName);
+            if (data != null) {
+                params.putString("data", data);
+            }
+            if (context != null) {
+                context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                        .emit(eventName, params);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onConnectionReady(SCClientEvent parameter) {
 
@@ -62,7 +78,7 @@ class SnapcallClientListener implements SCClientListener {
 
     @Override
     public void onRinging(SCClientEvent parameter) {
-
+        System.out.println("ringing");
         sendEvent("onRinging", parameter);
     }
 
@@ -109,24 +125,44 @@ class SnapcallClientListener implements SCClientListener {
     }
 
     @Override
-    public void onConnectionShutDown() {
+    public void onRemoteVideoInfo(SCClientEvent scClientEvent) {
+        sendEvent("onRemoteVideoInfo", scClientEvent);
+    }
 
-        sendEvent("onConnectionShutDown", null);
+    @Override
+    public void onUnhook(SCClientEvent scClientEvent) {
+        sendEvent("onUnhook", scClientEvent);
+    }
+
+    @Override
+    public void onError(CallError callError) {
+        sendEvent("onError", callError.getDescription());
+    }
+
+    @Override
+    public void onAgentConnected(String s) {
+        System.out.println(s);
+        sendEvent("onAgentConnected", s);
+    }
+
+    @Override
+    public void onConnectionShutDown() {
+        sendEvent("onConnectionShutDown", "");
     }
 
     @Override
     public void onMessage(String callIdentifier, String message) {
-
+        sendEvent("onAgentConnected", message);
     }
 
     @Override
     public void onMessage(String callIdentifier, Integer message) {
-
+        sendEvent("onAgentConnected", Integer.toString(message));
     }
 
     @Override
     public void onMessage(String callIdentifier, JSONObject message) {
-
+        sendEvent("onMessage", message.toString());
     }
 
     void onSpeakerChange(SCClientEvent parameter) {
@@ -186,6 +222,17 @@ class SnapcallClientListener implements SCClientListener {
         return jsonEvent;
     }
 
+    private JSONObject convertVideoInfoToJSOn(VideoInfo info) throws JSONException {
+        JSONObject result = new JSONObject();
+        if (info == null) {
+            return null;
+        }
+        result.accumulate("videoType", info.getVideoType());
+        result.accumulate("active", info.isActive());
+        result.accumulate("setup", info.isSetup());
+        return result;
+    }
+
     /**
      *  convert a SCCall instance to a JSON Object in order to send it to the RN in Front
      *
@@ -209,7 +256,8 @@ class SnapcallClientListener implements SCClientListener {
         jsonCall.accumulate("displayName", call.getDisplayName());
         jsonCall.accumulate("duration", call.getDuration());
         jsonCall.accumulate("time", call.getDuration());
-
+        jsonCall.accumulate("remoteVideoInfo", convertVideoInfoToJSOn(call.getRemoteVideoInfo()));
+        jsonCall.accumulate("localVideoInfo", convertVideoInfoToJSOn(call.getLocalVideoInfo()));
 
         return jsonCall;
     }
