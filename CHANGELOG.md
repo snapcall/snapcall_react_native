@@ -2,6 +2,8 @@
 
 
 ## Next Version
+## 2.1.0-beta.1
+-  release snapcall return a promise #37
 
 ## 2.1.0-beta.1
 
