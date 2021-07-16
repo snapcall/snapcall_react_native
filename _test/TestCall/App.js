@@ -436,8 +436,8 @@ export default class App extends Component<Props> {
     
     return (
       <View style={styles.container}>
-        { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>}
-        { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>}
+        {/* { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>} */}
+        {/* { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>} */}
         <View style={{ flexDirection: 'row' }}>
           <Image
             source={require('./images/imgtest.png')}
