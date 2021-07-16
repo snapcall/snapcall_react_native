@@ -234,7 +234,7 @@ export default class App extends Component<Props> {
   }
 
   sendPartnerCall() {
-    snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', "dal:AnNeTi27xoekKBKg1E0xbS2GP-c", "QRX5G65O63", parameter).then(()=> {
+    snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', PARTNER_TOKEN, "QRX5G65O63", parameter).then(()=> {
       snapcall.setNameLabelText("John Doe");
     });
   }
