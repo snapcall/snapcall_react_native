@@ -28,7 +28,7 @@ const instructions = Platform.select({
 });
 let os = Platform.OS === 'ios' ? true : false;
 const Props = {};
-const APIKEY ="d241955867bf11e789a70ae03a1ae33f";
+
 console.log('start buildv04');
 const snapcall = new Snapcall();
 const parameter = new SnapcallParameter();
