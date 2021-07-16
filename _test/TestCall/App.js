@@ -28,7 +28,6 @@ const instructions = Platform.select({
 });
 let os = Platform.OS === 'ios' ? true : false;
 const Props = {};
-const APIKEY ="d241955867bf11e789a70ae03a1ae33f";
 console.log('start buildv04');
 const snapcall = new Snapcall();
 const parameter = new SnapcallParameter();
@@ -235,7 +234,7 @@ export default class App extends Component<Props> {
   }
 
   sendPartnerCall() {
-    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter).then(()=> {
+    snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', "dal:AnNeTi27xoekKBKg1E0xbS2GP-c", "QRX5G65O63", parameter).then(()=> {
       snapcall.setNameLabelText("John Doe");
     });
   }
