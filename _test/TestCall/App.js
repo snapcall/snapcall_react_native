@@ -28,6 +28,8 @@ const instructions = Platform.select({
 });
 let os = Platform.OS === 'ios' ? true : false;
 const Props = {};
+
+
 console.log('start buildv04');
 const snapcall = new Snapcall();
 const parameter = new SnapcallParameter();
