@@ -103,7 +103,7 @@ function checkIfBIDIsEnabled(bid, value, name) {
       console.log('failed to make request to check bid');
     });
 }
-snapcall.activeDefaultInterface(false);
+// snapcall.activeDefaultInterface(false);
 export default class App extends Component<Props> {
   state = {
     videolocal: false,

@@ -115,7 +115,7 @@ export class Snapcall {
     }
 
     sendPartnerCallInvitationWithToken(id, agent, token, chatID,  param) {
-      console.log(sid, agent, token, chatID,  param);
+      console.log(id, agent, token, chatID,  param);
       if (!os) {
         return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  JSON.stringify(param));
       }
