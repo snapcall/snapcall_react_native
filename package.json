@@ -10,6 +10,7 @@
   "files": [
     "README.md",
     "index.js",
+    "VideoContainer.js",
     "Snapcall.js",
     "SnapcallParameter.js",
     "SnapcallListener.js",
