@@ -218,12 +218,10 @@ export class SnapcallListener {
    */
   removeEventListener(eventName, functionListener) {
     if (eventListener && eventListener[eventName]) {
-      var i = 0;
-      while (i < eventListener[eventName].length) {
-        if (eventListener[i] == functionListener) {
-          delete eventListener[i];
-          return ;
-        }
+      const indexOf = eventListener[eventName].indexOf(functionListener)
+
+      if (indexOf > -1) {
+        eventListener[eventName].splice(indexOf, 1);
       }
     }
   }
