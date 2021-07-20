@@ -10,7 +10,7 @@
 
 @implementation RNSnapcallEventListener
 
-objc_SCClientEvent *lastCall = nil;
+SCClientEventObjC *lastCall = nil;
 NSString *STATE_CREATED = @"STATE_CREATED";
 NSString *STATE_CONNECTED = @"STATE_CONNECTED";
 NSString *STATE_RECONNECT = @"STATE_RECONNECT";
@@ -22,7 +22,7 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
     return self;
 }
 
-- (objc_SCClientEvent*)getLastCall {
+- (SCClientEventObjC*)getLastCall {
 
     return lastCall;
 }
@@ -45,12 +45,12 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 // `let CONNECTED: String = "connected"` | the call is running
 // `let ENDED: String = "Ended"` | the call hangup
 
-- (NSDictionary *) makeJSONEventWithEvent: (objc_SCClientEvent *)snapcallEvent {
+- (NSDictionary *) makeJSONEventWithEvent: (SCClientEventObjC *)snapcallEvent {
     NSDictionary *ret = nil;
 
     if (snapcallEvent != nil) {
         NSDictionary *callParameter = nil;
-        objc_SCCall *call = [snapcallEvent getCall];
+        SCCallObjC *call = [snapcallEvent getCall];
 
 
 
@@ -91,16 +91,16 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
     return @{@"data":[self preventNilForValue: ret]};
 }
 
-- (void) sendEventWithName:(NSString *)name parameter:(objc_SCClientEvent * _Nonnull)parameter {
+- (void) sendEventWithName:(NSString *)name parameter:(SCClientEventObjC * _Nonnull)parameter {
 
     [[RNSnapcallEmitEvent getInstance] sendEventWithName:name body:[self makeJSONEventWithEvent:parameter]];
 }
 
-- (void)onAnswer:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onAnswer:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onAnswer" parameter: parameter];
 }
 
-- (void)onConnectionReady:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onConnectionReady:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onConnectionReady" parameter: parameter];
 }
 
@@ -108,24 +108,24 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
     [[RNSnapcallEmitEvent getInstance] sendEventWithName:@"onConnectionShutDown" body:nil];
 }
 
-- (void)onCreated:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onCreated:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onCreated" parameter: parameter];
 }
 
-- (void)onHangup:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onHangup:(SCClientEventObjC * _Nonnull)parameter {
     lastCall = parameter;
     [self sendEventWithName:@"onHangup" parameter: parameter];
 }
 
-- (void)onHeld:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onHeld:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onHeld" parameter: parameter];
 }
 
-- (void)onInternetDown:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onInternetDown:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onInternetDown" parameter: parameter];
 }
 
-- (void)onInternetUP:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onInternetUP:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onInternetUP" parameter: parameter];
 }
 
@@ -133,27 +133,27 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 
 }
 
-- (void)onMuteChange:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onMuteChange:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onMuteChange" parameter: parameter];
 }
 
-- (void)onRinging:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onRinging:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onRinging" parameter: parameter];
 }
 
-- (void)onSpeakerChange:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onSpeakerChange:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onSpeakerChange" parameter: parameter];
 }
 
-- (void)onTime:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onTime:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onTime" parameter: parameter];
 }
 
-- (void)onUIRequest:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onUIRequest:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onUIRequest" parameter: parameter];
 }
 
-- (void)onUnheld:(objc_SCClientEvent * _Nonnull)parameter {
+- (void)onUnheld:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onUnheld" parameter: parameter];
 }
 

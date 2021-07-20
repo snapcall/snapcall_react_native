@@ -10,13 +10,13 @@
 
 -(NSString*)decodePushDataWithPayload:(PKPushPayload*)payload;
 
--(void)receiveCallWith:(PKPushPayload*)payload parameter:(Snapcall_External_Parameter*)parameter;
+-(void)receiveCallWith:(PKPushPayload*)payload parameter:(SnapcallExternalParameter*)parameter;
 
--(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(Snapcall_External_Parameter*)parameter;
+-(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(SnapcallExternalParameter*)parameter;
 
--(void)launchCallWithBidId:(NSString *)bidId  parameter:(Snapcall_External_Parameter*)parameter;
+-(void)launchCallWithBidId:(NSString *)bidId  parameter:(SnapcallExternalParameter*)parameter;
 
--(void)launchCallWithBidId:(NSString *)bidId snapcallIdentifier:(NSString*)snapcallIdentifier parameter:(Snapcall_External_Parameter*)parameter;
+-(void)launchCallWithBidId:(NSString *)bidId snapcallIdentifier:(NSString*)snapcallIdentifier parameter:(SnapcallExternalParameter*)parameter;
 
 -(void)setSnapcallStaticWithAppName:(NSString*)appName ringtone:(NSString*)ringToneSoung iconTemplate:(NSData*)icon;
 
