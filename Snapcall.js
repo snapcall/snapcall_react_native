@@ -120,6 +120,6 @@ export class Snapcall {
     **/
     releaseSnapcall(){
       this.listener.release();
-      snapcallModule.releaseSnapcall();
+      return snapcallModule.releaseSnapcall();
     }
 }

@@ -114,7 +114,7 @@ export class SnapcallListener {
   subscription = []
 
   constructor(isIOS) {
-    eventEmitter = isIOS ? new NativeEventEmitter(NativeModules.RNSnapcallEmitEvent) : DeviceEventEmitter;
+    const eventEmitter = isIOS ? new NativeEventEmitter(NativeModules.RNSnapcallEmitEvent) : DeviceEventEmitter;
 
     this.subscription.push(eventEmitter.addListener("onConnectionReady", onConnectionReady));
     this.subscription.push(eventEmitter.addListener("onCreated", onCreated));
@@ -154,12 +154,10 @@ export class SnapcallListener {
    */
   removeEventListener(eventName, functionListener) {
     if (eventListener && eventListener[eventName]) {
-      var i = 0;
-      while (i < eventListener[eventName].length) {
-        if (eventListener[i] == functionListener) {
-          delete eventListener[i];
-          return ;
-        }
+      const indexOf = eventListener[eventName].indexOf(functionListener)
+
+      if (indexOf > -1) {
+        eventListener[eventName].splice(indexOf, 1);
       }
     }
   }
