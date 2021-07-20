@@ -525,8 +525,47 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
-    public void  sendPartnerCallInvitation(int id, String agent, String chatID, String snapcallExternalJson, final Promise promise) {
+    public void  connectSendPartnerCallInvitation(int id, String agent, String chatID, String snapcallExternalJson, final Promise promise) {
         Snapcall.getInstance().sendPartnerCallInvitation(reactContext.getCurrentActivity(), id, agent, chatID, externalParameterFromJson(snapcallExternalJson), new PartnerInterface() {
+            @Override
+            public void onAgentCreated(Agent agent) {
+                // ignore
+            }
+
+            @Override
+            public void onCallingCartSent() {
+                promise.resolve(agent);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                promise.reject(e);
+            }
+        });
+    }
+
+
+    @ReactMethod
+    public void  connectPartnerAgentWithToken(int id, String agent, String token,  String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().connectPartnerAgent(reactContext.getCurrentActivity(), id, agent, token,  externalParameterFromJson(snapcallExternalJson),(Exception e , Agent a) -> {
+            promise.resolve(agent);
+        });
+    }
+
+    @ReactMethod
+    public void  sendPartnerCallInvitationWithToken(int id, String token, String chatID, String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext.getCurrentActivity(), id, token, chatID, (Exception err, Boolean result) -> {
+            if (err != null) {
+                promise.reject(err);
+            } else {
+                promise.resolve(result);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void  connectSendPartnerCallInvitationWithToken(int id, String agent, String token, String chatID, String snapcallExternalJson, final Promise promise) {
+        Snapcall.getInstance().sendPartnerCallInvitation(reactContext.getCurrentActivity(), id, agent, token,  chatID, externalParameterFromJson(snapcallExternalJson), new PartnerInterface() {
             @Override
             public void onAgentCreated(Agent agent) {
                 // ignore

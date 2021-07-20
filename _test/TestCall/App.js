@@ -29,6 +29,7 @@ const instructions = Platform.select({
 let os = Platform.OS === 'ios' ? true : false;
 const Props = {};
 
+
 console.log('start buildv04');
 const snapcall = new Snapcall();
 const parameter = new SnapcallParameter();
@@ -104,7 +105,7 @@ function checkIfBIDIsEnabled(bid, value, name) {
       console.log('failed to make request to check bid');
     });
 }
-snapcall.activeDefaultInterface(false);
+// snapcall.activeDefaultInterface(false);
 export default class App extends Component<Props> {
   state = {
     videolocal: false,
@@ -235,7 +236,7 @@ export default class App extends Component<Props> {
   }
 
   sendPartnerCall() {
-    snapcall.sendPartnerCallInvitation(2, 'julien-chat@snapcall.io', "QRX5G65O63",  parameter).then(()=> {
+    snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', PARTNER_TOKEN, "QRX5G65O63", parameter).then(()=> {
       snapcall.setNameLabelText("John Doe");
     });
   }
@@ -435,8 +436,8 @@ export default class App extends Component<Props> {
     
     return (
       <View style={styles.container}>
-        { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>}
-        { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>}
+        {/* { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>} */}
+        {/* { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>} */}
         <View style={{ flexDirection: 'row' }}>
           <Image
             source={require('./images/imgtest.png')}
