@@ -143,6 +143,33 @@ export class Snapcall {
       return snapcallModule.setNameLabelText(nameLabelText);
     }
 
+    startVideo() {
+      if (!os) {
+            return snapcallModule.startVideo();
+      }
+      return new Promise((resolve, reject)=> {
+        reject();
+      });
+    }
+
+    pauseVideo() {
+      if (!os) {
+        return snapcallModule.pauseVideo();
+      }
+      return new Promise((resolve, reject)=> {
+        reject();
+      });
+    }
+
+    switchCamera() {
+      if (!os) {
+        return snapcallModule.switchCamera();
+      }
+      return new Promise((resolve, reject)=> {
+        reject();
+      });
+    }
+
     mute() {
       return snapcallModule.mute();
     }

@@ -254,6 +254,40 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     }
 
     @ReactMethod
+    public void startVideo(final Promise promise) {
+        try {
+            snapcallClient.startVideo();
+
+        } catch (Exception e) {
+            Log.d("startVideo", "e", e);
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void pauseVideo(final Promise promise) {
+        try {
+            snapcallClient.pauseVideo();
+
+        } catch (Exception e) {
+            Log.d("startVideo", "e", e);
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void switchCamera(final Promise promise) {
+        try {
+            snapcallClient.switchCamera();
+
+        } catch (Exception e) {
+            Log.d("startVideo", "e", e);
+            promise.reject(e);
+        }
+    }
+
+
+    @ReactMethod
     public void setSpeaker(final Promise promise) {
 
         try {
@@ -489,7 +523,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
             }
         });
     }
-
 
     @ReactMethod
     public void  sendPartnerCallInvitation(int id, String agent, String chatID, String snapcallExternalJson, final Promise promise) {

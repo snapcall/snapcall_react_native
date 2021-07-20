@@ -10,6 +10,7 @@
   "dependencies": {
     "react": "17.0.1",
     "react-native": "^0.64.1",
+    "react-native-safe-area-context": "^3.2.0",
     "react-native-snapcall": "file:../.."
   },
   "devDependencies": {

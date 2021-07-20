@@ -65,8 +65,17 @@ class SnapcallClientListener implements SCClientListener {
     }
 
     @Override
-    public void onConnectionReady(SCClientEvent parameter) {
+    public void onCallActivityCreate() {
+        sendEvent("onCallActivityCreate", "onCallActivityCreate");
+    }
 
+    @Override
+    public void onCallActivityDestroy() {
+        sendEvent("onCallActivityDestroy", "onCallActivityDestroy");
+    }
+
+    @Override
+    public void onConnectionReady(SCClientEvent parameter) {
         sendEvent("onConnectionReady", parameter);
     }
 
@@ -127,6 +136,11 @@ class SnapcallClientListener implements SCClientListener {
     @Override
     public void onRemoteVideoInfo(SCClientEvent scClientEvent) {
         sendEvent("onRemoteVideoInfo", scClientEvent);
+    }
+
+    @Override
+    public void onLocalVideoInfo(SCClientEvent scClientEvent) {
+        sendEvent("onLocalVideoInfo", scClientEvent);
     }
 
     @Override

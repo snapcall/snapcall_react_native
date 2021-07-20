@@ -16,8 +16,10 @@ import {
   Picker,
   Image,
 } from 'react-native';
-import { Snapcall, SnapcallParameter } from 'react-native-snapcall';
+import { Snapcall, SnapcallParameter, VideoContainer } from 'react-native-snapcall';
 import ChoicePicker from './ChoicePicker';
+
+console.log('hello!', VideoContainer)
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -102,9 +104,11 @@ function checkIfBIDIsEnabled(bid, value, name) {
       console.log('failed to make request to check bid');
     });
 }
-
+snapcall.activeDefaultInterface(false);
 export default class App extends Component<Props> {
   state = {
+    videolocal: false,
+    videoremote: false,
     textState: 'no Call',
     textTimer: 'no Call',
     colorDefaultUI: colorActive,
@@ -113,6 +117,7 @@ export default class App extends Component<Props> {
     backgroundColorInternetStatus: colorInternetNoCall,
     held: false,
     internet: true,
+    uniqueValue: 0
   };
 
   onEvent(ev) {
@@ -188,6 +193,18 @@ export default class App extends Component<Props> {
     this.onEvent(ev);
   }
 
+  onremoteVideoInfo(ev) {
+    this.setState({
+      videoremote: ev.call.remoteVideoInfo.active,
+    })
+  }
+
+  onLocalVideoInfo(ev) {
+    this.setState({
+      videolocal: ev.call.localVideoInfo.active,
+    })
+  }
+
   onUIRequest(ev) {}
 
   onHangup(e) {
@@ -222,6 +239,7 @@ export default class App extends Component<Props> {
       snapcall.setNameLabelText("John Doe");
     });
   }
+
 
   constructor(Props) {
     checkIfBIDIsEnabled('88b3d0f3a44311e78f9b0ae03a1ae33f', false, 'pstn');
@@ -260,6 +278,10 @@ export default class App extends Component<Props> {
     snapcall.addEventListener('onError', (ev) => { this.onError(ev) });
     snapcall.addEventListener('onMessage', (ev) => { this.onMessage(ev) });
     snapcall.addEventListener('onUnhook', (ev) => { this.onUnhook(ev) });
+    snapcall.addEventListener('onRemoteVideoInfo', (ev) => { this.onremoteVideoInfo(ev) });
+    snapcall.addEventListener('onLocalVideoInfo', (ev) => { this.onLocalVideoInfo(ev) });
+    snapcall.addEventListener('onCallActivityDestroy', (ev) => { console.log(ev) });
+    snapcall.addEventListener('onCallActivityCreate', (ev) => { console.log(ev) });
     snapcall
       .getCurrentState()
       .then(this.onEvent.bind(this))
@@ -289,6 +311,9 @@ export default class App extends Component<Props> {
 
   hangup() {
     snapcall.hangup().then(console.log).catch(console.log);
+  }
+  startVideo() {
+    snapcall.startVideo()
   }
 
   render() {
@@ -333,6 +358,9 @@ export default class App extends Component<Props> {
         >
           {held}
           {internet}
+          {createButton(() => this.startVideo(), "video", colorDefault, [
+            appStyles.container,
+          ])}
         </View>
         <View
           style={{
@@ -404,8 +432,11 @@ export default class App extends Component<Props> {
       accessibilityLabel="Learn more about this purple button"
     />
     );
+    
     return (
       <View style={styles.container}>
+        { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>}
+        { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>}
         <View style={{ flexDirection: 'row' }}>
           <Image
             source={require('./images/imgtest.png')}
@@ -447,6 +478,7 @@ export default class App extends Component<Props> {
   }
 
   launchcallZendesk() {
+    console.log("call zendesk")
     snapcall.launchCallBid(bidZendesk, parameter);
   }
 }
@@ -459,7 +491,27 @@ const appStyles = StyleSheet.create({
   },
 });
 
+const VideoStyles = StyleSheet.create({
+
+});
+
 const styles = StyleSheet.create({
+  remotevideo: {
+    width: 100,
+    height: 100,
+    // backgroundColor: "#FF0000",
+    position: "absolute",
+    top: 0,
+    left:0,
+  },
+  localVideo: {
+    width: 100,
+    height: 100,
+    // backgroundColor: "#00FF00",
+    position: "absolute",
+    top: 0,
+    right:0,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

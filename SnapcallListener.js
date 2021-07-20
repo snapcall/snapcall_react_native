@@ -71,8 +71,20 @@ function onAgentConnected(parameter) {
   }
 }
 
+function onLocalVideoInfo(parameter) {
+  callEvent("onLocalVideoInfo", parameter)
+}
+
 function onRemoteVideoInfo(parameter) {
   callEvent("onRemoteVideoInfo", parameter)
+}
+
+function onCallActivityCreate(parameter) {
+  callEvent("onCallActivityCreate", parameter)
+}
+
+function onCallActivityDestroy(parameter) {
+  callEvent("onCallActivityDestroy", parameter)
 }
 
 function onMessage(parameter) {
@@ -138,6 +150,9 @@ const eventListener = {
   "onMessage": [], 
   "onUnhook": [],
   "onRemoteVideoInfo": [],
+  "onLocalVideoInfo": [],
+  "onCallActivityDestroy": [],
+  "onCallActivityCreate": [],
 };
 
 export class SnapcallListener {
@@ -167,6 +182,9 @@ export class SnapcallListener {
       this.subscription.push(eventEmitter.addListener("onRemoteVideoInfo", onRemoteVideoInfo));
       this.subscription.push(eventEmitter.addListener("onMessage", onMessage));
       this.subscription.push(eventEmitter.addListener("onUnhook", onUnhook));
+      this.subscription.push(eventEmitter.addListener("onLocalVideoInfo", onLocalVideoInfo));
+      this.subscription.push(eventEmitter.addListener("onCallActivityDestroy", onCallActivityCreate));
+      this.subscription.push(eventEmitter.addListener("onCallActivityCreate", onCallActivityDestroy));
     }
   }
 
