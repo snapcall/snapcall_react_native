@@ -3,6 +3,10 @@
 
 ## Next Version
 
+## 2.1.0-beta.5
+
+- fix removeEventListener
+
 ## 2.1.0-beta.4
 
 - fix `package.json` for npm release
