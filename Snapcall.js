@@ -199,6 +199,10 @@ export class Snapcall {
       });
     }
 
+    updateUI(opt) {
+      return snapcallModule.updateUI(opt);
+    }
+
     mute() {
       return snapcallModule.mute();
     }

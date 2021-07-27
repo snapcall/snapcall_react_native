@@ -81,19 +81,21 @@ class SnapcallClientListener implements SCClientListener {
 
     @Override
     public void onCreated(SCClientEvent parameter) {
-
         sendEvent("onCreated", parameter);
     }
 
     @Override
     public void onRinging(SCClientEvent parameter) {
-        System.out.println("ringing");
         sendEvent("onRinging", parameter);
     }
 
     @Override
-    public void onAnswer(SCClientEvent parameter) {
+    public void onUpdateUI(SCClientEvent parameter) {
+        sendEvent("onUpdateUI", parameter);
+    }
 
+    @Override
+    public void onAnswer(SCClientEvent parameter) {
         sendEvent("onAnswer", parameter);
     }
 
@@ -263,6 +265,7 @@ class SnapcallClientListener implements SCClientListener {
         jsonCall.accumulate("callIdentifier", call.getCallIdentifier());
         jsonCall.accumulate("held", call.isHeld());
         jsonCall.accumulate("agentMail", call.getAgentMail());
+        jsonCall.accumulate("callID", call.getCallID());
         jsonCall.accumulate("transferred", call.isTransferred());
         jsonCall.accumulate("callState", call.getCurrentCallState());
         jsonCall.accumulate("startedDate", call.getDate());

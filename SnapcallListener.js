@@ -91,6 +91,10 @@ function onMessage(parameter) {
   callEvent("onMessage", parameter)
 }
 
+function onUpdateUI(parameter) {
+  callEvent("onUpdateUI", parameter)
+}
+
 function onUnhook(parameter) {
   callEvent("onUnhook", parameter)
 }
@@ -161,6 +165,7 @@ const eventListener = {
   "onLocalVideoInfo": [],
   "onCallActivityDestroy": [],
   "onCallActivityCreate": [],
+  "onUpdateUI": [],
 };
 
 export class SnapcallListener {
@@ -186,6 +191,7 @@ export class SnapcallListener {
     this.subscription.push(eventEmitter.addListener("onConnectionShutDown", onConnectionShutDown));
     if (!os) {
       this.subscription.push(eventEmitter.addListener("onError", onError));
+      this.subscription.push(eventEmitter.addListener("onUpdateUI", onUpdateUI));
       this.subscription.push(eventEmitter.addListener("onAgentConnected", onAgentConnected));
       this.subscription.push(eventEmitter.addListener("onRemoteVideoInfo", onRemoteVideoInfo));
       this.subscription.push(eventEmitter.addListener("onMessage", onMessage));
