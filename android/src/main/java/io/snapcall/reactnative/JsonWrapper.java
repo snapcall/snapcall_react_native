@@ -5,8 +5,7 @@ import org.json.JSONObject;
 
 public class JsonWrapper extends JSONObject {
 
-    public JsonWrapper(String json) throws JSONException
-    {
+    public JsonWrapper(String json) throws JSONException {
         super(json);
     }
 

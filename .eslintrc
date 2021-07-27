@@ -1,0 +1,20 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "react-native/react-native": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-console": 0,
+    "camelcase": 0
+  },
+  "plugins": [
+    "react",
+    "react-native"
+  ]
+}

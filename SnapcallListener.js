@@ -1,5 +1,7 @@
 
-import { NativeModules, DeviceEventEmitter, NativeEventEmitter } from 'react-native';
+import { NativeModules, DeviceEventEmitter, NativeEventEmitter, Platform } from 'react-native';
+
+let os = Platform.OS === "ios" ? true : false; 
 
 function onConnectionReady(parameter) {
 
@@ -56,6 +58,31 @@ function onUnheld(parameter) {
   callEvent("onUnheld", parameter)
 }
 
+function onError(parameter) {
+
+  callEvent("onError", parameter)
+}
+
+function onAgentConnected(parameter) {
+  let i = 0;
+  while  (i < eventListener["onAgentConnected"].length){
+    eventListener["onAgentConnected"][i](parameter);
+    i++;
+  }
+}
+
+function onRemoteVideoInfo(parameter) {
+  callEvent("onRemoteVideoInfo", parameter)
+}
+
+function onMessage(parameter) {
+  callEvent("onMessage", parameter)
+}
+
+function onUnhook(parameter) {
+  callEvent("onUnhook", parameter)
+}
+
 function onTime(parameter) {
 
   callEvent("onTime", parameter)
@@ -77,7 +104,6 @@ function onConnectionShutDown() {
 
 function callEvent(eventName, parameter) {
   var eventObject = null;
-
   if (typeof parameter.data === "string") {
      eventObject = JSON.parse(parameter.data) ;
   }
@@ -106,7 +132,12 @@ const eventListener = {
   "onHeld": [],
   "onUnheld": [],
   "onTime": [],
-  "onConnectionShutDown": []
+  "onConnectionShutDown": [],
+  "onError": [],
+  "onAgentConnected": [],
+  "onMessage": [], 
+  "onUnhook": [],
+  "onRemoteVideoInfo": [],
 };
 
 export class SnapcallListener {
@@ -130,6 +161,13 @@ export class SnapcallListener {
     this.subscription.push(eventEmitter.addListener("onUIRequest", onUIRequest));
     this.subscription.push(eventEmitter.addListener("onTime", onTime));
     this.subscription.push(eventEmitter.addListener("onConnectionShutDown", onConnectionShutDown));
+    if (!os) {
+      this.subscription.push(eventEmitter.addListener("onError", onError));
+      this.subscription.push(eventEmitter.addListener("onAgentConnected", onAgentConnected));
+      this.subscription.push(eventEmitter.addListener("onRemoteVideoInfo", onRemoteVideoInfo));
+      this.subscription.push(eventEmitter.addListener("onMessage", onMessage));
+      this.subscription.push(eventEmitter.addListener("onUnhook", onUnhook));
+    }
   }
 
   release() {

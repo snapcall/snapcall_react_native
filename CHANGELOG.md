@@ -2,6 +2,20 @@
 
 
 ## Next Version
+## 2.1.0-beta.1
+-  release snapcall return a promise #37
+
+## 2.1.0-beta.1
+
+- ios: arm64 simulator build
+- android: agent connection event fixed
+- android: customisation of notification
+
+## 2.1.0-beta.0
+
+- android Agent.
+- android partner connection.
+- android video support.
 
 ## 2.0.1
 - fixed a bug that prevent to compile when calling swift from objective c for a simulator. 
