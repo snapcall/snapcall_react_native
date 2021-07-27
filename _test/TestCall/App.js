@@ -16,7 +16,7 @@ import {
   Picker,
   Image,
 } from 'react-native';
-import { Snapcall, SnapcallParameter, VideoContainer } from 'react-native-snapcall';
+import { Snapcall, SnapcallParameter, VideoContainer, UserInterfaceProps } from 'react-native-snapcall';
 import ChoicePicker from './ChoicePicker';
 
 console.log('hello!', VideoContainer)
@@ -31,7 +31,10 @@ const Props = {};
 
 
 console.log('start buildv04');
+const APIKEY = "";
+const PARTNER_TOKEN = "";
 const snapcall = new Snapcall();
+const UIParameter = new UserInterfaceProps();
 const parameter = new SnapcallParameter();
 parameter.video = true;
 parameter.displayBrand = '@Snapcall';
@@ -143,9 +146,12 @@ export default class App extends Component<Props> {
     this.onEvent(ev);
   }
   onRinging(ev) {
-    this.onEvent(ev);
+    console.log("ringing", ev);
+    // this.onEvent(ev);
   }
+
   onAnswer(ev) {
+    console.log("onAnswer");
     this.onEvent(ev);
   }
 
@@ -182,6 +188,17 @@ export default class App extends Component<Props> {
   }
 
   onTime(ev) {
+        let name;
+        let brand;
+        if (ev.call.duration % 30 === 0) {
+          name = "1234"
+          brand = "56789"
+          snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
+        } else if (ev.call.duration % 30 === 15) {
+          name = "abcd"
+          brand = "efjgi"
+          snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
+        }
     // this.onEvent(ev);
     this.setTimer(ev.call.duration);
   }
@@ -206,10 +223,12 @@ export default class App extends Component<Props> {
     })
   }
 
-  onUIRequest(ev) {}
+  onUIRequest(ev) {
+    console.log("UIRequest")
+  }
 
   onHangup(e) {
-    console.log('ontime', e);
+    console.log("onHangup");
     this.setState({
       textTimer: 'no Call',
       textState: 'no Call',
@@ -279,6 +298,7 @@ export default class App extends Component<Props> {
     snapcall.addEventListener('onError', (ev) => { this.onError(ev) });
     snapcall.addEventListener('onMessage', (ev) => { this.onMessage(ev) });
     snapcall.addEventListener('onUnhook', (ev) => { this.onUnhook(ev) });
+    snapcall.addEventListener('onUpdateUI', (ev) => { console.log(ev) });
     snapcall.addEventListener('onRemoteVideoInfo', (ev) => { this.onremoteVideoInfo(ev) });
     snapcall.addEventListener('onLocalVideoInfo', (ev) => { this.onLocalVideoInfo(ev) });
     snapcall.addEventListener('onCallActivityDestroy', (ev) => { console.log(ev) });
