@@ -410,7 +410,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
                 snapcallClient.updateUI();
             }
         } catch (Exception e) {
-            Log.d("startVideo", "e", e);
+            Log.d("updateUI", "error", e);
             promise.reject(e);
         }
     }
