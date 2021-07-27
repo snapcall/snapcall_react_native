@@ -12,6 +12,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
+
 import java.net.URL;
 import java.util.Map;
 import java.util.Random;
@@ -57,9 +59,30 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         return null;
     }
 
+    private String getColor(ReadableMap object, String key) {
+        if (object != null) {
+            return object.getString(key);
+        }
+        return null;
+    }
+
     private IconColor getIconColor(JsonWrapper obj, String key) {
         if (obj != null) {
             JsonWrapper color = obj.getJsonObject(key, null);
+            if (color != null) {
+                String bg = getColor(color, "background");
+                String normal = getColor(color, "color");
+                if (bg != null && normal != null) {
+                    return new IconColor(Color.parseColor(normal), Color.parseColor(bg));
+                }
+            }
+        }
+        return null;
+    }
+
+    private IconColor getIconColor(ReadableMap obj, String key) {
+        if (obj != null) {
+            ReadableMap color = obj.getMap(key);
             if (color != null) {
                 String bg = getColor(color, "background");
                 String normal = getColor(color, "color");
@@ -88,6 +111,34 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
                 }
                 String packageName = img.getString("package", null);
                 String name = img.getString("filename", null);
+                if (packageName == null) {
+                    packageName = reactContext.getApplicationContext().getPackageName();
+                }
+                if (name != null) {
+                    return new ImageLocation(name, packageName);
+                }
+            }
+        }
+        return null;
+    }
+
+    private ImageLocation getImageLocation(ReadableMap obj, String key) {
+        if (obj != null) {
+            ReadableMap img = obj.getMap(key);
+            if (img != null) {
+                String url = img.getString("url");
+                if (url != null) {
+                    try {
+                        return new ImageLocation(new URL(url));
+                    } catch (Exception e) {}
+                }
+
+                String path = img.getString("path");
+                if (path != null) {
+                    return new ImageLocation((path));
+                }
+                String packageName = img.getString("package");
+                String name = img.getString("filename");
                 if (packageName == null) {
                     packageName = reactContext.getApplicationContext().getPackageName();
                 }
@@ -152,6 +203,71 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
             prop.setNameLabelText(name);
         }
         String appLabelText = jprops.getString("appLabelText", null);
+        if (appLabelText != null) {
+            prop.setAppLabelText(appLabelText);
+        }
+        ImageLocation appLogo = getImageLocation(jprops, "appLogo");
+        if (appLogo != null) {
+            prop.setAppLogo(appLogo);
+        }
+        ImageLocation userPortrait = getImageLocation(jprops, "userPortrait");
+        if (userPortrait != null) {
+            prop.setUserPortrait(userPortrait);
+        }
+    }
+
+    private void setCustomUIV2Props(ReadableMap  jprops) {
+        if (jprops == null) return;
+        CallViewProperties prop = Snapcall.getInstance().getCallViewProperties();
+        String backgroundColor = getColor(jprops, "backgroundColor");
+        if (backgroundColor != null) {
+            prop.setBackgroundColor(Color.parseColor(backgroundColor));
+        }
+        String actionBarColor = getColor(jprops, "actionBarColor");
+        if (actionBarColor != null) {
+            prop.setActionBarColor(Color.parseColor(actionBarColor));
+        }
+        IconColor iconColor = getIconColor(jprops, "iconColor");
+        if (iconColor != null) {
+            prop.setIconColor(iconColor);
+        }
+        IconColor hangup = getIconColor(jprops, "hangup");
+        if (hangup != null) {
+            prop.setHangup(hangup);
+        }
+        IconColor back = getIconColor(jprops, "back");
+        if (back != null) {
+            prop.setBack(back);
+        }
+        IconColor refuse = getIconColor(jprops, "refuse");
+        if (refuse != null) {
+            prop.setRefuse(refuse);
+        }
+        IconColor answer = getIconColor(jprops, "answer");
+        if (answer != null) {
+            prop.setAnswer(answer);
+        }
+        String boldTextColor = getColor(jprops, "boldTextColor");
+        if (boldTextColor != null) {
+            prop.setBoldTextColor(Color.parseColor(boldTextColor));
+        }
+        String smallTextColor = getColor(jprops, "smallTextColor");
+        if (smallTextColor != null) {
+            prop.setSmallTextColor(Color.parseColor(smallTextColor));
+        }
+        String appPortraitBackgroundColor = getColor(jprops, "appPortraitBackgroundColor");
+        if (appPortraitBackgroundColor != null) {
+            prop.setAppPortraitBackgroundColor(Color.parseColor(appPortraitBackgroundColor));
+        }
+        String colorTextState = getColor(jprops, "colorTextState");
+        if (colorTextState != null) {
+            prop.setColorTextState(Color.parseColor(colorTextState));
+        }
+        String name = jprops.getString("nameLabelText");
+        if (name != null) {
+            prop.setNameLabelText(name);
+        }
+        String appLabelText = jprops.getString("appLabelText");
         if (appLabelText != null) {
             prop.setAppLabelText(appLabelText);
         }
@@ -282,6 +398,19 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
 
         } catch (Exception e) {
             Log.d("startVideo", "e", e);
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void updateUI(final ReadableMap parameter, final Promise promise) {
+        try {
+            setCustomUIV2Props(parameter);
+            if (snapcallClient.isClientConnected()) {
+                snapcallClient.updateUI();
+            }
+        } catch (Exception e) {
+            Log.d("updateUI", "error", e);
             promise.reject(e);
         }
     }

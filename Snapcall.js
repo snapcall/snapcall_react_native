@@ -199,6 +199,15 @@ export class Snapcall {
       });
     }
 
+    updateUI(props) {
+      if (!os) {
+        return snapcallModule.updateUI(props);
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+
     mute() {
       return snapcallModule.mute();
     }

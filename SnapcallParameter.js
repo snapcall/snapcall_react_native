@@ -27,22 +27,26 @@ export class SnapcallParameter {
     // boolean if false your user will not be able to navigate on your app during the call
     this.shouldReturn = false;
     this.androidResimage = null; // image name in your res folder without extension.
-    this.userInterfaceProperty = {
-      backgroundColor: null, // #FFFFFFFF used by Color.parseColor
-      actionBarColor: null,
-      iconColor: { background: null, color: null },
-      hangup: { background: null, color: null },
-      back: { background: null, color: null },
-      refuse: { background: null, color: null },
-      answer: { background: null, color: null },
-      boldTextColor: null,
-      smallTextColor: null,
-      appPortraitBackgroundColor: null,
-      colorTextState: null,
-      nameLabelText: null,
-      appLabelText: null,
-      appLogo: { url: null, path: null, package: null, filename: null },
-      userPortrait: { url: null, path: null, package: null, filename: null },
-    };
+    this.userInterfaceProperty = new UserInterfaceProps();
+  }
+}
+
+export class UserInterfaceProps {
+  constructor() {
+    this.backgroundColor = null; // #FFFFFFFF used by Color.parseColor
+    this.actionBarColor = null;
+    this.iconColor = { background: null, color: null };
+    this.hangup = { background: null, color: null };
+    this.back = { background: null, color: null };
+    this.refuse = { background: null, color: null };
+    this.answer = { background: null, color: null };
+    this.boldTextColor = null;
+    this.smallTextColor = null;
+    this.appPortraitBackgroundColor = null;
+    this.colorTextState = null;
+    this.nameLabelText = null;
+    this.appLabelText = null;
+    this.appLogo = { url: null, path: null, package: null, filename: null };
+    this.userPortrait = { url: null, path: null, package: null, filename: null };
   }
 }
