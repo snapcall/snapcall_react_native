@@ -80,11 +80,11 @@ function onRemoteVideoInfo(parameter) {
 }
 
 function onCallActivityCreate(parameter) {
-  callEvent("onCallActivityCreate", parameter)
+  callEventBlank("onCallActivityCreate", parameter)
 }
 
 function onCallActivityDestroy(parameter) {
-  callEvent("onCallActivityDestroy", parameter)
+  callEventBlank("onCallActivityDestroy", parameter)
 }
 
 function onMessage(parameter) {
@@ -125,6 +125,14 @@ function callEvent(eventName, parameter) {
   var i = 0;
   while  (i < eventListener[eventName].length){
     eventListener[eventName][i](eventObject);
+    i++;
+  }
+}
+
+function callEventBlank(eventName) {
+  let i = 0;
+  while  (i < eventListener[eventName].length){
+    eventListener[eventName][i](eventName);
     i++;
   }
 }

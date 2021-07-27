@@ -89,7 +89,7 @@ export class Snapcall {
 
     sendPartnerCallInvitation(id, agent, chatID,  param) {
       if (!os) {
-        return snapcallModule.sendPartnerCallInvitation(id, agent, chatID,  JSON.stringify(param));
+        return snapcallModule.connectSendPartnerCallInvitation(id, agent, chatID,  JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
@@ -98,12 +98,41 @@ export class Snapcall {
     
     sendPartnerCall(id, chatID, param) {
       if (!os) {
-        return snapcallModule.connectPartnerAgent(id, chatID,  JSON.stringify(param));
+        return snapcallModule.sendPartnerCallInvitation(id, chatID,  JSON.stringify(param));
       }
       return new Promise((resolve, reject) => {
         reject("not implemented")
       });
     }
+
+    connectPartnerAgentWithToken(id, agent, token,  param) {
+      if (!os) {
+        return snapcallModule.connectPartnerAgentWithToken(id, agent, token, JSON.stringify(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+
+    sendPartnerCallInvitationWithToken(id, agent, token, chatID,  param) {
+      console.log(id, agent, token, chatID,  param);
+      if (!os) {
+        return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  JSON.stringify(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }  
+    
+    sendPartnerCallWithToken(id, token, chatID, param) {
+      if (!os) {
+        return snapcallModule.sendPartnerCallInvitationWithToken(id, token, chatID,  JSON.stringify(param));
+      }
+      return new Promise((resolve, reject) => {
+        reject("not implemented")
+      });
+    }
+
 
     disconnect() {
       if (!os) {

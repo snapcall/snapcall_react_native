@@ -2,7 +2,24 @@
 
 
 ## Next Version
-## 2.1.0-beta.1
+
+## 2.1.0-beta.5
+
+- fix removeEventListener
+
+## 2.1.0-beta.4
+
+- fix `package.json` for npm release
+
+## 2.1.0-beta.3
+
+- event `onLocalVideoInfo`, `onCallActivityDestroy`, `onCallActivityCreate`
+- android Video View React bridge and video api
+- android Partner agent connection with access token
+- Update android sdk to 2.7.0 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.7.0)
+
+## 2.1.0-beta.2
+
 -  release snapcall return a promise #37
 
 ## 2.1.0-beta.1
