@@ -1,4 +1,7 @@
 {
   "name": "TestCall2",
-  "displayName": "TestCall2"
+  "displayName": "TestCall2",
+  "ios": {
+    "bundleIdentifier": "ls"
+  }
 }

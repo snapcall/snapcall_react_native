@@ -37,9 +37,9 @@ RNSnapcallEventListener *snapcallListener;
 }
 
 
--(Snapcall_External_Parameter *)SnapcallParamFromJSON:(NSString*)JsonString
+-(SnapcallExternalParameter *)SnapcallParamFromJSON:(NSString*)JsonString
 {
-    Snapcall_External_Parameter * param = [[Snapcall_External_Parameter alloc] init];
+    SnapcallExternalParameter * param = [[SnapcallExternalParameter alloc] init];
      @try {
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:[JsonString dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
@@ -313,7 +313,7 @@ RCT_REMAP_METHOD(releaseSnapcall, releaseWithPromise:(RCTPromiseResolveBlock)res
 
 RCT_REMAP_METHOD(getCurrentState, getCurrentStateWithPromise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     NSError *err;
-    objc_SCClientEvent *currentState = [snapcallClient objc_getCurrentClientEventAndReturnError:(&err)];
+    SCClientEventObjC *currentState = [snapcallClient objc_getCurrentClientEventAndReturnError:(&err)];
     if (err != nil) {
         reject(@"-1", @"not connected", err);
     }else {
@@ -323,7 +323,7 @@ RCT_REMAP_METHOD(getCurrentState, getCurrentStateWithPromise:(RCTPromiseResolveB
 
 
 RCT_REMAP_METHOD(rateLastCall, rateLastCallWithRate: (NSInteger)rate  Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
-    objc_SCClientEvent *call = [snapcallListener getLastCall];
+    SCClientEventObjC *call = [snapcallListener getLastCall];
 
     [[Snapcall getSnapcall] rateCallWithCall:[call getCall] rate:rate requestCallBack:^(NSError *err, BOOL res) {
         if (err != nil) {
@@ -344,26 +344,21 @@ RCT_REMAP_METHOD(rateLastCall, rateLastCallWithRate: (NSInteger)rate  Promise:(R
    [[Snapcall getSnapcall] restorCallUI];
 }
 
--(NSString*)decodePushDataWithPayload:(PKPushPayload*)payload
-{
-   return([[Snapcall getSnapcall] decodePushDataWithPushKitPayload:payload]);
-}
-
--(void)receiveCallWith:(PKPushPayload*)payload parameter:(Snapcall_External_Parameter*)parameter
+-(void)receiveCallWith:(PKPushPayload*)payload parameter:(SnapcallExternalParameter*)parameter
 {
    [[Snapcall getSnapcall]receiveCallWithPushKitPayload:payload parameter:parameter];
 
 }
 
--(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(Snapcall_External_Parameter*)parameter{
+-(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(SnapcallExternalParameter*)parameter{
    [[Snapcall   getSnapcall]launchCallWithBidId:bidId applicationName:AppName customClientIdentifier:customIdentifier parameter:parameter];
 }
 
--(void)launchCallWithBidId:(NSString *)bidId  parameter:(Snapcall_External_Parameter*)parameter{
+-(void)launchCallWithBidId:(NSString *)bidId  parameter:(SnapcallExternalParameter*)parameter{
     [[Snapcall   getSnapcall]launchCallWithBidId: bidId parameter:parameter];
 }
 
--(void)launchCallWithBidId:(NSString *)bidId snapcallIdentifier:(NSString*)snapcallIdentifier parameter:(Snapcall_External_Parameter*)parameter{
+-(void)launchCallWithBidId:(NSString *)bidId snapcallIdentifier:(NSString*)snapcallIdentifier parameter:(SnapcallExternalParameter*)parameter{
 
     [[Snapcall   getSnapcall]launchCallWithBidId: bidId snapcallIdentifier:snapcallIdentifier parameter:parameter];
 
