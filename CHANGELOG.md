@@ -3,6 +3,12 @@
 
 ## Next Version
 
+## 2.1.0-beta.6
+
+- android api function updateUI (reload default user interface)
+- android event parameter event.call.callID , unique id of a call in snapcall
+- Update android sdk to 2.8.0 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.8.0)
+
 ## 2.1.0-beta.5
 
 - fix removeEventListener

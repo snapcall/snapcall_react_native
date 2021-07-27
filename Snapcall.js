@@ -18,7 +18,7 @@ export class Snapcall {
     listener =  new SnapcallListener(os)
 
     constructor() {
-      console.log("snapcall release 1.2.2")
+      console.log("snapcall release 2.1.0-beta.6")
     }
 
     /** remove listener from snapcall event **/
