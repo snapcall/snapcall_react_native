@@ -10,7 +10,7 @@
 
 -(NSString*)decodePushDataWithPayload:(PKPushPayload*)payload;
 
--(void)receiveCallWith:(PKPushPayload*)payload parameter:(SnapcallExternalParameter*)parameter;
++(void)receiveCallWith:(PKPushPayload*)payload parameter:(SnapcallExternalParameter*)parameter;
 
 -(void)launchCallWithBidId:(NSString *)bidId applicationName:(NSString*)AppName customClientIdentifier:(NSString*)customIdentifier parameter:(SnapcallExternalParameter*)parameter;
 
@@ -26,5 +26,6 @@
 
 -(void)restorUI;
 
-@end
++(void)reportVoipToken: (NSString*) token;
 
+@end

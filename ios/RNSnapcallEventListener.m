@@ -27,9 +27,32 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
     return lastCall;
 }
 
-- (NSArray<NSString *> *)supportedEvents{
-    return @[@"onConnectionReady", @"onCreated", @"onUIRequest", @"onRinging" , @"onAnswer", @"onInternetDown", @"onInternetUP", @"onHangup",
-                       @"onHeld", @"onUnheld", @"onMuteChange", @"onSpeakerChange", @"onTime", @"onConnectionShutDown"];
+
+- (NSArray<NSString *> *) supportedEvents {
+    return @[@"onConnectionReady",
+             @"onCreated",
+             @"onUIRequest",
+             @"onRinging",
+             @"onAnswer",
+             @"onInternetDown",
+             @"onInternetUP",
+             @"onHangup",
+             @"onHeld",
+             @"onUnheld",
+             @"onMuteChange",
+             @"onSpeakerChange",
+             @"onTime",
+             @"onError",
+             @"onUpdateUI",
+             @"onAgentConnected",
+             @"onRemoteVideoInfo",
+             @"onMessage",
+             @"onUnhook",
+             @"onLocalVideoInfo",
+             @"onCallActivityDestroy",
+             @"onCallActivityCreate",
+             @"onConnectionShutDown",
+             @"onVoipToken"];
 }
 
 - (id) preventNilForValue: (id) value {
@@ -67,18 +90,30 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
             else
               state = STATE_CREATED;
           }
-            callParameter = @{
-                            @"transferred": [call isTransferred] ? @YES : @NO,
-                            @"displayName": [self preventNilForValue:[call getDisplayName]],
-                            @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
-                            @"callState": state,
-                            @"time": [NSNumber numberWithLong:[call getTime]],
-                            @"startedDate": [self preventNilForValue:[call getStartedData]],
-                            @"duration": [NSNumber numberWithLong:[call getDuration]],
-                            @"held": [call isHeld] ? @YES : @NO,
-                            @"agentMail": [self preventNilForValue:[call getAgentMail]]
-                            };
-        }
+            
+        callParameter = @{
+            @"callID":[call getCallID],
+            @"transferred": [call isTransferred] ? @YES : @NO,
+            @"displayName": [self preventNilForValue:[call getDisplayName]],
+            @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
+            @"callState": state,
+            @"time": [NSNumber numberWithLong:[call getTime]],
+            @"startedDate": [self preventNilForValue:[call getStartedData]],
+            @"duration": [NSNumber numberWithLong:[call getDuration]],
+            @"held": [call isHeld] ? @YES : @NO,
+            @"agentMail": [self preventNilForValue:[call getAgentMail]],
+            @"remoteVideoInfo": @{
+                @"active": [[call getRemoteVideoInfo] isActive] ? @YES : @NO,
+                @"setup": [[call getRemoteVideoInfo] isSetup] ? @YES : @NO,
+                @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
+            },
+            @"localVideoInfo": @{
+                @"active": [[call getLocalVideoInfo] isActive] ? @YES : @NO,
+                @"setup": [[call getLocalVideoInfo] isSetup] ? @YES : @NO,
+                @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
+            },
+        };
+    }
 
         NSDictionary *event = @{
                                 @"speaker": [snapcallEvent isSpeaker] ? @YES : @NO,
@@ -92,8 +127,16 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 }
 
 - (void) sendEventWithName:(NSString *)name parameter:(SCClientEventObjC * _Nonnull)parameter {
-
     [[RNSnapcallEmitEvent getInstance] sendEventWithName:name body:[self makeJSONEventWithEvent:parameter]];
+}
+
+- (void) sendEventWithString:(NSString *)name parameter:(NSString*)parameter {
+
+    [[RNSnapcallEmitEvent getInstance] sendEventWithName:name body:parameter];
+}
+
+-(void)sendVoipToken:(NSString *) token {
+    [self sendEventWithString:@"onVoipToken" parameter: token];
 }
 
 - (void)onAnswer:(SCClientEventObjC * _Nonnull)parameter {
@@ -156,5 +199,34 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 - (void)onUnheld:(SCClientEventObjC * _Nonnull)parameter {
     [self sendEventWithName:@"onUnheld" parameter: parameter];
 }
+
+- (void) onLocalVideoInfo:(SCClientEventObjC *)parameter {
+    [self sendEventWithName:@"onLocalVideoInfo" parameter: parameter];
+}
+
+- (void) onRemoteVideoInfo:(SCClientEventObjC *)parameter {
+    [self sendEventWithName:@"onRemoteVideoInfo" parameter: parameter];
+}
+
+- (void) onUpdateUI:(SCClientEventObjC *)parameter {
+    [self sendEventWithName:@"onUnheld" parameter: parameter];
+}
+
+- (void) onAgentConnected {
+
+}
+
+- (void) onViewDidAppear :(SCClientEventObjC *)parameter {
+    [self sendEventWithName:@"onCallActivityCreate" parameter: parameter];
+}
+
+- (void) onViewDismiss :(SCClientEventObjC *)parameter {
+    [self sendEventWithName:@"onCallActivityDestroy" parameter: parameter];
+}
+
+- (void) onErrorWithError:(CallError *)error {
+    [self sendEventWithString:@"onError" parameter:error.description];
+}
+
 
 @end

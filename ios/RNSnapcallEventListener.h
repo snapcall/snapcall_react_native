@@ -14,5 +14,6 @@
 - (SCClientEventObjC*)getLastCall;
 - (NSDictionary *) makeJSONEventWithEvent: (SCClientEventObjC *)snapcallEvent;
 - (instancetype)init;
+- (void)sendVoipToken:(NSString *) token;
 
 @end

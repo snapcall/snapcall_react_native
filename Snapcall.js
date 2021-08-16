@@ -64,9 +64,7 @@ export class Snapcall {
     }
 
     setApiCredentials(apiKey) {
-      if (!os) {
         return snapcallModule.setApiCredentials(apiKey);
-      }
     }
 
     connectAgent(agent, param) {
@@ -106,22 +104,11 @@ export class Snapcall {
     }
 
     connectPartnerAgentWithToken(id, agent, token,  param) {
-      if (!os) {
-        return snapcallModule.connectPartnerAgentWithToken(id, agent, token, JSON.stringify(param));
-      }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
+      return snapcallModule.connectPartnerAgentWithToken(id, agent, token, JSON.stringify(param));
     }
 
     sendPartnerCallInvitationWithToken(id, agent, token, chatID,  param) {
-      console.log(id, agent, token, chatID,  param);
-      if (!os) {
-        return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  JSON.stringify(param));
-      }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
+      return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  JSON.stringify(param));
     }  
     
     sendPartnerCallWithToken(id, token, chatID, param) {
@@ -132,15 +119,9 @@ export class Snapcall {
         reject("not implemented")
       });
     }
-
-
+    
     disconnect() {
-      if (!os) {
-        return snapcallModule.disconnect();
-      }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
+      return snapcallModule.disconnect();
     }
 
     /**
@@ -173,39 +154,19 @@ export class Snapcall {
     }
 
     startVideo() {
-      if (!os) {
-            return snapcallModule.startVideo();
-      }
-      return new Promise((resolve, reject)=> {
-        reject();
-      });
+      return snapcallModule.startVideo();
     }
 
     pauseVideo() {
-      if (!os) {
-        return snapcallModule.pauseVideo();
-      }
-      return new Promise((resolve, reject)=> {
-        reject();
-      });
+      return snapcallModule.pauseVideo();
     }
 
     switchCamera() {
-      if (!os) {
-        return snapcallModule.switchCamera();
-      }
-      return new Promise((resolve, reject)=> {
-        reject();
-      });
+      return snapcallModule.switchCamera();
     }
 
     updateUI(props) {
-      if (!os) {
-        return snapcallModule.updateUI(props);
-      }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
+      return snapcallModule.updateUI(props);
     }
 
     mute() {
@@ -221,10 +182,16 @@ export class Snapcall {
     }
 
     getConnectedAgent() {
-      if (!os) {
         return snapcallModule.getConnectedAgent()
+    }
+    
+    getToken() {
+      if (os) {
+        return snapcallModule.getToken()
       }
-      return null;
+      return new Promise((r, reject) => {
+        reject("not implemented on this platform");
+      });
     }
 
     /**

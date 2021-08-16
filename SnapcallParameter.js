@@ -48,5 +48,9 @@ export class UserInterfaceProps {
     this.appLabelText = null;
     this.appLogo = { url: null, path: null, package: null, filename: null };
     this.userPortrait = { url: null, path: null, package: null, filename: null };
+    this.appLogoIOS = null;
+    this.userPortraitIOS = null;
+    this.shouldBackIOS = null;
+    this.useBlurIOS = null;
   }
 }

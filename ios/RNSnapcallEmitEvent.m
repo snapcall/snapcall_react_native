@@ -36,8 +36,30 @@ static RNSnapcallEmitEvent *instance = nil;
 }
 
 - (NSArray<NSString *> *)supportedEvents{
-    return @[@"onConnectionReady", @"onCreated", @"onUIRequest", @"onRinging" , @"onAnswer", @"onInternetDown", @"onInternetUP", @"onHangup",
-             @"onHeld", @"onUnheld", @"onMuteChange", @"onSpeakerChange", @"onTime", @"onConnectionShutDown"];
+    return @[@"onConnectionReady",
+             @"onCreated",
+             @"onUIRequest",
+             @"onRinging",
+             @"onAnswer",
+             @"onInternetDown",
+             @"onInternetUP",
+             @"onHangup",
+             @"onHeld",
+             @"onUnheld",
+             @"onMuteChange",
+             @"onSpeakerChange",
+             @"onTime",
+             @"onConnectionShutDown",
+             @"onError",
+             @"onUpdateUI",
+             @"onAgentConnected",
+             @"onRemoteVideoInfo",
+             @"onMessage",
+             @"onUnhook",
+             @"onLocalVideoInfo",
+             @"onCallActivityDestroy",
+             @"onCallActivityCreate",
+             @"onVoipToken"];
 }
 
 - (id) preventNilForValue: (id) value {
