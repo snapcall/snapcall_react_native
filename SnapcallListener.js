@@ -142,7 +142,6 @@ function callEventBlank(eventName) {
 }
 
 const eventListener = {
-
   "onConnectionReady": [],
   "onCreated":  [],
   "onRinging": [],
@@ -189,17 +188,15 @@ export class SnapcallListener {
     this.subscription.push(eventEmitter.addListener("onUIRequest", onUIRequest));
     this.subscription.push(eventEmitter.addListener("onTime", onTime));
     this.subscription.push(eventEmitter.addListener("onConnectionShutDown", onConnectionShutDown));
-    if (!os) {
-      this.subscription.push(eventEmitter.addListener("onError", onError));
-      this.subscription.push(eventEmitter.addListener("onUpdateUI", onUpdateUI));
-      this.subscription.push(eventEmitter.addListener("onAgentConnected", onAgentConnected));
-      this.subscription.push(eventEmitter.addListener("onRemoteVideoInfo", onRemoteVideoInfo));
-      this.subscription.push(eventEmitter.addListener("onMessage", onMessage));
-      this.subscription.push(eventEmitter.addListener("onUnhook", onUnhook));
-      this.subscription.push(eventEmitter.addListener("onLocalVideoInfo", onLocalVideoInfo));
-      this.subscription.push(eventEmitter.addListener("onCallActivityDestroy", onCallActivityCreate));
-      this.subscription.push(eventEmitter.addListener("onCallActivityCreate", onCallActivityDestroy));
-    }
+    this.subscription.push(eventEmitter.addListener("onError", onError));
+    this.subscription.push(eventEmitter.addListener("onUpdateUI", onUpdateUI));
+    this.subscription.push(eventEmitter.addListener("onAgentConnected", onAgentConnected));
+    this.subscription.push(eventEmitter.addListener("onRemoteVideoInfo", onRemoteVideoInfo));
+    this.subscription.push(eventEmitter.addListener("onMessage", onMessage));
+    this.subscription.push(eventEmitter.addListener("onUnhook", onUnhook));
+    this.subscription.push(eventEmitter.addListener("onLocalVideoInfo", onLocalVideoInfo));
+    this.subscription.push(eventEmitter.addListener("onCallActivityDestroy", onCallActivityDestroy));
+    this.subscription.push(eventEmitter.addListener("onCallActivityCreate", onCallActivityCreate));
   }
 
   release() {

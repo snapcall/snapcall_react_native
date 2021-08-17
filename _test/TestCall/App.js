@@ -60,12 +60,20 @@ parameter.shouldReturn = true;
 // parameter.userInterfaceProperty.appLogo.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
 // parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
 parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
-parameter.userInterfaceProperty.backgroundColor = "#FFFFFFFF"
-parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFFFF" };
+parameter.userInterfaceProperty.backgroundColor = "#FFFFFF00"
+parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFF" };
+parameter.userInterfaceProperty.iosBackButtonColor = "#000000";
+parameter.userInterfaceProperty.iosHideButtonColor = "#000000";
+parameter.userInterfaceProperty.boldTextColor = "#000000"
+parameter.userInterfaceProperty.colorTextState = "#000000"
+parameter.userInterfaceProperty.appLabelText= "Snapcall test"
+parameter.userInterfaceProperty.nameLabelText= "Jsohn doe"
 // parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
 // parameter.userInterfaceProperty.backgroundColor = "#FFFFFFFF"
 // parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFFFF" };
 // parameter.userInterfaceProperty.userPortrait.package = "com.testcall2";
+parameter.userInterfaceProperty.appLogoIOS = Image.resolveAssetSource(require('./images/imgtest.png'));
+parameter.userInterfaceProperty.userPortraitIOS = Image.resolveAssetSource(require('./images/img2snapcall.png'));
 var bid = '88b3d0f3a44311e78f9b0ae03a1ae33f';
 var bidZendesk = '0999b36e472111e997380ae222c5da84';
 var pickA;
@@ -190,15 +198,16 @@ export default class App extends Component<Props> {
   onTime(ev) {
         let name;
         let brand;
-        if (ev.call.duration % 30 === 0) {
-          name = "1234"
-          brand = "56789"
-          snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
-        } else if (ev.call.duration % 30 === 15) {
-          name = "abcd"
-          brand = "efjgi"
+        if (ev.call.duration === 5) {
+          name = "test doe"
+          // brand = ""
           snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
         }
+        // } else if (ev.call.duration % 15 === 5) {
+          // name = "abcd"
+          // brand = "efjgi"
+          // snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
+        // }
     // this.onEvent(ev);
     this.setTimer(ev.call.duration);
   }
@@ -218,6 +227,8 @@ export default class App extends Component<Props> {
   }
 
   onLocalVideoInfo(ev) {
+    console.log("onLocalVideoInfo");
+    console.log(ev.call.localVideoInfo.active);
     this.setState({
       videolocal: ev.call.localVideoInfo.active,
     })
@@ -249,14 +260,21 @@ export default class App extends Component<Props> {
     }
   }
 
+  onToken(token) {
+    console.log(token);
+    fetch(`https://sandbox.snapcall.io/push/register_ios/?token=${token}&agent=julien-chat@snapcall.io&test=true`)
+  }
+
   connectAgent() {
-    console.log('connecting pierre');
+    console.log('connecting pierre', parameter);
     snapcall.connectAgent('pierre@snapcall.io', parameter);
   }
 
   sendPartnerCall() {
     snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', PARTNER_TOKEN, "QRX5G65O63", parameter).then(()=> {
       snapcall.setNameLabelText("John Doe");
+    }).catch((err) => {
+        console.log("sendpartnerCall", err);
     });
   }
 
@@ -278,7 +296,13 @@ export default class App extends Component<Props> {
       .catch(() => {
         console.log('permission failed');
       });
-    snapcall.setApiCredentials(APIKEY);
+    snapcall.setApiCredentials(APIKEY).then(() => console.log("apikey success")).catch((err) => console.log("apikey err", err));
+    snapcall.getToken().then((res) => {
+      console.log("token", res);
+      this.onToken(res);
+    }).catch((err) => {
+      console.log("tokenError", err);
+    });
     console.log('construct');
     super(Props);
 
@@ -319,6 +343,7 @@ export default class App extends Component<Props> {
   defaultUI = true;
   changeSnapcallUI() {
     this.defaultUI = !this.defaultUI;
+    console.log("defaultUI", this.defaultUI);
     snapcall.activeDefaultInterface(this.defaultUI);
     this.setState({
       colorDefaultUI: this.defaultUI ? colorActive : this.colorUnActive,
@@ -334,7 +359,7 @@ export default class App extends Component<Props> {
     snapcall.hangup().then(console.log).catch(console.log);
   }
   startVideo() {
-    snapcall.startVideo()
+    snapcall.startVideo().then(console.log).catch(console.log);
   }
 
   render() {
@@ -417,7 +442,9 @@ export default class App extends Component<Props> {
 
     var desactivateui = (
       <Button
-        onPress={this.changeSnapcallUI}
+        onPress={() => {
+           this.changeSnapcallUI()
+          }}
         title="defaultUI"
         color={this.state.colorDefaultUI}
         style={[appStyles.container]}
@@ -456,8 +483,8 @@ export default class App extends Component<Props> {
     
     return (
       <View style={styles.container}>
-        {/* { this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer>} */}
-        {/* { this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer>} */}
+        { !this.defaultUI && this.state.videolocal && <VideoContainer style={styles.localVideo} videosrc='local'></VideoContainer> }
+        { !this.defaultUI && this.state.videoremote && <VideoContainer style={styles.remotevideo} videosrc='remote'></VideoContainer> }
         <View style={{ flexDirection: 'row' }}>
           <Image
             source={require('./images/imgtest.png')}
@@ -499,7 +526,7 @@ export default class App extends Component<Props> {
   }
 
   launchcallZendesk() {
-    console.log("call zendesk")
+    console.log("call zendesk", parameter)
     snapcall.launchCallBid(bidZendesk, parameter);
   }
 }
