@@ -64,7 +64,14 @@ export class Snapcall {
     }
 
     setApiCredentials(apiKey) {
+      if (os) {
         return snapcallModule.setApiCredentials(apiKey);
+      } else {
+        return new Promise((resolve) => {
+          const res = snapcallModule.setApiCredentials(apiKey);
+          resolve(res);
+        });
+      }
     }
 
     connectAgent(agent, param) {
