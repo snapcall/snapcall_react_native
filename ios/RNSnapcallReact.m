@@ -190,23 +190,16 @@ NSString* tokenVoip;
 }
 
 -(UIColor *)colorFromHexString:(NSString *)hexString {
-    NSLog(@"test");
     if (![hexString isKindOfClass: [NSString class]]) {
-        NSLog(@"test a");
         return [NSNull null];
     }
     if ([hexString length] == 9) {
         hexString = [hexString substringWithRange:NSMakeRange(0, 7)];
     }
-    NSLog(@"test b ");
-    NSLog(@"%s", [hexString UTF8String]);
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    NSLog(@"test c ");
     [scanner setScanLocation:1]; // bypass '#' character
-    NSLog(@"test d ");
     [scanner scanHexInt:&rgbValue];
-    NSLog(@"test e ");
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
@@ -231,72 +224,71 @@ NSString* tokenVoip;
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setBackgroundColor: color];
     }
-    NSLog(@"backgroundColor");
-    
-    
     color = [self getColorFromObject:[object valueForKey: @"iconColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setIconColorWithColor: color];
     }
-    NSLog(@"iconColor");
     
-    color = [self colorFromHexString:[object valueForKey: @"actionBarColor"]];
-    NSLog(@"actionBarColor");
+    color = [self getBGColorFromObject:[object valueForKey: @"iconColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
-        NSLog(@"actionBarColor");
+        props = [props setIconBGColor: color];
+    }
+    color = [self colorFromHexString:[object valueForKey: @"actionBarColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
         props = [props setActionBarBackgroundColor: color];
     }
-    NSLog(@"actionBarColor");
-//    [props setHangupBackgroundColorWithColor: [self getColorFromObject:[object valueForKey: @"hangup"]]];
+    color = [self getColorFromObject:[object valueForKey: @"hangup"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setHangupBackgroundColorWithColor: color];
+    }
     color = [self colorFromHexString:[object valueForKey: @"boldTextColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setTextColor: color];
     }
-    NSLog(@"boldTextColor");
     
     color =[self colorFromHexString:[object valueForKey: @"colorTextState"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setTextColorState: color];
     }
-    NSLog(@"colorTextState");
-//    [props setUserImageBGColor: [self colorFromHexString:[object valueForKey: @"appPortraitBackgroundColor"]]];
+    color = [self colorFromHexString:[object valueForKey: @"appPortraitBackgroundColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setUserImageBGColor: color];
+    }
+    color = [self colorFromHexString:[object valueForKey: @"iosHideButtonColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setHideColorWithColor: color];
+    }
+    color = [self colorFromHexString:[object valueForKey: @"iosBackButtonColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setBackColorWithColor: color];
+    }
     NSString *name = [object valueForKey: @"nameLabelText"];
     if ([name isKindOfClass:[NSString class]]) {
         props = [props setCallName: name];
     }
-    NSLog(@"nameLabelText");
 
     NSString *brand = [object valueForKey: @"appLabelText"];
     if ([brand isKindOfClass:[NSString class]]) {
         props = [props setAppLabel: brand];
     }
-    NSLog(@"appLabelText");
     if ([object valueForKey: @"shouldBackIOS"] != [NSNull null]) {
         props = [props setShouldBackWithShouldBack: [[object valueForKey: @"shouldBackIOS"] boolValue]];
     }
-    NSLog(@"shouldBackIOS");
     if ([object valueForKey: @"useBlurIOS"] != [NSNull null]) {
         props = [props setBackgroundBlur: [[object valueForKey: @"useBlurIOS"] boolValue]];
     }
-    NSLog(@"useBlurIOS");
-    
     testVal(
     NSDictionary * userPortraitIOS = [object valueForKey: @"userPortraitIOS"];
-    NSLog(@"%@", userPortraitIOS);
     if ([userPortraitIOS isKindOfClass:[NSDictionary class]]) {
         props = [props setUserImage:[RCTConvert UIImage: userPortraitIOS]];
     }
     )
-    NSLog(@"userPortraitIOS");
     testVal(
     NSDictionary * brandImage = [object valueForKey: @"appLogoIOS"];
-    NSLog(@"%@", brandImage);
     if ([brandImage isKindOfClass:[NSDictionary class]]) {
         props = [props setBrandImage:[RCTConvert UIImage: brandImage]];
     }
     )
-    NSLog(@"appLogoIOS");
-
 }
 
 -(SnapcallExternalParameter *)snapcallParamFromDictionnary:(NSDictionary *)object {

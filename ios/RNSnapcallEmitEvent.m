@@ -58,8 +58,7 @@ static RNSnapcallEmitEvent *instance = nil;
              @"onUnhook",
              @"onLocalVideoInfo",
              @"onCallActivityDestroy",
-             @"onCallActivityCreate",
-             @"onVoipToken"];
+             @"onCallActivityCreate"];
 }
 
 - (id) preventNilForValue: (id) value {

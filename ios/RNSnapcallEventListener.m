@@ -51,8 +51,7 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
              @"onLocalVideoInfo",
              @"onCallActivityDestroy",
              @"onCallActivityCreate",
-             @"onConnectionShutDown",
-             @"onVoipToken"];
+             @"onConnectionShutDown"];
 }
 
 - (id) preventNilForValue: (id) value {
@@ -133,10 +132,6 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
 - (void) sendEventWithString:(NSString *)name parameter:(NSString*)parameter {
 
     [[RNSnapcallEmitEvent getInstance] sendEventWithName:name body:parameter];
-}
-
--(void)sendVoipToken:(NSString *) token {
-    [self sendEventWithString:@"onVoipToken" parameter: token];
 }
 
 - (void)onAnswer:(SCClientEventObjC * _Nonnull)parameter {

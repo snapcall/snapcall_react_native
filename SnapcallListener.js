@@ -118,13 +118,6 @@ function onConnectionShutDown() {
   }
 }
 
-function onVoipToken(token) {
-  while  (i < eventListener['onVoipToken'].length){
-    eventListener[onVoipToken][i](token);
-    i++;
-  }
-}
-
 function callEvent(eventName, parameter) {
   var eventObject = null;
   if (typeof parameter.data === "string") {
@@ -149,7 +142,6 @@ function callEventBlank(eventName) {
 }
 
 const eventListener = {
-
   "onConnectionReady": [],
   "onCreated":  [],
   "onRinging": [],
@@ -205,9 +197,6 @@ export class SnapcallListener {
     this.subscription.push(eventEmitter.addListener("onLocalVideoInfo", onLocalVideoInfo));
     this.subscription.push(eventEmitter.addListener("onCallActivityDestroy", onCallActivityDestroy));
     this.subscription.push(eventEmitter.addListener("onCallActivityCreate", onCallActivityCreate));
-    if (os) {
-      this.subscription.push(eventEmitter.addListener("onVoipToken", onVoipToken));
-    }
   }
 
   release() {
