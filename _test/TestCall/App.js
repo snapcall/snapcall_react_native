@@ -61,7 +61,9 @@ parameter.shouldReturn = true;
 // parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
 parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
 parameter.userInterfaceProperty.backgroundColor = "#FFFFFF00"
-parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FF000000" };
+parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFF" };
+parameter.userInterfaceProperty.iosBackButtonColor = "#000000";
+parameter.userInterfaceProperty.iosHideButtonColor = "#000000";
 parameter.userInterfaceProperty.boldTextColor = "#000000"
 parameter.userInterfaceProperty.colorTextState = "#000000"
 parameter.userInterfaceProperty.appLabelText= "Snapcall test"
@@ -196,15 +198,16 @@ export default class App extends Component<Props> {
   onTime(ev) {
         let name;
         let brand;
-        if (ev.call.duration % 10 === 0) {
-          name = "1234"
-          brand = "56789"
-          snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
-        } else if (ev.call.duration % 10 === 5) {
-          name = "abcd"
-          brand = "efjgi"
+        if (ev.call.duration === 5) {
+          name = "test doe"
+          // brand = ""
           snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
         }
+        // } else if (ev.call.duration % 15 === 5) {
+          // name = "abcd"
+          // brand = "efjgi"
+          // snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
+        // }
     // this.onEvent(ev);
     this.setTimer(ev.call.duration);
   }
@@ -324,7 +327,6 @@ export default class App extends Component<Props> {
     snapcall.addEventListener('onLocalVideoInfo', (ev) => { this.onLocalVideoInfo(ev) });
     snapcall.addEventListener('onCallActivityDestroy', (ev) => { console.log(ev) });
     snapcall.addEventListener('onCallActivityCreate', (ev) => { console.log(ev) });
-    snapcall.addEventListener('onVoipToken', (ev) => { onToken(ev) });
     snapcall
       .getCurrentState()
       .then(this.onEvent.bind(this))
