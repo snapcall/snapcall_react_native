@@ -2,6 +2,10 @@
 
 
 ## Next Version
+## 2.1.0-beta.7
+- add ios partner agent and video call.
+- update ios sdk to 5.7.1 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.7.1 - https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.7.0)
+- update android sdk to 2.8.1 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.8.1)
 
 ## 2.1.0-beta.6
 
