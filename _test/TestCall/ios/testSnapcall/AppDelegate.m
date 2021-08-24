@@ -3,7 +3,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RNSnapcallEventListener.h"
+#import "RNSnapcallReact.h"
+
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -102,6 +103,7 @@ static void InitializeFlipper(UIApplication *application) {
     //available(iOS 11.0, *)
     NSLog(@"Get");
     SnapcallExternalParameter *param = [[SnapcallExternalParameter alloc]  init];
+    param.useVideo = @YES;
     [RNSnapcallReact receiveCallWith: payload parameter: param];
 }
 

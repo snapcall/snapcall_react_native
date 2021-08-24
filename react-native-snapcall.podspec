@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
   s.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${SRCROOT}/Snapcall_Framework"' }
 
   s.dependency 'React'
-  s.dependency 'Snapcall_Framework', '5.7.1'
+  s.dependency 'Snapcall_Framework', '5.7.2'
 end
