@@ -2,6 +2,11 @@
 
 
 ## Next Version
+## 2.1.0-beta.10
+- adapt to video display change in sdk. #46
+- update android sdk to 2.8.2 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.8.2)
+- update ios sdk to 5.7.2 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.7.2)
+
 ## 2.1.0-beta.9
 - update android sdk to 2.8.2 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.8.2)
 
