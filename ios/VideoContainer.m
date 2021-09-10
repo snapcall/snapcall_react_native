@@ -12,6 +12,7 @@
 @implementation VideoView
 UIView *video;
 CGRect currentFrame;
+NSString *videoType;
 
 - (void)reactSetFrame:(CGRect)frame {
     [super reactSetFrame: frame];
@@ -49,6 +50,10 @@ SCClient * client;
     return uiEle;
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(displayType, (NSString *), VideoView) {
+    videoType = json;
+}
+
 
 RCT_CUSTOM_VIEW_PROPERTY(videosrc, (NSString *), VideoView) {
     NSLog(@"videoproperty");
@@ -58,7 +63,7 @@ RCT_CUSTOM_VIEW_PROPERTY(videosrc, (NSString *), VideoView) {
         video = [client getLocalVideoRenderer];
     } else if ([json isEqualToString: @"remote"]) {
         NSLog(@"get remote video");
-        video = [client getRemoteVideoRenderer];
+        video = [client getRemoteVideoRendererWithType: [@"fill" isEqualToString:videoType] ? VideoRendererTypeFill : VideoRendererTypeFull];
     }
     [view setVideoWith: video];
 }

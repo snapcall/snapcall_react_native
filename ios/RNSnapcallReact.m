@@ -237,7 +237,7 @@ NSString* tokenVoip;
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setActionBarBackgroundColor: color];
     }
-    color = [self getColorFromObject:[object valueForKey: @"hangup"]];
+    color = [self getBGColorFromObject:[object valueForKey: @"hangup"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setHangupBackgroundColorWithColor: color];
     }

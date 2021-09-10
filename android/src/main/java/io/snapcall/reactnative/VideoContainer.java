@@ -7,11 +7,10 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import io.snapcall.snapcall_android_framework.VideoView;
+import io.snapcall.snapcall_android_framework.PeerConnection.VideoDisplay.VideoDisplay;
 
 public class VideoContainer extends RelativeLayout {
-    VideoView videoView;
+    VideoDisplay videoView;
 
     VideoContainer(Context context) {
         super(context);
@@ -25,7 +24,7 @@ public class VideoContainer extends RelativeLayout {
         this.setBackgroundColor(Color.YELLOW);
     }
 
-    public void setVideoView(VideoView videoView) {
+    public void setVideoView(VideoDisplay videoView) {
         Log.d("VideoContainer", "add video view");
         if (this.videoView != null) {
             this.removeView(videoView);

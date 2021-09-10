@@ -28,6 +28,7 @@ public class VideoContainerManager extends SimpleViewManager<VideoContainer> {
     static VideoContainer local;
     static VideoContainer remote;
     SCClient client;
+    String type = "FILL";
 
 
     public static VideoContainerManager getInstance(ReactApplicationContext reactContext) {
@@ -54,6 +55,11 @@ public class VideoContainerManager extends SimpleViewManager<VideoContainer> {
         return new VideoContainer(context);
     }
 
+    @ReactProp(name = "displayType")
+    public void setVideoType(VideoContainer view, String type) {
+        this.type = type;
+    }
+
     @ReactProp(name = "videosrc")
     public void setVideoSrc(VideoContainer view, @Nullable String videoSrc) {
         this.mCallerContext.runOnUiQueueThread(() -> {
@@ -69,8 +75,9 @@ public class VideoContainerManager extends SimpleViewManager<VideoContainer> {
             if (remote != null && remote.videoView != null) {
                 remote.removeView(remote.videoView);
             }
+            int videoType = "full".equals(type) ? SCClient.VideoType.FULL : SCClient.VideoType.FILL;
             remote = view;
-            remote.setVideoView(client.getRemoteVideoRenderer(mCallerContext));
+            remote.setVideoView(client.getRemoteVideoRenderer(mCallerContext, videoType));
         }
         });
     }
