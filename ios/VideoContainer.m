@@ -68,5 +68,10 @@ RCT_CUSTOM_VIEW_PROPERTY(videosrc, (NSString *), VideoView) {
     [view setVideoWith: video];
 }
 
++ (BOOL)requiresMainQueueSetup
+{
+  return YES;
+}
+
 
 @end
