@@ -104,6 +104,8 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         if (jprops == null) return;
         CallViewProperties prop = Snapcall.getInstance().getCallViewProperties();
         String backgroundColor = getColor(jprops, "backgroundColor");
+        System.out.println("testhere");
+        System.out.println(backgroundColor);
         if (backgroundColor != null) {
             prop.setBackgroundColor(Color.parseColor(backgroundColor));
         }
@@ -215,7 +217,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
             Log.e(TAG, "SEPFromJson failed converting to JSON", e);
         }
         try {
-            setCustomUIV2Props(obj);
+            setCustomUIV2Props(obj.getMap("userInterfaceProperty"));
         } catch (Exception e) {
             e.printStackTrace();
         }
