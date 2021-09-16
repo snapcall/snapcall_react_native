@@ -104,8 +104,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
         if (jprops == null) return;
         CallViewProperties prop = Snapcall.getInstance().getCallViewProperties();
         String backgroundColor = getColor(jprops, "backgroundColor");
-        System.out.println("testhere");
-        System.out.println(backgroundColor);
         if (backgroundColor != null) {
             prop.setBackgroundColor(Color.parseColor(backgroundColor));
         }
@@ -518,8 +516,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
     public String getConnectedAgent() {
         try {
             String agent = snapcallClient.getConnectedAgentMail();
-            System.out.println("agent co");
-            System.out.println(agent);
         } catch (Exception e) {
             e.printStackTrace();
         }
