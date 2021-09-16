@@ -59,14 +59,14 @@ NSString* tokenVoip;
 
 -(UIColor *)getBGColorFromObject:(NSDictionary*) object {
     if (![object isKindOfClass:[NSDictionary class]]) {
-        return [NSNull null];
+        return nil;
     }
     return [self colorFromHexString:[object valueForKey: @"background"]];
 }
 
 -(UIColor *)getColorFromObject:(NSDictionary*) object {
     if (![object isKindOfClass:[NSDictionary class]]) {
-        return [NSNull null];
+        return nil;
     }
     return [self colorFromHexString:[object valueForKey: @"color"]];
 }
@@ -113,19 +113,19 @@ NSString* tokenVoip;
     }
     color = [self getBGColorFromObject:[object valueForKey: @"iosHideButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
-        [props setHideBGColorWithColor: color];
+        props = [props setHideBGColorWithColor: color];
     }
     color = [self getColorFromObject:[object valueForKey: @"iosHideButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
-        [props setHideColorWithColor: color];
+        props = [props setHideColorWithColor: color];
     }
     color = [self getBGColorFromObject:[object valueForKey: @"iosBackButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
-        [props setBackBGColorWithColor: color];
+        props = [props setBackBGColorWithColor: color];
     }
     color = [self getColorFromObject:[object valueForKey: @"iosBackButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
-        [props setBackColorWithColor: color];
+        props = [props setBackColorWithColor: color];
     }
     NSString *name = [object valueForKey: @"nameLabelText"];
     if ([name isKindOfClass:[NSString class]]) {
