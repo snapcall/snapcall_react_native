@@ -34,7 +34,6 @@ console.log('start buildv04');
 const APIKEY = "";
 const PARTNER_TOKEN = "";
 const snapcall = new Snapcall();
-const UIParameter = new UserInterfaceProps();
 const parameter = new SnapcallParameter();
 parameter.video = true;
 parameter.displayBrand = '@Snapcall';
@@ -54,17 +53,19 @@ parameter.externalContext = {
 };
 // parameter.urlImage = "https://snapcall.io/assets/img/landing-transfertvoix.png";
 parameter.textColor = '#FF0000';
-parameter.backgroundColor = '#0000FF';
+parameter.backgroundColor = '#6969FF';
 parameter.hideCart = true; // boolean to hide the cart in the call UI
 parameter.shouldReturn = true;
-// parameter.userInterfaceProperty.appLogo.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
-// parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
+parameter.userInterfaceProperty.appLogo.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
+parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
 parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
-parameter.userInterfaceProperty.backgroundColor = "#FFFFFF00"
-parameter.userInterfaceProperty.hangup.background = "#0000FF";
+parameter.userInterfaceProperty.backgroundColor = "#FFFFFF"
+parameter.userInterfaceProperty.actionBarColor = "#FFFF00"
+parameter.userInterfaceProperty.hangup = { background: "#FFFF00", color: "#000000" };;
 parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFF" };
-parameter.userInterfaceProperty.iosBackButtonColor = "#000000";
-parameter.userInterfaceProperty.iosHideButtonColor = "#000000";
+parameter.userInterfaceProperty.back = { background: "#890278", color: "#FFFFFF" };
+parameter.userInterfaceProperty.iosBackButtonColor = { background: "#890278", color: "#FFFFFF" };
+parameter.userInterfaceProperty.iosHideButtonColor = { background:  "#FFFFFF", color: "#890278"};
 parameter.userInterfaceProperty.boldTextColor = "#000000"
 parameter.userInterfaceProperty.colorTextState = "#756958"
 parameter.userInterfaceProperty.appLabelText= "Snapcall test"
@@ -73,8 +74,9 @@ parameter.userInterfaceProperty.nameLabelText= "Jsohn doe"
 // parameter.userInterfaceProperty.backgroundColor = "#FFFFFFFF"
 // parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFFFF" };
 // parameter.userInterfaceProperty.userPortrait.package = "com.testcall2";
-parameter.userInterfaceProperty.appLogoIOS = Image.resolveAssetSource(require('./images/imgtest.png'));
+parameter.userInterfaceProperty.appLogoIOS = { url: "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png" };
 parameter.userInterfaceProperty.userPortraitIOS = Image.resolveAssetSource(require('./images/img2snapcall.png'));
+snapcall.updateUI(parameter)
 var bid = '88b3d0f3a44311e78f9b0ae03a1ae33f';
 var bidZendesk = '0999b36e472111e997380ae222c5da84';
 var pickA;
@@ -162,6 +164,7 @@ export default class App extends Component<Props> {
   onAnswer(ev) {
     console.log("onAnswer");
     this.onEvent(ev);
+    snapcall.updateUI(parameter);
   }
 
   onHeld(ev) {
@@ -201,8 +204,13 @@ export default class App extends Component<Props> {
         let brand;
         if (ev.call.duration === 5) {
           name = "test doe"
+          brand = "test";
+          const param = {  ...parameter.userInterfaceProperty };
+          
+          param.appLabelText = brand;
+          param.nameLabelText = name;
           // brand = ""
-          snapcall.updateUI({ ...UIParameter, appLabelText: brand, nameLabelText: name });
+          snapcall.updateUI(param);
         }
         // } else if (ev.call.duration % 15 === 5) {
           // name = "abcd"
@@ -264,6 +272,7 @@ export default class App extends Component<Props> {
   onToken(token) {
     console.log(token);
     fetch(`https://sandbox.snapcall.io/push/register_ios/?token=${token}&agent=julien-chat@snapcall.io&test=true`)
+    fetch(`https://sandbox.snapcall.io/push/register_ios/?token=${token}&agent=pierre@snapcall.io&test=true`)
   }
 
   connectAgent() {

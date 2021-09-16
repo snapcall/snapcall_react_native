@@ -73,46 +73,47 @@ NSString *STATE_TERMINATED = @"STATE_TERMINATED";
     if (snapcallEvent != nil) {
         NSDictionary *callParameter = nil;
         SCCallObjC *call = [snapcallEvent getCall];
-
-
-
         if (call != nil) {
-          NSString *iosState = [call getCurrentCallState];
-          NSString *state = [NSNull null];
-          if (iosState != nil) {
-            if ([iosState isEqualToString:@"Disconnected"])
-              state = STATE_RECONNECT;
-            else if ([iosState isEqualToString:@"connected"])
-              state = STATE_CONNECTED;
-            else if ([iosState isEqualToString:@"Ended"])
-              state = STATE_TERMINATED;
-            else
-              state = STATE_CREATED;
-          }
-            
-        callParameter = @{
-            @"callID":[call getCallID],
-            @"transferred": [call isTransferred] ? @YES : @NO,
-            @"displayName": [self preventNilForValue:[call getDisplayName]],
-            @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
-            @"callState": state,
-            @"time": [NSNumber numberWithLong:[call getTime]],
-            @"startedDate": [self preventNilForValue:[call getStartedData]],
-            @"duration": [NSNumber numberWithLong:[call getDuration]],
-            @"held": [call isHeld] ? @YES : @NO,
-            @"agentMail": [self preventNilForValue:[call getAgentMail]],
-            @"remoteVideoInfo": @{
-                @"active": [[call getRemoteVideoInfo] isActive] ? @YES : @NO,
-                @"setup": [[call getRemoteVideoInfo] isSetup] ? @YES : @NO,
-                @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
-            },
-            @"localVideoInfo": @{
-                @"active": [[call getLocalVideoInfo] isActive] ? @YES : @NO,
-                @"setup": [[call getLocalVideoInfo] isSetup] ? @YES : @NO,
-                @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
-            },
-        };
-    }
+            NSString *iosState = [call getCurrentCallState];
+            NSString *state = [NSNull null];
+            if (iosState != nil) {
+                if ([iosState isEqualToString:@"Disconnected"])
+                    state = STATE_RECONNECT;
+                else if ([iosState isEqualToString:@"connected"])
+                    state = STATE_CONNECTED;
+                else if ([iosState isEqualToString:@"Ended"])
+                    state = STATE_TERMINATED;
+                else
+                    state = STATE_CREATED;
+            }
+            NSDate *date = [call getStartedData];
+            NSNumber *startedTime = [[NSNumber alloc] initWithInt: -1];
+            if (date != nil) {
+                startedTime = [[NSNumber alloc] initWithInt:date.timeIntervalSince1970];
+            }
+            callParameter = @{
+                @"callID":[call getCallID],
+                @"transferred": [call isTransferred] ? @YES : @NO,
+                @"displayName": [self preventNilForValue:[call getDisplayName]],
+                @"displayBrand": [self preventNilForValue:[call getDisplayBrand]],
+                @"callState": state,
+                @"time": [NSNumber numberWithLong:[call getTime]],
+                @"startedDate": startedTime,
+                @"duration": [NSNumber numberWithLong:[call getDuration]],
+                @"held": [call isHeld] ? @YES : @NO,
+                @"agentMail": [self preventNilForValue:[call getAgentMail]],
+                @"remoteVideoInfo": @{
+                    @"active": [[call getRemoteVideoInfo] isActive] ? @YES : @NO,
+                    @"setup": [[call getRemoteVideoInfo] isSetup] ? @YES : @NO,
+                    @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
+                },
+                @"localVideoInfo": @{
+                    @"active": [[call getLocalVideoInfo] isActive] ? @YES : @NO,
+                    @"setup": [[call getLocalVideoInfo] isSetup] ? @YES : @NO,
+                    @"videoType": [[call getLocalVideoInfo] getVideoTypeValue]
+                },
+            };
+        }
 
         NSDictionary *event = @{
                                 @"speaker": [snapcallEvent isSpeaker] ? @YES : @NO,

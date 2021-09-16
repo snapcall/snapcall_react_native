@@ -43,152 +43,6 @@ NSString* tokenVoip;
 }
 
 
--(SnapcallExternalParameter *)SnapcallParamFromJSON:(NSString*)JsonString
-{
-    SnapcallExternalParameter * param = [[SnapcallExternalParameter alloc] init];
-     @try {
-    NSError *error = nil;
-    id object = [NSJSONSerialization JSONObjectWithData:[JsonString dataUsingEncoding: NSUTF8StringEncoding] options:0 error:&error];
-
-    if (error != nil){
-
-        return nil;
-    }
-    if([object isKindOfClass:[NSDictionary class]])
-    {
-
-        NSDictionary *results = object;
-
-
-        testVal(
-                checkNsNul(@"callTitle"){
-                    param.callTitle = obj;
-                })
-
-        testVal(
-                checkNsNul(@"displayName"){
-                    param.displayName = obj;
-                })
-
-        testVal(
-                checkNsNul(@"displayBrand"){
-                    param.displayBrand = obj;
-                })
-
-        testVal(
-                checkNsNul(@"senderName"){
-                    param.senderName = obj;
-                })
-
-        testVal(
-                checkNsNul(@"senderBrand"){
-                    param.senderBrand = obj;
-                })
-
-        testVal(
-                checkNsNul(@"iOS_AssetPathImage"){
-                    param.nameImage = obj;
-                })
-        testVal(
-                checkNsNul(@"urlImage"){
-                    param.urlImage = obj;
-                }
-        )
-
-
-        testVal(
-        id objfontname = [results objectForKey: @"iOS_AssetPathFont"];
-        if ([objfontname isKindOfClass:[NSString class]])
-        {
-            NSString* fontname = objfontname;
-            if (fontname!= nil)
-            {
-                UIFont *font = [UIFont fontWithName:fontname size: 36];
-                param.fontDescriptor = font.fontDescriptor;
-            }
-
-        }
-        )
-
-       testVal(
-               id obj = [results objectForKey: @"textColor"];
-               if ([obj isKindOfClass:[NSString class]]){
-                   NSString* NScolor = obj;
-        if (NScolor != nil) {
-        unsigned result = 0;
-        NSScanner *scanner = [NSScanner scannerWithString:NScolor];
-        [scanner setScanLocation:1];
-        [scanner scanHexInt:&result];
-
-            int color = result;
-            param.textColor = [UIColor colorWithRed:((float)((color & 0xFF0000) >> 16))/255.0 \
-                                             green:((float)((color & 0x00FF00) >>  8))/255.0 \
-                                              blue:((float)((color & 0x0000FF) >>  0))/255.0 \
-                                             alpha:1.0];
-        }}
-               )
-        testVal(
-                id obj = [results objectForKey: @"backgroundColor"];
-                if ([obj isKindOfClass:[NSString class]]){
-                  NSString* NScolor = obj;
-                  if (NScolor != nil) {
-                    unsigned result = 0;
-                    NSScanner *scanner = [NSScanner scannerWithString:NScolor];
-                    [scanner setScanLocation:1];
-                    [scanner scanHexInt:&result];
-
-                    int color = result;
-                    param.backgroundColor = [UIColor colorWithRed:((float)((color & 0xFF0000) >> 16))/255.0 \
-                                                     green:((float)((color & 0x00FF00) >>  8))/255.0 \
-                                                      blue:((float)((color & 0x0000FF) >>  0))/255.0 \
-                                                     alpha:1.0];
-                }}
-                  )
-
-        testVal(
-                checkNsNul(@"androidNotificatiobBody"){
-                    param.androidNotificatiobBody = obj;
-                })
-
-        testVal(
-                checkNsNul(@"androidNotificationTitle"){
-                    param.androidNotificationTitle = obj;
-                })
-
-        testVal(
-                checkDataNsNul(@"externalContext"){
-                  NSDictionary *dic = obj;
-                  NSMutableDictionary * parsedData  = [dic mutableCopy];
-                  param.externalContext = parsedData;
-                })
-
-        testVal(
-                checkNsNul(@"pushTransfertData"){
-                    param.pushTransfertData = obj;
-                })
-
-        testVal(
-                param.shouldReturn = [[results valueForKey: @"shouldReturn"] boolValue];
-                )
-        testVal(
-                param.useVideo = [[results valueForKey: @"video"] boolValue];
-                )
-        testVal(
-                param.hideCart = [[results valueForKey: @"hideCart"] boolValue];
-                )
-        testVal(
-                [self snapcallPropsFromDictionnary:[results valueForKey: @"userInterfaceProperty"]];
-                )
-
-    }
-     }@catch(NSException * e){
-         printf("error\n");
-         printf("%s\n", e.description);
-         return param;
-    }
-    return param;
-}
-
 -(UIColor *)colorFromHexString:(NSString *)hexString {
     if (![hexString isKindOfClass: [NSString class]]) {
         return [NSNull null];
@@ -205,21 +59,20 @@ NSString* tokenVoip;
 
 -(UIColor *)getBGColorFromObject:(NSDictionary*) object {
     if (![object isKindOfClass:[NSDictionary class]]) {
-        return [NSNull null];
+        return nil;
     }
     return [self colorFromHexString:[object valueForKey: @"background"]];
 }
 
 -(UIColor *)getColorFromObject:(NSDictionary*) object {
     if (![object isKindOfClass:[NSDictionary class]]) {
-        return [NSNull null];
+        return nil;
     }
     return [self colorFromHexString:[object valueForKey: @"color"]];
 }
 
 -(void)snapcallPropsFromDictionnary:(NSDictionary *)object {
     CallViewProperties * props = [[Snapcall getSnapcall] getCallViewProperties];
-    
     UIColor *color = [self colorFromHexString:[object valueForKey: @"backgroundColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setBackgroundColor: color];
@@ -241,6 +94,10 @@ NSString* tokenVoip;
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setHangupBackgroundColorWithColor: color];
     }
+    color = [self getColorFromObject:[object valueForKey: @"hangup"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setHangupIconColorWithColor: color];
+    }
     color = [self colorFromHexString:[object valueForKey: @"boldTextColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setTextColor: color];
@@ -254,11 +111,19 @@ NSString* tokenVoip;
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setUserImageBGColor: color];
     }
-    color = [self colorFromHexString:[object valueForKey: @"iosHideButtonColor"]];
+    color = [self getBGColorFromObject:[object valueForKey: @"iosHideButtonColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setHideBGColorWithColor: color];
+    }
+    color = [self getColorFromObject:[object valueForKey: @"iosHideButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setHideColorWithColor: color];
     }
-    color = [self colorFromHexString:[object valueForKey: @"iosBackButtonColor"]];
+    color = [self getBGColorFromObject:[object valueForKey: @"iosBackButtonColor"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setBackBGColorWithColor: color];
+    }
+    color = [self getColorFromObject:[object valueForKey: @"iosBackButtonColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setBackColorWithColor: color];
     }
@@ -280,13 +145,27 @@ NSString* tokenVoip;
     testVal(
     NSDictionary * userPortraitIOS = [object valueForKey: @"userPortraitIOS"];
     if ([userPortraitIOS isKindOfClass:[NSDictionary class]]) {
-        props = [props setUserImage:[RCTConvert UIImage: userPortraitIOS]];
+        if ([[userPortraitIOS valueForKey: @"url"] isKindOfClass:[NSString class]]) {
+            NSURL *url = [NSURL URLWithString:[userPortraitIOS valueForKey: @"url"]];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage imageWithData:data];
+            props = [props setUserImage: image];
+        } else {
+            props = [props setUserImage:[RCTConvert UIImage: userPortraitIOS]];
+        }
     }
     )
     testVal(
     NSDictionary * brandImage = [object valueForKey: @"appLogoIOS"];
     if ([brandImage isKindOfClass:[NSDictionary class]]) {
-        props = [props setBrandImage:[RCTConvert UIImage: brandImage]];
+        if ([[brandImage valueForKey: @"url"] isKindOfClass:[NSString class]]) {
+            NSURL *url = [NSURL URLWithString:[brandImage valueForKey: @"url"]];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *image = [UIImage imageWithData:data];
+            props = [props setBrandImage: image];
+        } else {
+            props = [props setBrandImage:[RCTConvert UIImage: brandImage]];
+        }
     }
     )
 }
@@ -471,9 +350,9 @@ RCT_REMAP_METHOD(bidIsClosed,bid: (NSString *)bidID resolve:(RCTPromiseResolveBl
     }
 }
 
-RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId parameter:(NSDictionary*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     @try {
-       [self launchCallWithBidId:bidId parameter:[self SnapcallParamFromJSON:parameter]];
+       [self launchCallWithBidId:bidId parameter:[self snapcallParamFromDictionnary:parameter]];
         resolve(@YES);
     }@catch(NSException * e){
 
@@ -481,10 +360,10 @@ RCT_REMAP_METHOD(launchCallWithbidId ,launchCallWithbidId:(NSString*)bidId param
     }
 }
 //
-RCT_REMAP_METHOD(launchCallWithIdentifier,launchCallWithbidId:(NSString*)bidId SnapcallIdentifier:(NSString*)SnapCallIdentifier parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(launchCallWithIdentifier,launchCallWithbidId:(NSString*)bidId SnapcallIdentifier:(NSString*)SnapCallIdentifier parameter:(NSDictionary*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try {
-        [self launchCallWithBidId:bidId snapcallIdentifier:SnapCallIdentifier parameter:[self SnapcallParamFromJSON:parameter]];
+        [self launchCallWithBidId:bidId snapcallIdentifier:SnapCallIdentifier parameter:[self snapcallParamFromDictionnary:parameter]];
         resolve(@YES);
     }@catch(NSException * e){
 
@@ -492,10 +371,10 @@ RCT_REMAP_METHOD(launchCallWithIdentifier,launchCallWithbidId:(NSString*)bidId S
     }
 }
 
-RCT_REMAP_METHOD(launchCallWithCustomIdentifier, launchCallWithbidId:(NSString*)bidId customIdentifier:(NSString*)customIdentifier appName:(NSString*)AppName parameter:(NSString*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(launchCallWithCustomIdentifier, launchCallWithbidId:(NSString*)bidId customIdentifier:(NSString*)customIdentifier appName:(NSString*)AppName parameter:(NSDictionary*)parameter resolve:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
    @try {
-       [self launchCallWithBidId:bidId applicationName:AppName customClientIdentifier:customIdentifier parameter:[self SnapcallParamFromJSON:parameter]];
+       [self launchCallWithBidId:bidId applicationName:AppName customClientIdentifier:customIdentifier parameter:[self snapcallParamFromDictionnary:parameter]];
        resolve(@YES);
    }@catch(NSException * e){
 
@@ -614,6 +493,7 @@ RCT_REMAP_METHOD(switchCamera, witchCameraWithPromise:(RCTPromiseResolveBlock)re
 RCT_REMAP_METHOD(updateUI, props: (NSDictionary *)props Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     [self snapcallPropsFromDictionnary:props];
     [snapcallClient updateUI];
+    resolve(@YES);
 }
 
 RCT_REMAP_METHOD(setNameLabelText, name: (NSString*) name) {
@@ -640,10 +520,10 @@ RCT_REMAP_METHOD(sendPartnerCallInvitationWithToken, partnerID:(int)partnerID to
     }];
 }
 
-RCT_REMAP_METHOD(connectSendPartnerCallInvitationWithToken, partnerID:(int)partnerID agent: (NSString*)agent token: (NSString*)token chatID: (NSString*)chatID param: (NSString*)param  Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
+RCT_REMAP_METHOD(connectSendPartnerCallInvitationWithToken, partnerID:(int)partnerID agent: (NSString*)agent token: (NSString*)token chatID: (NSString*)chatID param: (NSDictionary*)param  Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     printf("testing connect partner\n");
     
-    [[Snapcall getSnapcall] sendPartnerCallInvitationWithPartnerID:partnerID agent:agent token:token chatID: chatID parameter:[self SnapcallParamFromJSON:param] : ^(NSError * error, Agent* agent) {
+    [[Snapcall getSnapcall] sendPartnerCallInvitationWithPartnerID:partnerID agent:agent token:token chatID: chatID parameter:[self snapcallParamFromDictionnary:param] : ^(NSError * error, Agent* agent) {
         if (error != nil) {
             NSLog(@"on error %s", error.description);
             reject(@"-1", @"sendPartnerCall error", error);

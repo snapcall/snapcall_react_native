@@ -52,5 +52,7 @@ export class UserInterfaceProps {
     this.userPortraitIOS = null;
     this.shouldBackIOS = null;
     this.useBlurIOS = null;
+    this.iosHideButtonColor = { background: null, color: null };
+    this.iosBackButtonColor = { background: null, color: null };
   }
 }
