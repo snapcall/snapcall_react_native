@@ -2,6 +2,9 @@
 
 
 ## Next Version
+## 2.1.0-beta.13
+- update ios sdk to 5.9.0 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.9.0)
+
 ## 2.1.0-beta.12
 - review parameter send to native
 - add hangup icons color - back and hide background color
