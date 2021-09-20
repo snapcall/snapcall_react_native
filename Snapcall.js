@@ -112,17 +112,20 @@ export class Snapcall {
       return snapcallModule.connectPartnerAgentWithToken(id, agent, token, param);
     }
 
-    sendPartnerCallInvitationWithToken(id, agent, token, chatID,  param) {
-      return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  param);
+    sendPartnerCallInvitationWithToken(id, agent, token, chatID,  param, customParam = {}) {
+      if (os) {
+        return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  param, customParam);
+      } else {
+        return snapcallModule.connectSendPartnerCallInvitationWithToken(id, agent, token, chatID,  param);
+      }
     }  
     
-    sendPartnerCallWithToken(id, token, chatID, param) {
-      if (!os) {
+    sendPartnerCallWithToken(id, token, chatID, param, customParam = {}) {
+      if (os) {
+        return snapcallModule.sendPartnerCallInvitationWithToken(id, token, chatID,  param, customParam);
+      } else {
         return snapcallModule.sendPartnerCallInvitationWithToken(id, token, chatID,  param);
       }
-      return new Promise((resolve, reject) => {
-        reject("not implemented")
-      });
     }
     
     disconnect() {
