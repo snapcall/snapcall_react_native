@@ -2,6 +2,8 @@
 
 
 ## Next Version
+## 2.1.0-beta.16
+- update ios sdk to 5.9.2 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.9.3)
 ## 2.1.0-beta.15
 - update ios sdk to 5.9.2 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.9.2)
 
