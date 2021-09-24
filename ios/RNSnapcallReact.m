@@ -513,7 +513,7 @@ RCT_REMAP_METHOD(disconnect,  Promise:(RCTPromiseResolveBlock)resolve rejecter:(
 RCT_REMAP_METHOD(sendPartnerCallInvitationWithToken, partnerID:(int)partnerID token: (NSString*)token chatID: (NSString*)chatID param: (NSDictionary*)param customParameter: (NSDictionary*) customParameter Promise:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject){
     [[Snapcall getSnapcall] sendPartnerCallInvitationWithPartnerID:partnerID token:token chatID:chatID customParameter: customParameter :^(NSError * error) {
         if (error != nil) {
-            reject(@"-1", @"sendPartnerCall error", error);
+            reject([@(error.code) stringValue], [@(error.code) stringValue], error);
             return;
         }
         resolve(@YES);
@@ -526,7 +526,7 @@ RCT_REMAP_METHOD(connectSendPartnerCallInvitationWithToken, partnerID:(int)partn
     [[Snapcall getSnapcall] sendPartnerCallInvitationWithPartnerID:partnerID agent:agent token:token chatID: chatID customParameter: customParameter parameter:[self snapcallParamFromDictionnary:param] : ^(NSError * error, Agent* agent) {
         if (error != nil) {
             NSLog(@"on error %s", error.description);
-            reject(@"-1", @"sendPartnerCall error", error);
+            reject([@(error.code) stringValue], [@(error.code) stringValue], error);
             return;
         }
         NSLog(@"succes");
