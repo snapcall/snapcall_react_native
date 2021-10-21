@@ -100,6 +100,10 @@ class SnapcallClientListener implements SCClientListener {
     }
 
     @Override
+    public void onAudioOutputChange(SCClientEvent scClientEvent) {   
+    }
+
+    @Override
     public void onInternetDown(SCClientEvent parameter) {
 
         sendEvent("onInternetDown", parameter);
