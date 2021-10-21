@@ -47,14 +47,15 @@ NSString* tokenVoip;
     if (![hexString isKindOfClass: [NSString class]]) {
         return [NSNull null];
     }
-    if ([hexString length] == 9) {
-        hexString = [hexString substringWithRange:NSMakeRange(0, 7)];
+    if ([hexString length] == 7) {
+        hexString = [@"#FF" stringByAppendingString: [hexString substringWithRange:NSMakeRange(1, 6)]];
     }
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     [scanner setScanLocation:1]; // bypass '#' character
     [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+    int alpha = ((rgbValue & 0xFF000000) >> 24)/255.0;
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:alpha];
 }
 
 -(UIColor *)getBGColorFromObject:(NSDictionary*) object {
@@ -85,6 +86,14 @@ NSString* tokenVoip;
     color = [self getBGColorFromObject:[object valueForKey: @"iconColor"]];
     if ([color isKindOfClass:[UIColor class]]) {
         props = [props setIconBGColor: color];
+    }
+    color = [self getBGColorFromObject:[object valueForKey: @"iconColorInactive"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setIconBGColorInactive: color];
+    }
+    color = [self getColorFromObject:[object valueForKey: @"iconColorInactive"]];
+    if ([color isKindOfClass:[UIColor class]]) {
+        props = [props setIconColorInactiveWithColor: color];
     }
     color = [self colorFromHexString:[object valueForKey: @"actionBarColor"]];
     if ([color isKindOfClass:[UIColor class]]) {

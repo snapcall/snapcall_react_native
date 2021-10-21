@@ -36,6 +36,7 @@ export class UserInterfaceProps {
     this.backgroundColor = null; // #FFFFFFFF used by Color.parseColor
     this.actionBarColor = null;
     this.iconColor = { background: null, color: null };
+    this.iconColorInactive = { background: null, color: null };
     this.hangup = { background: null, color: null };
     this.back = { background: null, color: null };
     this.refuse = { background: null, color: null };
