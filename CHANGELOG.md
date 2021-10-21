@@ -2,6 +2,11 @@
 
 
 ## Next Version
+## 2.2.0
+- inactive button color and alpha color for ios.
+- update ios sdk to 5.10.1 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.10.1) 
+- update android sdk to 2.10.0 (https://github.com/snapcall/snapcall_sdk_android/releases/tag/2.10.0)
+
 ## 2.1.0-beta.16
 - update ios sdk to 5.9.2 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.9.3)
 ## 2.1.0-beta.15
