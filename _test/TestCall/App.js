@@ -56,8 +56,8 @@ parameter.textColor = '#FF0000';
 parameter.backgroundColor = '#6969FF';
 parameter.hideCart = true; // boolean to hide the cart in the call UI
 parameter.shouldReturn = true;
-parameter.userInterfaceProperty.appLogo.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
-parameter.userInterfaceProperty.userPortrait.filename = "ic_baseline_bedroom_baby_24";
+parameter.userInterfaceProperty.appLogo.filename = "ic_baseline_bedroom_baby_24"; 
+parameter.userInterfaceProperty.userPortrait.url = "https://static.wixstatic.com/media/1f9c5d_b553ba0ec050464dbbd9bea215f10e94~mv2.png";
 parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
 parameter.userInterfaceProperty.backgroundColor = "#FFFFFF"
 parameter.userInterfaceProperty.actionBarColor = "#FFFF00"
@@ -70,6 +70,7 @@ parameter.userInterfaceProperty.boldTextColor = "#000000"
 parameter.userInterfaceProperty.colorTextState = "#756958"
 parameter.userInterfaceProperty.appLabelText= "Snapcall test"
 parameter.userInterfaceProperty.nameLabelText= "Jsohn doe"
+parameter.userInterfaceProperty.iconColorInactive = { background:  "#40FFFFFF", color: "#40890278"};
 // parameter.userInterfaceProperty.userPortrait.path = "images/snapcall_icon_notif.png"
 // parameter.userInterfaceProperty.backgroundColor = "#FFFFFFFF"
 // parameter.userInterfaceProperty.iconColor = { background: "#FF131313", color: "#FFFFFFFF" };
@@ -284,6 +285,7 @@ export default class App extends Component<Props> {
     snapcall.sendPartnerCallInvitationWithToken(2, 'julien-chat@snapcall.io', PARTNER_TOKEN, "QRX5G65O63", parameter).then(()=> {
       snapcall.setNameLabelText("John Doe");
     }).catch((err) => {
+
         console.log("sendpartnerCall", err);
     });
   }
