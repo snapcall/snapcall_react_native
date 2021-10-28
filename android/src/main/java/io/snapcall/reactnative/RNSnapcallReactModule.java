@@ -116,7 +116,7 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
             prop.setIconColor(iconColor);
         }
         IconColor iconColorInactive = getIconColor(jprops, "iconColorInactive");
-        if (iconColor != null) {
+        if (iconColorInactive != null) {
             prop.setIconInactive(iconColorInactive);
         }
         IconColor hangup = getIconColor(jprops, "hangup");
