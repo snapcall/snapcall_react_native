@@ -1,6 +1,6 @@
 # Snapcall React-Native SDK
 
-release 2.2.0
+release 2.2.1
 
 ## Documentation
 

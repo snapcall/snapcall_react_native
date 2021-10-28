@@ -2,6 +2,8 @@
 
 
 ## Next Version
+## 2.2.1
+- fix wrong null check on iconColor in android (https://github.com/snapcall/snapcall_react_native/pull/51)
 ## 2.2.0
 - inactive button color and alpha color for ios.
 - update ios sdk to 5.10.1 (https://github.com/snapcall/snapcall_sdk_ios/releases/tag/5.10.1) 
