@@ -489,7 +489,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = testSnapcall/testSnapcall.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2HBLM24MWZ;
+				DEVELOPMENT_TEAM = QX8PL9Y9K2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = testSnapcall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -517,7 +517,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = testSnapcall/testSnapcall.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2HBLM24MWZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = testSnapcall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -564,7 +564,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
