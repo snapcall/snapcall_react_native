@@ -2,6 +2,8 @@
 
 
 ## Next Version
+## 2.2.2
+- snapcall sdk update
 ## 2.2.1
 - fix wrong null check on iconColor in android (https://github.com/snapcall/snapcall_react_native/pull/51)
 ## 2.2.0
