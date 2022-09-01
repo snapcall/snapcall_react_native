@@ -514,12 +514,14 @@ export default class App extends Component<Props> {
         <Text>{'\n'}</Text>
         <Text style={styles.welcome}>Parameter</Text>
         <Text style={styles.instructions}>Bid</Text>
+        {/* <ChoicePicker
           myvalue={[
             { value: '88b3d0f3a44311e78f9b0ae03a1ae33f', label: 'Pierre' },
             { value: 'null', label: 'none' },
           ]}
           def={'pierre'}
           cb={null}
+        ></ChoicePicker> */}
         <Text> {this.state.textTimer} </Text>
         {snapcallController}
         <Text>{this.state.textState}</Text>
