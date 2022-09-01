@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Platform, StyleSheet, Text, View, Button, Picker, ActionSheetIOS,
+  Platform,  Button, Picker, ActionSheetIOS,
 } from 'react-native';
 
 let self;
@@ -47,15 +47,15 @@ function renderAndroid() {
   //   const pickItem = (<Picker.Item label={labels[el]} value={choice[el]} />);
   //   item.push(pickItem);
   // }
-  return (<Picker
-    selectedValue={self.state.button}
-    style={{ height: 50, width: 200 }}
-    onValueChange={onChoice}
-    enabled={true}
-    >
-    {item}
-  </Picker>
-  );
+  // return (<Picker
+  //   selectedValue={self.state.button}
+  //   style={{ height: 50, width: 200 }}
+  //   onValueChange={onChoice}
+  //   enabled={true}
+  //   >
+  //   {item}
+  // </Picker>
+  // );
 }
 
 export default class ChoicePicker extends Component {
