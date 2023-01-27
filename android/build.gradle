@@ -8,24 +8,23 @@ buildscript {
         flatDir {
             dirs 'libs'
         }
-        jcenter()
         google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.3'
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-compileSdkVersion 28
-buildToolsVersion '28.0.3'
+compileSdkVersion 33
+buildToolsVersion '33.0.1'
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -55,7 +54,7 @@ def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
     Collection v = name.split(":")
     name = v.get(0) + "_" + v.get(1)
     if (v.size() != 2)
-        throw new GradleException("getGithubRelease: wrong aar name [name:release]")
+        throw new Exception("getGithubRelease: wrong aar name [name:release]")
     String aarVersion = v.get(1)
     String aarName = v.get(0)
     String url = "https://github.com/${githubRepo}/releases/download/"
@@ -70,19 +69,18 @@ def getGitHubRelease = { name, githubRepo = "snapcall/snapcall_sdk_android" ->
                 }
             }
         } catch (Exception e) {
-            throw new GradleException("getGithubRelease: could not download aar file")
+            throw new Exception("getGithubRelease: could not download aar file")
         }
     }
     if (!file.exists())
-        throw new GradleException("getGithubRelease: could not find aar file")
+        throw new Exception("getGithubRelease: could not find aar file")
     files(file.absolutePath)
 }
 
 dependencies {
 
-    implementation getGitHubRelease('snapcall_android_framework:2.10.2')
-    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation getGitHubRelease('snapcall_android_framework:2.11.1')
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
-    implementation 'org.webrtc:google-webrtc:1.0.32006'
     implementation "com.facebook.react:react-native:+"
 }

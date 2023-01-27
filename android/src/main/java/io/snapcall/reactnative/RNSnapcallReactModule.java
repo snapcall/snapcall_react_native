@@ -209,9 +209,6 @@ public class RNSnapcallReactModule extends ReactContextBaseJavaModule implements
             if (obj.hasKey("persistentAgent") && !obj.isNull("persistentAgent")) {
                 ret.persistentAgent = obj.getBoolean("persistentAgent");
             }
-            if (!obj.isNull("video")) {
-                ret.video = obj.getBoolean("video");
-            }
             String resImage = obj.getString("androidResimage");
             if (resImage != null)
                 ret.setResImage(resImage, reactContext.getApplicationContext().getPackageName()) ;

@@ -23,7 +23,8 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RNSnapcallReactModule.setCustomReloadIntent(null);
+
+
     }
 
     @Override
@@ -37,5 +38,6 @@ public class MainActivity extends ReactActivity {
     protected void onResume() {
         super.onResume();
         RNSnapcallReactModule.setCustomReloadIntent(null);
+//        RNSnapcallReactModule.test(this, "bd3e707053c511ea9431cd36a3c89c98");
     }
 }
