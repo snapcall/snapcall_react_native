@@ -2,6 +2,8 @@
 
 
 ## Next Version
+## 2.3.0
+- update android to snapcall 2.11.1
 ## 2.2.2
 - snapcall sdk update
 ## 2.2.1
