@@ -30,9 +30,8 @@ const Props = {};
 
 
 console.log('start buildv04');
-const APIKEY = "d241955867bf11e789a70ae03a1ae33f";
-// const PARTNER_TOKEN = "dal:y7nc36kRSUIXskHu5u-CjHk_7Rs";
-const PARTNER_TOKEN = "dal:y7nc36kRSUIXskHu5u-CjHk_5s6";
+const APIKEY = "";
+const PARTNER_TOKEN = "";
 const snapcall = new Snapcall();
 const parameter = new SnapcallParameter();
 parameter.video = true;
